@@ -556,7 +556,7 @@ class CheckoutPage extends Component {
                     Panier
                   </a>
                 </Link>
-                <Image src="/icon/arrow-right.svg" className="w-16 mx-1" alt="Arrow icon"/>
+                <img src="/icon/arrow-right.svg" className="w-16 mx-1" alt="Arrow icon"/>
                 <div className="font-size-caption font-weight-bold cursor-pointer">
                   Paiement
                 </div>

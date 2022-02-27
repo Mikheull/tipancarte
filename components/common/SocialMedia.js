@@ -85,7 +85,7 @@ export default class SocialMedia extends React.Component {
               <div className="d-flex">
                 <a href="https://instagram.com/tipancarte" target="_blank" rel="noreferrer" className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
                     <p className="mr-3">Instagram</p>
-                    <Image src="/icon/arrow-long-right.svg" alt="Arrow icon"/>
+                    <img src="/icon/arrow-long-right.svg" alt="Arrow icon"/>
                 </a>
               </div>
             </div>

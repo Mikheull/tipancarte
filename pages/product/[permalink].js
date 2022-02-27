@@ -101,7 +101,7 @@ export default function Product() {
                 className="d-flex cursor-pointer py-3 justify-content-between font-weight-medium"
               >
                 Livraisons et retours
-                <Image src="/icon/plus.svg" alt="Icon plus" />
+                <img src="/icon/plus.svg" alt="Icon plus" />
               </div>
               <Collapse isOpened={showShipping}>
                 <div className="pb-4 font-color-medium">
@@ -115,7 +115,7 @@ export default function Product() {
                 className="d-flex cursor-pointer py-3 justify-content-between font-weight-medium"
               >
                 Details
-                <Image src="/icon/plus.svg" alt="Icon plus" />
+                <img src="/icon/plus.svg" alt="Icon plus" />
               </div>
               <Collapse isOpened={showDetails}>
                 <div
@@ -183,7 +183,7 @@ export default function Product() {
             className="d-flex cursor-pointer py-3 justify-content-between font-weight-medium"
           >
             Shipping and returns
-            <Image src="/icon/plus.svg" alt='icon plus' />
+            <img src="/icon/plus.svg" alt='icon plus' />
           </div>
           <Collapse isOpened={showShipping}>
             <div className="pb-4 font-color-medium">
@@ -197,7 +197,7 @@ export default function Product() {
             className="d-flex cursor-pointer py-3 justify-content-between font-weight-medium"
           >
             Details
-            <Image src="/icon/plus.svg" alt='icon plus' />
+            <img src="/icon/plus.svg" alt='icon plus' />
           </div>
           <Collapse isOpened={showDetails}>
             <div

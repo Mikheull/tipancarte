@@ -24,7 +24,7 @@ class ProductsBanner extends Component {
           <Link href="/shop">
             <a className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
               <p className="mr-3">See more products</p>
-              <Image src="/icon/arrow-long-right.svg" alt='icon next' />
+              <img src="/icon/arrow-long-right.svg" alt='icon next' />
             </a>
           </Link>
         </div>

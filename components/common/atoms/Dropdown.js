@@ -23,7 +23,7 @@ class Dropdown extends Component {
             'border-color-black'}`}
         >
           <p className="font-color-medium">{this.props.value || this.props.placeholder }</p>
-          <Image
+          <img
             alt="Downward symbol indicating opening of a dropdown"
             src="/icon/arrow-bottom.svg"
             className="w-20"

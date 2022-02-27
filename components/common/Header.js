@@ -181,7 +181,7 @@ class Header extends Component {
             </Link>
           </div>
           <div className="logo-container">
-            <Image
+            <img
               src={`/icon/${showMobileMenu ? 'cross' : 'menu'}.svg`}
               onClick={this.toggleMobileMenu}
               className="w-32 mr-1 d-block d-sm-none"
@@ -189,7 +189,7 @@ class Header extends Component {
             />
             <Link href="/">
               <a>
-                <Image
+                <img
                   src="/ti-logo.svg"
                   className="logo cursor-pointer"
                   alt="Logo"
