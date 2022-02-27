@@ -92,7 +92,7 @@ export default function Product() {
 
             {/* Right Section - Product Details */}
             <div className="product-detail">
-              <ProductDetail product={product} type={"custom"} />
+              <ProductDetail product={product} type="custom" />
 
               <div
                 onClick={toggleShipping}
