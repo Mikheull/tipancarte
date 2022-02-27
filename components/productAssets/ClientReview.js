@@ -77,7 +77,7 @@ export default class ClientReview extends Component {
             <p className="font-size-subheader font-weight-medium">
               Tout les avis
             </p>
-            <Image
+            <img
               tabIndex="0"
               src="/icon/cross.svg"
               className="w-24 cursor-pointer"
