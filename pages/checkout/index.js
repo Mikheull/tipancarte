@@ -37,17 +37,17 @@ class CheckoutPage extends Component {
 
       // string property names to conveniently identify inputs related to commerce.js validation errors
       // e.g error { param: "shipping[name]"}
-      'customer[first_name]': 'Mikhael',
-      'customer[last_name]': 'Bailly',
-      'customer[email]': 'mikhae.bailly@gmail.com',
+      'customer[first_name]': '',
+      'customer[last_name]': '',
+      'customer[email]': '',
       'customer[phone]': '',
       'customer[id]': null,
-      'shipping[name]': 'Mikhael Bailly',
-      'shipping[street]': '28 rue des grands champs',
+      'shipping[name]': '',
+      'shipping[street]': '',
       'shipping[street_2]': '',
-      'shipping[town_city]': 'Vauhallan',
-      'shipping[region]': 'FR-91',
-      'shipping[postal_zip_code]': '91430',
+      'shipping[town_city]': '',
+      'shipping[region]': '',
+      'shipping[postal_zip_code]': '',
       'shipping[country]': 'FR',
       'billing[name]': '',
       'billing[street]': '',
@@ -77,7 +77,7 @@ class CheckoutPage extends Component {
         'shipping[postal_zip_code]': null
       },
 
-      discountCode: 'CUSTOMCOMMERCE',
+      discountCode: '',
 
       selectedGateway: 'stripe',
       loading: false,
@@ -323,6 +323,7 @@ class CheckoutPage extends Component {
     if (errorToAlert) {
       alert(errorToAlert);
     }
+
   };
 
   /**
