@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const imagesInfo = [
   {
@@ -82,9 +83,9 @@ export default class SocialMedia extends React.Component {
                 Suivez nous sur Instagram pour des idées de pancartes
               </p>
               <div className="d-flex">
-                <a href="https://instagram.com/tipancarte" target={'_blank'} className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
+                <a href="https://instagram.com/tipancarte" target="_blank" rel="noreferrer" className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
                     <p className="mr-3">Instagram</p>
-                    <img src="/icon/arrow-long-right.svg" alt="Arrow icon"/>
+                    <Image src="/icon/arrow-long-right.svg" alt="Arrow icon"/>
                 </a>
               </div>
             </div>

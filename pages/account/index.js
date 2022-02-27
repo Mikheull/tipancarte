@@ -149,7 +149,7 @@ class CustomerAccountPage extends Component {
     if (!orders || !orders.length) {
       return (
         <div>
-          Vous n'avez pas encore de commande !
+          Vous n&apos;avez pas encore de commande !
         </div>
       );
     }
@@ -177,7 +177,7 @@ class CustomerAccountPage extends Component {
     if (!orders || !orders.length) {
       return (
         <div className="card text-center p-2">
-          <p>Vous n'avez pas encore de commande !</p>
+          <p>Vous n&apos;avez pas encore de commande !</p>
         </div>
       );
     }

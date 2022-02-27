@@ -71,7 +71,7 @@ export default class PaymentDetails extends Component {
               <div className="col-sm-3">
                 <label className="w-100 mb-3 mt-2 mb-sm-0">
                   <p className="mb-1 font-size-caption font-color-light">
-                    Mois d'éxpiration
+                    Mois d&apos;éxpiration
                   </p>
                   <input
                     name="expMonth"
@@ -85,7 +85,7 @@ export default class PaymentDetails extends Component {
               <div className="col-sm-3">
                 <label className="w-100 mb-3 mt-2 mb-sm-0">
                   <p className="mb-1 font-size-caption font-color-light">
-                    Année d'éxpiration
+                    Année d&apos;éxpiration
                   </p>
                   <input
                     type="number"

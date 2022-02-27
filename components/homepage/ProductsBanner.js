@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import ProductRow from '../products/ProductRow';
 import { connect } from 'react-redux';
+import Image from 'next/image';
 
 class ProductsBanner extends Component {
   render() {
@@ -23,7 +24,7 @@ class ProductsBanner extends Component {
           <Link href="/shop">
             <a className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
               <p className="mr-3">See more products</p>
-              <img src="/icon/arrow-long-right.svg" />
+              <Image src="/icon/arrow-long-right.svg" alt='icon next' />
             </a>
           </Link>
         </div>

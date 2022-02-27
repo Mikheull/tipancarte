@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function HomeBanner() {
   return (
@@ -14,7 +15,7 @@ export default function HomeBanner() {
         <Link href="/about">
           <a className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
             <p className="mr-3">Find out more</p>
-            <img src="/icon/arrow-long-right.svg" />
+            <Image src="/icon/arrow-long-right.svg" alt='icon plus' />
           </a>
         </Link>
       </div>

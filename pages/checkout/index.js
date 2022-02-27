@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import ccFormat from '../../utils/ccFormat';
 import commerce from '../../lib/commerce';
 import Checkbox from '../../components/common/atoms/Checkbox';
@@ -555,7 +556,7 @@ class CheckoutPage extends Component {
                     Panier
                   </a>
                 </Link>
-                <img src="/icon/arrow-right.svg" className="w-16 mx-1" alt="Arrow icon"/>
+                <Image src="/icon/arrow-right.svg" className="w-16 mx-1" alt="Arrow icon"/>
                 <div className="font-size-caption font-weight-bold cursor-pointer">
                   Paiement
                 </div>
@@ -745,7 +746,7 @@ class CheckoutPage extends Component {
                         className="d-flex mb-2"
                       >
                         { (item && item.media)
-                          && (<img className="checkout__line-item-image mr-2" src={item.media.source} alt={item.product_name}/>)
+                          && (<Image className="checkout__line-item-image mr-2" src={item.media.source} alt={item.product_name}/>)
                         }
                         <div className="d-flex flex-grow-1">
                           <div className="flex-grow-1">

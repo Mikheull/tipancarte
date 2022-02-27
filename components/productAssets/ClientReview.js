@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReviewList from './ReviewList';
 import Modal from '../common/atoms/Modal';
+import Image from 'next/image';
 
 const reviews = [
   {
@@ -76,7 +77,7 @@ export default class ClientReview extends Component {
             <p className="font-size-subheader font-weight-medium">
               Tout les avis
             </p>
-            <img
+            <Image
               tabIndex="0"
               src="/icon/cross.svg"
               className="w-24 cursor-pointer"

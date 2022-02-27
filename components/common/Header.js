@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Cart from '../cart/Cart';
 import commerce from '../../lib/commerce';
 import Animation from '../cart/Animation';
@@ -180,7 +181,7 @@ class Header extends Component {
             </Link>
           </div>
           <div className="logo-container">
-            <img
+            <Image
               src={`/icon/${showMobileMenu ? 'cross' : 'menu'}.svg`}
               onClick={this.toggleMobileMenu}
               className="w-32 mr-1 d-block d-sm-none"
@@ -188,7 +189,7 @@ class Header extends Component {
             />
             <Link href="/">
               <a>
-                <img
+                <Image
                   src="/ti-logo.svg"
                   className="logo cursor-pointer"
                   alt="Logo"
