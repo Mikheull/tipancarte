@@ -27,17 +27,17 @@ export default class PaymentDetails extends Component {
     return (
       <div className="borderbottom border-color-gray500">
         <label
-          onClick={() => onChangeGateway('stripe')}
+          onClick={() => onChangeGateway('test_gateway')}
           className="p-3 d-flex align-items-center cursor-pointer"
         >
           <Radiobox
-            checked={selectedGateway === 'stripe'}
+            checked={selectedGateway === 'test_gateway'}
             className="mr-3"
           />
           <p className="font-weight-medium">Carte de crédit</p>
         </label>
 
-        { selectedGateway === 'stripe' && (
+        { selectedGateway === 'test_gateway' && (
           <div className="pl-5 pr-3 pb-3 ml-2">
             <div className="row">
               <div className="col-sm-8">
@@ -111,7 +111,7 @@ export default class PaymentDetails extends Component {
   renderStripe() {
     const { gateways, onChangeGateway, selectedGateway } = this.props;
 
-    if (!gateways || !gateways.available['stripe']) {
+    if (!gateways || !gateways.available['test_gateway']) {
       return null;
     }
 
@@ -164,7 +164,7 @@ export default class PaymentDetails extends Component {
           Détail du paiement
         </p>
         <div className="border border-color-gray400 mb-5">
-          { this.renderTestGateway() }
+          {/* { this.renderTestGateway() } */}
           { this.renderStripe() }
           { /* todo support other gateways here */ }
         </div>

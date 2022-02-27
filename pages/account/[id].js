@@ -80,7 +80,7 @@ export default function SingleOrderPage() {
     }
 
     return (
-      <Image className='img-thumbnail h-72 mr-4' alt={data.product_name} src={data.media.source} />
+      <img className='img-thumbnail h-72 mr-4' alt={data.product_name} src={data.media.source} />
     )
   };
 

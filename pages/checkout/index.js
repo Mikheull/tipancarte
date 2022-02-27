@@ -746,7 +746,7 @@ class CheckoutPage extends Component {
                         className="d-flex mb-2"
                       >
                         { (item && item.media)
-                          && (<Image className="checkout__line-item-image mr-2" src={item.media.source} alt={item.product_name}/>)
+                          && (<img className="checkout__line-item-image mr-2" src={item.media.source} alt={item.product_name}/>)
                         }
                         <div className="d-flex flex-grow-1">
                           <div className="flex-grow-1">
