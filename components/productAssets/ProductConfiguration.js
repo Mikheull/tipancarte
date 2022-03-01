@@ -162,7 +162,7 @@ class ProductConfiguration extends Component {
         return {
           ...styles,
           backgroundColor: '#FFF',
-          color: "#000",
+          color: '#000',
           cursor: 'pointer',
         };
       },

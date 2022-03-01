@@ -117,7 +117,7 @@ export default function Product() {
               <Collapse isOpened={showDetails}>
                 <div className="pb-4 font-color-medium">
                   Taille des planches : L25cm x h6cm <br/>
-                  Les pancartes sont peintes à la main, et peuvent être différentes de l'aperçu ci-dessous ! <br/>
+                  Les pancartes sont peintes à la main, et peuvent être différentes de l&apos;aperçu ci-dessous ! <br/>
                   Vous pouvez choisir des textes, des couleurs et la directions pour chaque flêches. <br/> <br/>
                   Le lot vous est livré sans la barre de soutient, ni clous !
                 </div>

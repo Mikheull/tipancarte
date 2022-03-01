@@ -726,7 +726,7 @@ class CheckoutPage extends Component {
                     </p> */}
 
                     <div className="bg-black font-color-white w-100 border-none h-56 font-weight-semibold d-flex align-items-center justify-content-center">
-                      Nous n'acceptons pas encore les commandes 🙂
+                      Nous n&apos;acceptons pas encore les commandes 🙂
                     </div>
                     {/* <button
                       type="submit"
