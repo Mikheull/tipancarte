@@ -333,6 +333,8 @@ class CheckoutPage extends Component {
    */
   captureOrder(e) {
     e.preventDefault();
+    // RETIRER ICI POUR OUVRIR
+    return false
 
     // reset error states
     this.setState({
@@ -719,16 +721,20 @@ class CheckoutPage extends Component {
                       )}
                     </>}
 
-                    <p className="checkout-error">
+                    {/* <p className="checkout-error">
                       { !selectedShippingOption ? 'Selectioner une méthode de livraison!' : '' }
-                    </p>
-                    <button
+                    </p> */}
+
+                    <div className="bg-black font-color-white w-100 border-none h-56 font-weight-semibold d-flex align-items-center justify-content-center">
+                      Nous n'acceptons pas encore les commandes 🙂
+                    </div>
+                    {/* <button
                       type="submit"
                       className="bg-black font-color-white w-100 border-none h-56 font-weight-semibold d-lg-block"
                       disabled={!selectedShippingOption}
                     >
                       Finaliser le paiement
-                    </button>
+                    </button> */}
                   </form>
                 )
               }

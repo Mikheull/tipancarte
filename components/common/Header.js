@@ -188,12 +188,13 @@ class Header extends Component {
               alt="Menu icon"
             />
             <Link href="/">
-              <a>
-                <img
+              <a className='font-color-black'>
+                {/* <img
                   src="/ti-logo.svg"
                   className="logo cursor-pointer"
                   alt="Logo"
-                />
+                /> */}
+                TiPancarte
               </a>
             </Link>
           </div>

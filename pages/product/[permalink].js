@@ -103,8 +103,7 @@ export default function Product() {
               </div>
               <Collapse isOpened={showShipping}>
                 <div className="pb-4 font-color-medium">
-                  Arrives in 5 to 7 days, returns accepted within 30
-                  days. For more information, click here.
+                  Livraison dans toute la France métropolitaine en 5 à 7 jours.
                 </div>
               </Collapse>
               <div className="h-1 border-bottom border-color-black" />
@@ -116,12 +115,12 @@ export default function Product() {
                 <img src="/icon/plus.svg" />
               </div>
               <Collapse isOpened={showDetails}>
-                <div
-                  className="pb-4 font-color-medium"
-                  dangerouslySetInnerHTML={{
-                    __html: detailView
-                  }}
-                />
+                <div className="pb-4 font-color-medium">
+                  Taille des planches : L25cm x h6cm <br/>
+                  Les pancartes sont peintes à la main, et peuvent être différentes de l'aperçu ci-dessous ! <br/>
+                  Vous pouvez choisir des textes, des couleurs et la directions pour chaque flêches. <br/> <br/>
+                  Le lot vous est livré sans la barre de soutient, ni clous !
+                </div>
               </Collapse>
               <div className="h-1 borderbottom border-color-black" />
             </div>
@@ -130,9 +129,7 @@ export default function Product() {
 
       <ProductConfiguration product={product} />
 
-      <ClientReview />
-      {/* <SuggestedProducts /> */}
-      {/* <ExploreBanner /> */}
+      {/* <ClientReview /> */}
       <SocialMedia />
       <Footer />
     </Root>
@@ -143,7 +140,7 @@ export default function Product() {
   return (
     <Root>
       <Head>
-        <title>{ product.name } | commerce</title>
+        <title>{ product.name } | TiPancarte</title>
       </Head>
 
       <div className="py-5 my-5">

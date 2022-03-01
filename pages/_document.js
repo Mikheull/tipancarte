@@ -14,7 +14,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="/favicon.png" />
+          <link rel="icon" href="/favicon.ico" />
           <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -31,15 +31,15 @@ class MyDocument extends Document {
           />
           <link rel="stylesheet" href="https://unpkg.com/swiper@6.6.2/swiper-bundle.min.css" />
           <meta name="title" content="TiPancarte" key="title" />
-          <meta name="description" content="An open source headless commerce example powered by Commerce.js and Netlify. Start your headless commerce application now!" />
+          <meta name="description" content="" />
           <meta property="og:title" content="TiPancarte" />
-          <meta property="og:image" content="https://cdn.chec.io/email/assets/marketing/demo-preview.png" />
-          <meta property="og:description" content="A custom, open source demo storefront built with Next.js and Commerce.js. Take a look!" />
-          <meta property="og:url" content="https://commercejs-demo-store.netlify.app" />
+          <meta property="og:image" content="https://www.tipancarte.fr/images/48FF448F-2010-4FFA-A6C3-7B2F4A4CDEBD_1_105_c.jpeg" />
+          <meta property="og:description" content="" />
+          <meta property="og:url" content="https://www.tipancarte.fr" />
           <meta property="twitter:title" content="TiPancarte" />
-          <meta name="twitter:creator" content="@commercejs" />
-          <meta property="twitter:image" content="https://cdn.chec.io/email/assets/marketing/demo-preview.png" />
-          <meta property="twitter:description" content="A custom, open source demo storefront built with Next.js and Commerce.js. Take a look!" />
+          <meta name="twitter:creator" content="Mikhael Bailly" />
+          <meta property="twitter:image" content="https://www.tipancarte.fr/images/48FF448F-2010-4FFA-A6C3-7B2F4A4CDEBD_1_105_c.jpeg" />
+          <meta property="twitter:description" content="" />
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
         <body>

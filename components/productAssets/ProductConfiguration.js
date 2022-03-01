@@ -15,12 +15,14 @@ class ProductConfiguration extends Component {
       configureOptions: {
         size: 'md',
         quantity: 1,
-        font: 'martinique',
         content: [
           {
             color_background: '#384C6C',
-            color_text: '#DA9859',
+            color_background_raw: 'Saphir 1',
+            color_text: '#CB6F7A',
+            color_text_raw: 'Cabaret 4',
             text: 'LE SOLEIL',
+            direction: 'right',
             index: 0,
           }
         ],
@@ -45,10 +47,15 @@ class ProductConfiguration extends Component {
       this.setState(Object.assign(this.state.configureOptions.content [index], {text: val.toUpperCase()}))
     }
     if(type == 'color_background'){
-      this.setState(Object.assign(this.state.configureOptions.content [index], {color_background: val}))
+      this.setState(Object.assign(this.state.configureOptions.content [index], {color_background: val.color_code}))
+      this.setState(Object.assign(this.state.configureOptions.content [index], {color_background_raw: val.value}))
     }
     if(type == 'color_text'){
-      this.setState(Object.assign(this.state.configureOptions.content [index], {color_text: val}))
+      this.setState(Object.assign(this.state.configureOptions.content [index], {color_text: val.color_code}))
+      this.setState(Object.assign(this.state.configureOptions.content [index], {color_text_raw: val.value}))
+    }
+    if(type == 'arrow_direction'){
+      this.setState(Object.assign(this.state.configureOptions.content [index], {direction: val}))
     }
   }
 
@@ -101,8 +108,11 @@ class ProductConfiguration extends Component {
     const index = this.state.configureOptions.quantity + 1;
     const body =  {
       color_background: '#384C6C',
-      color_text: '#DA9859',
-      text: 'LOREM IPSUM',
+      color_background_raw: 'Saphir 1',
+      color_text: '#CB6F7A',
+      color_text_raw: 'Cabaret 4',
+      direction: 'right',
+      text: 'Ti Punch',
       index: index - 1,
     }
 
@@ -147,13 +157,24 @@ class ProductConfiguration extends Component {
       }
     }
 
+    const customStylesDirection = {
+      option: (styles, { data }) => {
+        return {
+          ...styles,
+          backgroundColor: '#FFF',
+          color: "#000",
+          cursor: 'pointer',
+        };
+      },
+    }
+
     return (
       <div className='custom-container pb-5' id="configuration">
         <div className='row'>
           <div className="col-12 ">
             <div className="d-flex justify-content-between flex-column flex-sm-row align-items-sm-center mb-3">
               <p className="font-size-title font-weight-medium mb-2 mb-sm-0">
-                Configurer votre pancarte
+                Configurer vos pancartes
               </p>
             </div>
 
@@ -177,36 +198,44 @@ class ProductConfiguration extends Component {
 
               <div className='my-4'>
                 {this.state.configureOptions.content.map(plank => (
-                  <div className="d-flex" key={plank.index}>
-                    {/* <div className='col-1'>
-                      <img
-                        tabIndex="0"
-                        src="/icon/move.svg"
-                        className="w-24 cursor-move"
-                        alt="Move icon"
-                      />
-                    </div> */}
-                    <div className='col-7 plank' style={ { backgroundColor: `${ plank.color_background }` } }>
+                  <div className="d-block d-lg-flex" key={plank.index}>
+                    <div className={`col-12 col-lg-7 plank ${ plank.direction ? `plank-${plank.direction}` : '' }`} style={ { backgroundColor: `${ plank.color_background }` } }>
                       <span style={ { color: `${ plank.color_text }` } }>{plank.text}</span>
                     </div>
 
-                    <div className='col-1'></div>
+                    <div className='col-12 col-lg-1'></div>
 
-                    <div className="col-4">
-                      <div>
-                        <label className="w-100 mb-4">
-                          <p className="mb-1 font-size-caption font-color-light text-left">
-                            Texte
-                          </p>
-                          <input
-                            name="text"
-                            type="text"
-                            onChange={(val) => this.updatePlank('text', val.target.value, plank.index)}
-                            value={plank.text}
-                            className="rounded-0 w-100"
-                            required
-                          />
-                        </label>
+                    <div className="col-12 col-lg-4">
+                      <div className='row'>
+                        <div className='col-6'>
+                          <label className="w-100 mb-4">
+                            <p className="mb-1 font-size-caption font-color-light text-left">
+                              Texte
+                            </p>
+                            <input
+                              name="text"
+                              type="text"
+                              onChange={(val) => this.updatePlank('text', val.target.value, plank.index)}
+                              value={plank.text}
+                              className="rounded-0 w-100"
+                              required
+                              maxLength={20}
+                            />
+                          </label>
+
+                        </div>
+                        <div className='col-6'>
+                          <label className="w-100 mb-4">
+                            <p className="mb-1 font-size-caption font-color-light text-left">
+                              Direction
+                            </p>
+                            <Select
+                              styles={customStylesDirection}
+                              className="select_color"
+                              onChange={(val) => this.updatePlank('arrow_direction', val.value, plank.index)}
+                              options={[{value: 'left', label: 'Gauche'}, {value: 'right', label: 'Droite'}]} />
+                          </label>
+                        </div>
                       </div>
 
                       <div className='row'>
@@ -218,7 +247,7 @@ class ProductConfiguration extends Component {
                             <Select
                               styles={customStyles}
                               className="select_color"
-                              onChange={(val) => this.updatePlank('color_background', val.color_code, plank.index)}
+                              onChange={(val) => this.updatePlank('color_background', val, plank.index)}
                               options={colors} />
                           </label>
 
@@ -231,7 +260,7 @@ class ProductConfiguration extends Component {
                             <Select
                               styles={customStyles}
                               className="select_color"
-                              onChange={(val) => this.updatePlank('color_text', val.color_code, plank.index)}
+                              onChange={(val) => this.updatePlank('color_text', val, plank.index)}
                               options={colors} />
                           </label>
                         </div>
@@ -242,8 +271,8 @@ class ProductConfiguration extends Component {
               </div>
             </div>
 
-            <div className='row '>
-              <button onClick={this.handleAddToCart} disabled={soldOut} className="col-4 h-56 bg-black font-color-white pl-3 pr-4 d-flex align-items-center flex-grow-1" type="button">
+            <div className='row d-flex'>
+              <button onClick={this.handleAddToCart} disabled={soldOut} className="col-6 col-lg-4 h-56 bg-black font-color-white pl-3 pr-4 d-flex align-items-center flex-grow-1" type="button">
                 <span className="flex-grow-1 mr-3 text-center">
                   { soldOut ? 'Rupture de stock' : 'Ajouter au panier' }
                 </span>
@@ -252,9 +281,9 @@ class ProductConfiguration extends Component {
                 </span>
               </button>
 
-              <div className='col-6'></div>
+              <div className='col-1 col-lg-6'></div>
 
-              <button onClick={this.handleAddNewPlank} disabled={this.state.configureOptions.quantity >= 6} className="col-2 h-56 bg-brand300 border border-color-black d-flex align-items-center flex-grow-1" type="button">
+              <button onClick={this.handleAddNewPlank} disabled={this.state.configureOptions.quantity >= 6} className="col-5 col-lg-2 h-56 bg-brand300 border border-color-black d-flex align-items-center flex-grow-1" type="button">
                 <span className="flex-grow-1 mr-3 text-center">
                   { this.state.configureOptions.quantity >= 6 ? 'Limite de 6 planches' : 'Ajouter une planche' }
                 </span>

@@ -152,16 +152,6 @@ class ProductDetail extends Component {
           </p>
           <div className="mb-4 pb-3 font-size-subheader">{(description || '').replace(reg, '')}</div>
 
-          {/* Product Variant */}
-            <div className="d-sm-block">
-              <VariantSelector
-                className="mb-3"
-                variantGroups={variantGroups}
-                onSelectOption={this.handleSelectOption}
-                selectedOptions={selectedOptions}
-              />
-            </div>
-
           {/* Add to Cart & Price */}
           <div className="d-flex py-4">
             <button disabled={soldOut} onClick={this.handleConfigurationClick}

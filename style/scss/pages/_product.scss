@@ -52,8 +52,13 @@
 }
 
 
+.plank_parrent {
+  overflow: hidden;
+}
+
+
 .plank {
-  width: 600px;
+  width: 700px;
   height: 200px;
   z-index: 2;
   text-align: center;
@@ -62,6 +67,15 @@
   white-space: nowrap;
   font-size: 30px;
   font-size: 7.5vw;
+  border-radius: 10px;
+
+  &-right{
+    clip-path: polygon(85% 0, 100% 50%, 85% 100%, 0% 100%, 0 51%, 0% 0%);
+  }
+  &-left{
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 15% 100%, 0 51%, 15% 0);
+  }
+  
 
   p {
     width: max-content

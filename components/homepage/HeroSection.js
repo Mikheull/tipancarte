@@ -9,7 +9,7 @@ const params = {
   autoplay: {
     delay: 5000
   },
-  loop: true,
+  loop: false,
   allowTouchMove: false,
   speed: 1000,
   effect: 'fade',
@@ -18,10 +18,7 @@ const params = {
   }
 };
 const images = [
-  '/images/home-1.jpg',
-  '/images/home-2.jpg',
-  '/images/home-3.jpg',
-  '/images/home-4.jpg',
+  '/images/martinique-MQ.jpg',
 ];
 
 export default function HeroSection() {
@@ -38,14 +35,14 @@ export default function HeroSection() {
               }}
             >
               <p className="font-size-display5 font-family-secondary mb-4 text-center hero-header">
-                The care you&apos;ve always needed
+                Créez vos pancartes façon martinique
               </p>
               <p className="text-transform-uppercase font-size-title mb-5 hero-subheader">
-                A range of products for you
+                Complètement personnalisable
               </p>
               <Link href="/shop">
                 <a className="d-flex align-items-center bg-transparent border border-color-white h-56 px-5 font-color-white hero-btn">
-                  Shop now
+                  Commencez maintenant
                 </a>
               </Link>
             </div>
