@@ -435,6 +435,35 @@
   background: $warning-100 !important;
 }
 
+.bg-home-orange-900 {
+  background: $home-orange-900;
+}
+.bg-home-orange-300 {
+  background: $home-orange-300;
+}
+.bg-home-orange-100 {
+  background: $home-orange-100;
+}
+.bg-home-green-900 {
+  background: $home-green-900;
+}
+.bg-home-green-300 {
+  background: $home-green-300;
+}
+.bg-home-green-100 {
+  background: $home-green-100;
+}
+.bg-home-red-900 {
+  background: $home-red-900;
+}
+.bg-home-red-300 {
+  background: $home-red-300;
+}
+.bg-home-red-100 {
+  background: $home-red-100;
+}
+
+
 .bg-grad1 {
   @include linear-gradient(to bottom, #1285ff, #1171d0);
 }
@@ -507,6 +536,16 @@
 }
 .font-color-warning {
   color: $warning-800 !important;
+}
+
+.font-color-home-orange {
+  color: $home-orange-900;
+}
+.font-color-home-green {
+  color: $home-green-900;
+}
+.font-color-home-red {
+  color: $home-red-900;
 }
 
 //---------------------------
@@ -1271,7 +1310,7 @@
 //----------------------------
 
 .font-family-secondary {
-  font-family: "Playfair Display", serif;
+  font-family: "Bitter", serif;
 }
 
 // ----------------------------

@@ -11,16 +11,16 @@ class ProductConfiguration extends Component {
     super(props)
 
     this.state = {
-      price: 4,
+      price: 5,
       configureOptions: {
         size: 'md',
         quantity: 1,
         content: [
           {
             color_background: '#384C6C',
-            color_background_raw: 'Saphir 1',
-            color_text: '#CB6F7A',
-            color_text_raw: 'Cabaret 4',
+            color_background_raw: 'Saphir',
+            color_text: '#F5B4B9',
+            color_text_raw: 'Cabaret 2',
             text: 'LE SOLEIL',
             direction: 'right',
             index: 0,
@@ -97,7 +97,7 @@ class ProductConfiguration extends Component {
     const { selectedOptions, configureOptions, price} = this.state;
 
     // Créer le produit ici
-    const prod = await createProduct(configureOptions, price)
+    const prod = await createProduct(configureOptions, price, this.props.customer)
     this.props.dispatch(addToCart(prod.data.id, 1, selectedOptions))
   }
 
@@ -108,9 +108,9 @@ class ProductConfiguration extends Component {
     const index = this.state.configureOptions.quantity + 1;
     const body =  {
       color_background: '#384C6C',
-      color_background_raw: 'Saphir 1',
-      color_text: '#CB6F7A',
-      color_text_raw: 'Cabaret 4',
+      color_background_raw: 'Saphir',
+      color_text: '#F5B4B9',
+      color_text_raw: 'Cabaret 2',
       direction: 'right',
       text: 'Ti Punch',
       index: index - 1,
@@ -119,7 +119,7 @@ class ProductConfiguration extends Component {
     let arr = this.state.configureOptions.content 
     arr.push(body)
 
-    this.setState({ price: this.state.price + 4 });
+    this.setState({ price: this.state.price + 5 });
     this.setState(Object.assign(this.state.configureOptions, {quantity: index}))
     this.setState(Object.assign(this.state.configureOptions.content , arr))
   }
@@ -272,20 +272,20 @@ class ProductConfiguration extends Component {
             </div>
 
             <div className='row d-flex'>
-              <button onClick={this.handleAddToCart} disabled={soldOut} className="col-6 col-lg-4 h-56 bg-black font-color-white pl-3 pr-4 d-flex align-items-center flex-grow-1" type="button">
+              <button onClick={this.handleAddNewPlank} disabled={this.state.configureOptions.quantity >= 6} className="col-12 col-lg-2 h-56 bg-brand300 border border-color-black d-flex align-items-center flex-grow-1" type="button">
+                <span className="flex-grow-1 mr-3 text-center">
+                  { this.state.configureOptions.quantity >= 6 ? 'Limite de 6 planches' : 'Ajouter une planche' }
+                </span>
+              </button>
+            </div>
+
+            <div className='row d-flex mt-6'>
+              <button onClick={this.handleAddToCart} disabled={soldOut} className="col-12 col-lg-4 h-56 bg-black font-color-white pl-3 pr-4 d-flex align-items-center flex-grow-1" type="button">
                 <span className="flex-grow-1 mr-3 text-center">
                   { soldOut ? 'Rupture de stock' : 'Ajouter au panier' }
                 </span>
                 <span className="border-left border-color-white pl-3">
                 {price} {priceSymbol}
-                </span>
-              </button>
-
-              <div className='col-1 col-lg-6'></div>
-
-              <button onClick={this.handleAddNewPlank} disabled={this.state.configureOptions.quantity >= 6} className="col-5 col-lg-2 h-56 bg-brand300 border border-color-black d-flex align-items-center flex-grow-1" type="button">
-                <span className="flex-grow-1 mr-3 text-center">
-                  { this.state.configureOptions.quantity >= 6 ? 'Limite de 6 planches' : 'Ajouter une planche' }
                 </span>
               </button>
             </div>

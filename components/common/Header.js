@@ -30,7 +30,7 @@ const mobileMenuLinks = [
   },
   {
     name: 'Boutique',
-    link: '/shop'
+    link: '/product/3AVWoo'
   }
 ];
 
@@ -176,7 +176,10 @@ class Header extends Component {
           }`}
         >
           <div className="d-none d-sm-flex">
-            <Link href="/shop">
+            <Link href="/">
+              <a className="mr-4 font-color-black">Accueil</a>
+            </Link>
+            <Link href="/product/3AVWoo">
               <a className="mr-4 font-color-black">Boutique</a>
             </Link>
           </div>
@@ -189,12 +192,11 @@ class Header extends Component {
             />
             <Link href="/">
               <a className='font-color-black'>
-                {/* <img
-                  src="/ti-logo.svg"
-                  className="logo cursor-pointer"
+                <img
+                  src="/brand/logo_dark.svg"
+                  className="logo cursor-pointer w-64"
                   alt="Logo"
-                /> */}
-                TiPancarte
+                />
               </a>
             </Link>
           </div>

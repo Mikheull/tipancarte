@@ -269,7 +269,7 @@ class CustomerAccountPage extends Component {
     return (
       <Root>
         <Head>
-          <title>Mon compte</title>
+          <title>TiPancarte - Mon compte</title>
         </Head>
         <div className="account-container">
           <div className="custom-container py-5 my-4 my-sm-5">

@@ -545,7 +545,7 @@ class CheckoutPage extends Component {
     return (
       <Root>
         <Head>
-          <title>Paiement</title>
+          <title>TiPancarte - Paiement</title>
         </Head>
 
         <div className="custom-container py-5 my-4 my-sm-5">

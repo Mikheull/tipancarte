@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const imagesInfo = [
   {
-    image: '/images/insta/1.png',
+    image: '/images/insta/original__post_insta.jpg',
     translateRatio: -50
   },
   {
@@ -12,7 +12,7 @@ const imagesInfo = [
     translateRatio: 30
   },
   {
-    image: '/images/insta/3.jpg',
+    image: '/images/insta/original__post_insta.jpg',
     translateRatio: 0
   },
   {
@@ -20,7 +20,7 @@ const imagesInfo = [
     translateRatio: -20
   },
   {
-    image: '/images/insta/5.jpg',
+    image: '/images/insta/original__post_insta.jpg',
     translateRatio: -80
   }
 ];

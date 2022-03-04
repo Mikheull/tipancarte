@@ -173,7 +173,7 @@ export default function SingleOrderPage() {
   return (
     <Root>
       <Head>
-        <title>{ data.customer_reference } | TiPancarte</title>
+        <title>TiPancarte - { data.customer_reference }</title>
       </Head>
       <div className="account-container">
           <div className="custom-container py-5 my-4 my-sm-5">

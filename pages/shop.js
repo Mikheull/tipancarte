@@ -9,7 +9,7 @@ import Footer from '../components/common/Footer';
 const Home = () => (
   <Root>
     <Head>
-      <title>Boutique</title>
+      <title>TiPancarte - Boutique</title>
     </Head>
     {/* <Shop /> */}
     <ExploreBanner />

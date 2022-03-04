@@ -164,7 +164,7 @@ class LoginHandler extends Component {
       return (
         <Root>
           <Head>
-            <title>Connexion en cours ..</title>
+            <title>TiPancarte - Connexion en cours ..</title>
           </Head>
           <LoginAnimation />
         </Root>
@@ -174,7 +174,7 @@ class LoginHandler extends Component {
     return (
       <Root>
         <Head>
-          <title>Connexion</title>
+          <title>TiPancarte - Connecte toi</title>
         </Head>
         <div className="login-container pt-1 pb-0 px-3 pt-sm-0 px-sm-0 mx-auto my-0 mw-1600">
           <div className="row mt-5 pt-5">

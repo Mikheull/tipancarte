@@ -21,7 +21,7 @@ class ProductsBanner extends Component {
           >
             Limited reservations on upcoming products and restocks.
           </p>
-          <Link href="/shop">
+          <Link href="/product/3AVWoo">
             <a className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
               <p className="mr-3">See more products</p>
               <img src="/icon/arrow-long-right.svg" alt='icon next' />

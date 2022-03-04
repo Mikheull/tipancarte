@@ -128,7 +128,7 @@ class Shop extends Component {
     return (
       <div className="py-5 my-5">
         <Head>
-          <title>Boutique</title>
+          <title>TiPancarte - Boutique</title>
         </Head>
         <div className="py-4">
           {/* Sidebar */}

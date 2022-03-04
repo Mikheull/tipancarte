@@ -7,7 +7,7 @@ import Footer from '../components/common/Footer';
 const LoggedOut = () => (
   <Root>
     <Head>
-      <title>TiPancarte</title>
+      <title>TiPancarte - Déconnecté</title>
     </Head>
     <div className="account-container">
       <div className="custom-container py-5 my-4 my-sm-5">
@@ -17,7 +17,7 @@ const LoggedOut = () => (
               Vous avez été déconnecté !
             </h2>
             <Link href="/" className="mt-4">
-              <a>Continue le shopping</a>
+              <a>Continuer le shopping</a>
             </Link>
           </div>
         </div>

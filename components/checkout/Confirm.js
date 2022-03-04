@@ -123,7 +123,7 @@ class Confirm extends Component {
                       Retourner à l&apos;accueil
                     </a>
                   </Link>
-                  <Link href="/shop">
+                  <Link href="/product/3AVWoo">
                     <a className="checkout-confirm-buttons px-3 py-3 text-center flex-grow-1 bg-black font-color-white no-print">
                       Continuer le shopping
                     </a>

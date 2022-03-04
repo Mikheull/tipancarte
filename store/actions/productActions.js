@@ -1,5 +1,6 @@
 import commerce from '../../lib/commerce'
 import axios from 'axios';
+import moment from "moment";
 
 import {
   CREATE_PRODUCT_SUCCESS,
@@ -31,15 +32,36 @@ export const createProductError = (error) => {
  * Async creat product
  */
 
-export const createProduct = async (content, price) => {
+export const createProduct = async (content, price, customer) => {
   const checAPIKey = process.env.NEXT_PUBLIC_CHEC_PUBLIC_KEY2;
+
+  const today = moment(Date.now());
+  const name = (customer) ? `Pancarte pour ${customer.firstname}` : `Pancarte`
+
+  let description = `${name} : ||`;
+  description += `Taille : ${content.size},`
+  description += `Quantité de planches : ${content.quantity},`
+  description += `Peinture complète : ${(content.full_paint) ? 'Oui' : 'Non'},`
+  description += `Vernissage : ${(content.varnishing) ? 'Oui' : 'Non'} ||   ||`
+
+  content.content.map(function(plank){
+    description += `Planche n°${plank.index} :`
+    description += `Texte : ${plank.text},`
+    description += `Couleur du fond : ${plank.color_background} (${plank.color_background_raw}),`
+    description += `Couleur du texte : ${plank.color_text} (${plank.color_text_raw}),`
+    description += `Direction de la flèche : ${plank.direction} ||   ||`
+    return plank
+  })
+
+  description += today
+
 
   const body = {
     "product": {
-      "name": "Pancarte customisé",
+      "name": "Pancarte personnalisée",
       "sku": "",
       "price": price,
-      "description": `Pancarte customisé | Contenu : ${JSON.stringify(content)}`,
+      "description": description,
       "quantity": 1,
       "pay_what_you_want": false,
       "tax_exempt": false,

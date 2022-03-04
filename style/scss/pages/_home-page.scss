@@ -2,9 +2,10 @@ $color: rgba(0, 0, 0, 0);
 
 .hero-section {
   .hero-slide {
-    min-height: 85vh;
-    background-size: cover;
-    background-position: center;
+    min-height: 75vh;
+  }
+  .hero-slide-bottom {
+    min-height: 25vh;
   }
 
   .circle {
@@ -52,4 +53,17 @@ $color: rgba(0, 0, 0, 0);
     box-shadow: 0 -125px 0 2px $color, -125px 0px 0 2px $color,
       0px 125px 0 2px $color, 120px 40px 0 2px $color, 0 0 0 2px #fff;
   }
+}
+
+.tipancarte_banner {
+  position: absolute;
+  width: 40%;
+  left: 20%;
+  bottom: -30%;
+
+  @media (max-width: #{$lg-width}) {
+    position: unset;
+    width: 100%;
+  }
+
 }

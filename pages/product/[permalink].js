@@ -69,7 +69,7 @@ export default function Product() {
     return (
       <Root>
         <Head>
-          <title>{ product.name } | TiPancarte</title>
+          <title>TiPancarte - { product.name }</title>
         </Head>
 
         <div className="py-5 my-5">
@@ -129,7 +129,7 @@ export default function Product() {
 
       <ProductConfiguration product={product} />
 
-      {/* <ClientReview /> */}
+      <ClientReview />
       <SocialMedia />
       <Footer />
     </Root>
@@ -140,7 +140,7 @@ export default function Product() {
   return (
     <Root>
       <Head>
-        <title>{ product.name } | TiPancarte</title>
+        <title>TiPancarte - { product.name }</title>
       </Head>
 
       <div className="py-5 my-5">
