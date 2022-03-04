@@ -25,12 +25,12 @@ class MyDocument extends Document {
           <meta name="title" content="TiPancarte" key="title" />
           <meta name="description" content="Découvrez les pancartes personnalisable et commandez la votre en utilisant notre outil de configuration. Les pancartes style martinique sont faites 100% manuellement et livrée dans toute la France" />
           <meta property="og:title" content="TiPancarte" />
-          <meta property="og:image" content="https://www.tipancarte.fr/images/brand/og_banner.jpg" />
+          <meta property="og:image" content="https://www.tipancarte.fr/brand/og_banner.jpg" />
           <meta property="og:description" content="Découvrez les pancartes personnalisable et commandez la votre en utilisant notre outil de configuration. Les pancartes style martinique sont faites 100% manuellement et livrée dans toute la France" />
           <meta property="og:url" content="https://www.tipancarte.fr" />
           <meta property="twitter:title" content="TiPancarte" />
           <meta name="twitter:creator" content="Mikhael Bailly" />
-          <meta property="twitter:image" content="https://www.tipancarte.fr/images/brand/og_banner.jpg" />
+          <meta property="twitter:image" content="https://www.tipancarte.fr/brand/og_banner.jpg" />
           <meta property="twitter:description" content="Découvrez les pancartes personnalisable et commandez la votre en utilisant notre outil de configuration. Les pancartes style martinique sont faites 100% manuellement et livrée dans toute la France" />
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
