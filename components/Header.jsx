@@ -173,7 +173,7 @@ function Header() {
                                 ) :
                                     (
                                         <Link href="login">
-                                            <a className="text-black font-semibold text-lg">Connexion</a>
+                                            <a className="text-white font-semibold text-lg">Connexion</a>
                                         </Link>
                                     )
                             }
