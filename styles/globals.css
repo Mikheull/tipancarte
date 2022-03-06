@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;600;700&display=swap');
+@font-face { font-family: tipancarte; src: url('fonts/Tipancarte-Regular.ttf'); } 
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Bitter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+ul li:before {
+  content:'' !important;
+  position:unset !important;
+  margin-left:-0.2375em !important;
+}
+
+
+
+/* Planks product */
+.plank {
+  /* width: 700px; */
+  height: 200px;
+  text-align: center;
+  font-family: 'tipancarte';
+  line-height: 200px;
+  white-space: nowrap;
+  border-radius: 10px;
+}
+.plank.plank-right {clip-path: polygon(85% 0, 100% 50%, 85% 100%, 0% 100%, 0 51%, 0% 0%);}
+.plank.plank-left {clip-path: polygon(100% 0, 100% 50%, 100% 100%, 15% 100%, 0 51%, 15% 0);}
+.plank p {width: max-content}
+.select_color input {
+  width: 597px !important;
+  border: none !important;
+}

@@ -1,7 +1,20 @@
 {
-  "extends": "next/core-web-vitals",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
   "rules": {
-    "curly": "error",
-    "quotes": ["error", "single"]
-  }
+    "@next/next/no-document-import-in-page": "off",
+    "@next/next/no-img-element": "off",
+    "no-console": "warn",
+    "no-use-before-define": "warn",
+    "spaced-comment": "warn"
+  },
+  "extends": [
+    "eslint:recommended",
+    "next",
+    "next/core-web-vitals"
+  ]
 }

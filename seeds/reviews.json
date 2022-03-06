@@ -1,0 +1,37 @@
+[
+  {
+    "stars": 5,
+    "title": "Nullam lectus nulla",
+    "description": "Quisque id finibus urna, eget sodales lorem. Praesent quis tellus leo !",
+    "reviewBy": "John Doe",
+    "date": "Mars 2022"
+  },
+  {
+    "stars": 3.5,
+    "title": "Aliquam!",
+    "description": "Nullam lectus nulla, dapibus tristique",
+    "reviewBy": "John Doe",
+    "date": "Mars 2022"
+  },
+  {
+    "stars": 4,
+    "title": "Quisque porttitor",
+    "description": "Mauris rutrum ultricies ullamcorper. Sed scelerisque elit leo, sed posuere ex viverra ac",
+    "reviewBy": "John Doe",
+    "date": "Mars 2022"
+  },
+  {
+    "stars": 5,
+    "title": "Maecenas augue!",
+    "description": "Maecenas in sollicitudin est. Quisque lacinia ut libero non euismod. Nullam fringilla, ante ac consectetur tincidunt, enim ipsum ornare lorem",
+    "reviewBy": "John Doe",
+    "date": "Mars 2022"
+  },
+  {
+    "stars": 5,
+    "title": "Aenean id leo turpis!",
+    "description": "Quisque porttitor mauris a augue fermentum, quis fringilla sapien finibus. Vestibulum pulvinar ex quis vestibulum varius. Ut ultrices, justo vitae egestas fringilla, velit ligula efficitur",
+    "reviewBy": "John Doe",
+    "date": "Mars 2022"
+  }
+]
