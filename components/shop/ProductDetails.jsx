@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from 'next/link'
 import ClientReviewStars from './ClientReviewStars';
 import { Collapse } from 'react-collapse';
-import { animateScroll as scroll } from 'react-scroll';
+import { Link as LinkScroll } from 'react-scroll';
 
 import { Text, Divider, Tag, Tooltip} from '@geist-ui/core'
 
@@ -18,32 +18,14 @@ function ProductDetails({ product, previewMode = false }) {
         setShowDetails(!showDetails);
     }
 
-      
-    const handleReviewClick = async () => {
-        const section = document.querySelector('#reviews');
-    
-        if (section) {
-          scroll.scrollTo(section.offsetTop - 130, {
-            smooth: 'easeInOutQuint'
-          });
-        }
-    }
-    
-    const handleConfigurationClick = async () => {
-        const section = document.querySelector('#configuration');
-    
-        if (section) {
-          scroll.scrollTo(section.offsetTop - 130, {
-            smooth: 'easeInOutQuint'
-          });
-        }
-    }
 
     return (
         <>
-            <div className="cursor-pointer" onClick={handleReviewClick}>
-                <ClientReviewStars />
-            </div>
+            <LinkScroll activeClass="active" to="reviews" spy={true} smooth={true}>
+                <div className="cursor-pointer text-black">
+                    <ClientReviewStars />
+                </div>
+            </LinkScroll>
 
             <Text h1 className="my-4 font-bitter">{product.name}</Text>
             {previewMode && <Tooltip text={'Cette pancarte à été crée par un utilisateur !'} placement="right" type="dark"><Tag>Mode: Previsualisation</Tag></Tooltip>}
@@ -51,9 +33,13 @@ function ProductDetails({ product, previewMode = false }) {
 
             <div className="flex py-4">
                 {!previewMode ? (
-                    <button disabled={product.soldOut} onClick={handleConfigurationClick} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black pl-3 pr-4 items-center text-center" type="button">
-                        { product.soldOut ? 'Rupture de stock' : 'Configurer' }
-                    </button>
+                    <LinkScroll activeClass="active" to="configuration" spy={true} smooth={true} className="w-full">
+                        <button disabled={product.soldOut} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black pl-3 pr-4 items-center text-center" type="button">
+                            { product.soldOut ? 'Rupture de stock' : 'Configurer' }
+                        </button>
+                    </LinkScroll>
+                    
+                    
                 ) : (
                     <Link href="/shop">
                         <a className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black pl-3 pr-4 flex items-center justify-center">
