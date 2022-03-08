@@ -17,7 +17,7 @@ function Checkout() {
     const { setToast } = useToasts()
 
     useEffect(() => {
-        if (!userInfo) {
+        if (!userInfo || !userInfo.email) {
             router.push('/login?redirect=/checkout')
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
