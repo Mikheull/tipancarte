@@ -25,6 +25,7 @@ handler.put(async (req, res) => {
         _id: isUser._id,
         name: isUser.name,
         email: isUser.email,
+        role: isUser.role,
         createdByGoogle: isUser.createdByGoogle,
     })
 })

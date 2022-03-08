@@ -23,6 +23,7 @@ handler.post(async (req, res) => {
             _id: alreadyExist._id,
             name: alreadyExist.name,
             email: alreadyExist.email,
+            role: alreadyExist.role,
             createdByGoogle: alreadyExist.createdByGoogle
         })
     } else {
@@ -36,6 +37,7 @@ handler.post(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            role: user.role,
             createdByGoogle: user.createdByGoogle
         })
     }

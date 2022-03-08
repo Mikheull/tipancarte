@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 // Basycally this function return a string (Token)
 const signToken = (user) => {
-    return jwt.sign({ _id: user._id, name: user.name, email: user.email, createdByGoogle: user.createdByGoogle},
+    return jwt.sign({ _id: user._id, name: user.name, email: user.email, role: user.role, createdByGoogle: user.createdByGoogle},
         process.env.JWT_SECRET, { expiresIn: '30d' })
 }
 

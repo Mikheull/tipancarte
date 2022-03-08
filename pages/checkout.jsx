@@ -345,7 +345,7 @@ function Checkout() {
                                                     <>
                                                         <div className="flex flex-row">
                                                             <div className="w-1/6">
-                                                                <Image src="/images/shop/placeholder.jpg" alt="Image du produit" width="100" height="100" />
+                                                                <Image src={item.image} alt="Image du produit" width="100" height="100" />
                                                             </div>
                                                             <div className="w-4/6 ml-2">{item.name}</div>
                                                             <div className="w-1/6 font-bold text-right font-bitter">{item.price} €</div>

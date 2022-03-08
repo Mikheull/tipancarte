@@ -27,7 +27,7 @@ function CartPage() {
                 <div className="p-4" >
                     <Link href={`/preview/${item.nanoId}`}>
                         <a className="flex items-center text-black">
-                            <Image src="/images/shop/placeholder.jpg" width="64" height="64" alt="Image du produit"/>
+                            <Image src={item.image} width="64" height="64" alt="Image du produit"/>
                             <span className="ml-2 font-bold">{item.name}</span>
                         </a>
                     </Link>
