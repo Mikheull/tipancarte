@@ -54,13 +54,13 @@ function OrdersHistory() {
 
     const data = orders.map(function(order){
         return { 
-            id: order._id.substring(20, 24), 
+            id: order.nanoId, 
             date: <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>, 
             total: `${order.totalPrice}€`,
             paid: order.isPaid ? <Moment format="[Payée le] DD/MM/YYYY à HH[h]mm">{order.paidAt}</Moment> : 'Non payée', 
             delivered: order.isDelivered ?  <Moment format="[Livré le] DD/MM/YYYY à HH[h]mm">{order.deliveredAt}</Moment> : 'Non livré', 
             action: (
-                <Link href={`/order/${order._id}`} passHref>
+                <Link href={`/order/${order.nanoId}`} passHref>
                     <Button>Details</Button>
                 </Link>
             ) 

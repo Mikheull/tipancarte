@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { Store } from "../../context/Store";
 import Select from 'react-select'
 import axios from "axios";
+import Transition from '../../utils/Transition';
 import colors from '../../seeds/colors.json';
 import { Text, Input, Button, Divider, useToasts, Spacer } from '@geist-ui/core'
 
@@ -17,6 +18,7 @@ export default function ProductConfiguration({product}) {
   useEffect(() => {
     setConfig({
       price: 5,
+      name: "Ma pancarte personnalisée",
       configureOptions: {
         quantity: 1,
         content: [
@@ -81,12 +83,18 @@ export default function ProductConfiguration({product}) {
 
     setConfig({ ...config, ...items })
   }
+
+  const renameConfiguration = async (value) => {
+    let items = {...config};
+    items.name = value;
+    setConfig({ ...config, ...items })
+  }
   
   const addToCartHandler = async () => {
     setCreation(true)
 
     const body = {
-      name: 'Ma pancarte personnalisé', 
+      name: config.name, 
       description: 'Ma pancarte personnalisé', 
       category : 'pancarte_custom', 
       price: parseInt(config.price),
@@ -118,7 +126,6 @@ export default function ProductConfiguration({product}) {
       setCreation(false)
     }
   }
-
 
   const { price } = config;
   const soldOut = product.sold_out;
@@ -167,9 +174,20 @@ export default function ProductConfiguration({product}) {
       <div className="my-6 w-full">
         {config.configureOptions.content.map(plank => (
           <>
+           <Transition
+            show={true}
+            appear={true}
+            className="w-full"
+            enter="transition ease-in-out duration-700 transform order-first"
+            enterStart="opacity-0 translate-y-8"
+            enterEnd="opacity-100 translate-y-0"
+            leave="transition ease-in-out duration-300 transform absolute"
+            leaveStart="opacity-100 translate-y-0"
+            leaveEnd="opacity-0 -translate-y-8"
+          >
             <div className="block lg:flex" key={plank.index}>
-              <div className={`lg:w-7/12 flex items-center justify-center w-full plank ${ plank.direction ? `plank-${plank.direction}` : '' }`} style={ { backgroundColor: `${ plank.color_background }` } }>
-                <span style={ { color: `${ plank.color_text }` } } className="text-6xl lg:text-10xl">{plank.text}</span>
+              <div className={`lg:w-7/12 flex items-center justify-center w-full plank ${ plank.direction ? `plank-${plank.direction}` : '' }`} style={ { backgroundColor: `${ plank.color_background }`, transition: "all .5s ease",WebkitTransition: "all .5s ease",MozTransition: "all .5s ease" } }>
+                <span style={ { color: `${ plank.color_text }`, transition: "all .3s ease",WebkitTransition: "all .3s ease",MozTransition: "all .3s ease"  } } className="text-6xl lg:text-10xl">{plank.text}</span>
               </div>
 
               <div className="lg:w-1/12 w-0"></div>
@@ -234,10 +252,11 @@ export default function ProductConfiguration({product}) {
                   <Spacer h={2}/>
                 </>
             ) : '' }
+          </Transition>
           </>
         ))}
       </div>
-
+    
       { config.configureOptions.quantity < 6 ? (
           <div className={`md:w-7/12 border border-slate-500 border-dashed text-6xl w-full plank`}>
             <button onClick={handleAddPlankClick} className="w-full h-full flex items-center justify-center">
@@ -250,13 +269,29 @@ export default function ProductConfiguration({product}) {
       
       <div className="md:w-1/3 w-full">
         <Spacer h={5}/>
-          {creation ? 
-            <Button loading auto></Button>
-          : 
-            <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
-              { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
-            </button>
-          }
+          <div className='flex flex-col w-full md:w-full'>
+            <label htmlFor="name" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
+              Nom de la configuration
+            </label>
+            <Input
+                name="name"
+                id="name"
+                className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
+                width="100%"
+                required
+                placeholder="Ma pancarte personnalisée"
+                initialValue={config.name}
+                onChange={e => renameConfiguration(e.target.value)}
+            />
+        </div>
+        <Spacer h={2}/>
+        {creation ? 
+          <Button loading auto></Button>
+        : 
+          <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
+            { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
+          </button>
+        }
       </div>
     </div>
   );

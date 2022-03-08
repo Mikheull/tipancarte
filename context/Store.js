@@ -27,6 +27,7 @@ function reducer(state, action) {
 
             // TO ADD NO MATTER PRODUCT IS REPETEAD
             const cartItems = existItem ? state.cart.cartItems.map((item) =>
+                item.nanoId === existItem.nanoId ? newItem : item,
                 item.name === existItem.name ? newItem : item
             ) : [...state.cart.cartItems, newItem];
             // console.log('cart items: ', cartItems)

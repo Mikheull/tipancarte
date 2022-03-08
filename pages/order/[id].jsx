@@ -1,5 +1,6 @@
 import { useContext, useEffect, useReducer } from "react"
 import Image from 'next/image'
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useRouter } from "next/router";
 import Moment from 'react-moment';
@@ -48,7 +49,7 @@ function Order({ params }) {
     // 'order' will fill after data-API request
     const { shippingAddress, orderItems, taxPrice, shippingPrice, totalPrice, isDelivered, isPaid, paidAt, deliveredAt } = order
 
-    // FETCH REQUEST TO single order to fill data in useReducer Hook and use in JSX Section (orderId is the :_id from Url-Params, captured for getServerSideProps())
+    // FETCH REQUEST TO single order to fill data in useReducer Hook and use in JSX Section (orderId is the :nanoId from Url-Params, captured for getServerSideProps())
     useEffect(() => {
         if (!userInfo) {
             // push to /login because is not Authenticated User
@@ -69,8 +70,8 @@ function Order({ params }) {
             }
         }
         // console.log('Order received: ', order)
-        if (!order._id || successPay || (order._id && order._id !== orderId)) {
-            // order._id and orderId should be the same because we send the Url-params ID to the request-API 
+        if (!order.nanoId || successPay || (order.nanoId && order.nanoId !== orderId)) {
+            // order.nanoId and orderId should be the same because we send the Url-params ID to the request-API 
             // So, the request search and returns the document with that ID
             fetchOrder()
             if (successPay) {
@@ -113,7 +114,7 @@ function Order({ params }) {
             try {
                 // At this point pay request is waiting to UPDATE the database to 'ispaid' to TRUE
                 dispatch({ type: 'PAY_REQUEST' })
-                const { data } = await axios.put(`/api/orders/${order._id}/pay`,
+                const { data } = await axios.put(`/api/orders/${order.nanoId}/pay`,
                     details,
                     {
                         headers: { authorization: `Bearer ${userInfo.token}` }
@@ -183,11 +184,15 @@ function Order({ params }) {
                                 <Table data={
                                     orderItems.map(function(item){
                                         return { 
-                                            id: item._id, 
+                                            id: item.nanoId, 
                                             name: (
-                                                <div className="p-4 flex items-center" >
-                                                    <Image src="/images/shop/placeholder.jpg" alt="Image du produit" width="64" height="64"/>
-                                                    <span className="ml-2 font-bold">{item.name}</span>
+                                                <div className="p-4" >
+                                                    <Link href={`/preview/${item.nanoId}`}>
+                                                        <a className="flex items-center text-black">
+                                                            <Image src="/images/shop/placeholder.jpg" width="64" height="64" alt="Image du produit"/>
+                                                            <span className="ml-2 font-bold">{item.name}</span>
+                                                        </a>
+                                                    </Link>
                                                 </div>
                                             ),
                                             price: item.price+' €', 

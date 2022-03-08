@@ -1,9 +1,14 @@
 import mongoose from 'mongoose';
+import { customAlphabet } from 'nanoid'
+const nanoid = customAlphabet('1234567890abcdef', 8)
 
 const orderSchema = new mongoose.Schema({
-    // MAKING A REFERENCE TO User Model (Collection)
+    nanoId: {
+        type: String,
+        default: () => nanoid(),
+    },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    orderItems: [{ name: { type: String, required: true }, quantity: { type: Number, required: true }, image: { type: String, required: true }, price: { type: Number, required: true } }],
+    orderItems: [{ nanoId: {type: String}, name: { type: String, required: true }, quantity: { type: Number, required: true }, image: { type: String, required: true }, price: { type: Number, required: true } }],
     paymentMethod: { type: String, required: true },
     paymentResult: { id: String, status: String, email_address: String },
 

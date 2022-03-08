@@ -22,14 +22,18 @@ function CartPage() {
 
     const data = cartItems.map(function(item){
         return { 
-            id: item._id, 
+            id: item.nanoId, 
             name: (
-                <div className="p-4 flex items-center" >
-                    <Image src="/images/shop/placeholder.jpg" width="64" height="64" alt="Image du produit"/>
-                    <span className="ml-2 font-bold">{item.name}</span>
+                <div className="p-4" >
+                    <Link href={`/preview/${item.nanoId}`}>
+                        <a className="flex items-center text-black">
+                            <Image src="/images/shop/placeholder.jpg" width="64" height="64" alt="Image du produit"/>
+                            <span className="ml-2 font-bold">{item.name}</span>
+                        </a>
+                    </Link>
                 </div>
             ),
-            price: item.price, 
+            price: item.price + ' €', 
             action: (
                 <div onClick={(() => removeItemHandler(item))}>
                     <img src="/images/icons/cross.svg" alt="" className="w-4 cursor-pointer" />

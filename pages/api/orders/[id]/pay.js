@@ -12,13 +12,13 @@ handler.use(isAuth)
 
 handler.put(async (req, res) => {
     await dbConnect()
-    const order = await Order.findById(req.query.id);
+    const order = await Order.findOne({nanoId: req.query.id})
     // console.log('my order: ', order.orderItems)
     const orderItems = order.orderItems;
 
     // GET AN OBJECTS-ARRAY WHICH CONTAINS EVERY PRODUCT (._id) WITH ITS QUANTITY WITH (._id, and quantity)
     const orderReducer = orderItems.reduce((acc, curr) => {
-        return [...acc, { [curr._id]: curr.quantity, id: curr._id, quantity: curr.quantity }]
+        return [...acc, { [curr.nanoId]: curr.quantity, id: curr.nanoId, quantity: curr.quantity }]
     }, [])
     // console.log('ORDER REDUCER:', orderReducer)
 
@@ -34,7 +34,7 @@ handler.put(async (req, res) => {
         // DECREMENT STOCK QUANTITY FOR EACH PRODUCT SOLD (IN DB)
         orderReducer.forEach(async (item) => {
             // console.log('Iterations', item)
-            const found = await Product.findById(`${item.id}`)
+            const found = await Product.findOne({nanoId: item.id})
             // console.log('we found this: ', found, `${item.id}`)
             await found.save()
         })

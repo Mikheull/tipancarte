@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
+import { customAlphabet } from 'nanoid'
+const nanoid = customAlphabet('1234567890abcdef', 6)
 
 const productSchema = new mongoose.Schema({
     /*  id: { type: String, required: false },  */
+    nanoId: {
+      type: String,
+      default: () => nanoid(),
+    },
     name: { type: String, required: true },
     category: { type: String, required: true },
     image: { type: String, required: false, default: "/images/shop/placeholder.jpg" },

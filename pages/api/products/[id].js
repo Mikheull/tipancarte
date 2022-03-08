@@ -5,7 +5,7 @@ const handler = nc()
 
 handler.get(async (req, res) => {
     await dbConnect()
-    const product = await Product.findById(req.query.id);
+    const product = await Product.findOne({nanoId: req.query.id});
     res.send(product)
 })
 export default handler;

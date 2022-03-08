@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import Link from 'next/link'
 import ClientReviewStars from './ClientReviewStars';
 import { Collapse } from 'react-collapse';
 import { animateScroll as scroll } from 'react-scroll';
 
-import { Text, Divider } from '@geist-ui/core'
+import { Text, Divider, Tag, Tooltip} from '@geist-ui/core'
 
-function ProductDetails({ product }) {
+function ProductDetails({ product, previewMode = false }) {
     const [showShipping, setShowShipping] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
 
@@ -45,12 +46,21 @@ function ProductDetails({ product }) {
             </div>
 
             <Text h1 className="my-4 font-bitter">{product.name}</Text>
+            {previewMode && <Tooltip text={'Cette pancarte à été crée par un utilisateur !'} placement="right" type="dark"><Tag>Mode: Previsualisation</Tag></Tooltip>}
             <Text p className="my-4"><span dangerouslySetInnerHTML={{__html: product.description}}></span></Text>
 
             <div className="flex py-4">
-                <button disabled={product.soldOut} onClick={handleConfigurationClick} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black pl-3 pr-4 items-center text-center" type="button">
-                    { product.soldOut ? 'Rupture de stock' : 'Configurer' }
-                </button>
+                {!previewMode ? (
+                    <button disabled={product.soldOut} onClick={handleConfigurationClick} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black pl-3 pr-4 items-center text-center" type="button">
+                        { product.soldOut ? 'Rupture de stock' : 'Configurer' }
+                    </button>
+                ) : (
+                    <Link href="/shop">
+                        <a className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black pl-3 pr-4 flex items-center justify-center">
+                            { product.soldOut ? 'Rupture de stock' : 'Créer la mienne' }
+                        </a>
+                    </Link>
+                )}
             </div>
 
             <div className="mt-12">
@@ -80,6 +90,7 @@ function ProductDetails({ product }) {
                 </Collapse>
                 <Divider />
             </div>
+           
 
 
         </>

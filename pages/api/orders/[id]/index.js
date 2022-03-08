@@ -10,7 +10,7 @@ handler.use(isAuth)
 
 handler.get(async (req, res) => {
     await dbConnect()
-    const order = await Order.findById(req.query.id);
+    const order = await Order.findOne({nanoId: req.query.id});
     res.send(order)
 })
 export default handler;

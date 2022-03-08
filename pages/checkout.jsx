@@ -84,7 +84,7 @@ function Checkout() {
                                         dispatch({ type: 'CART_CLEAR' })
                                         Cookies.remove('cartItems')
                                         // Push user to Single order details page (REQUIRES DATA._ID RESPONSE)
-                                        router.push(`/order/${data._id}`)
+                                        router.push(`/order/${data.nanoId}`)
                                     }else{
                                         setToast({ text: 'Connectez vous pour passer commande', delay: 2000, placement: 'topRight', type: 'error' })
                                         router.push('/login?redirect=/checkout')
@@ -115,6 +115,7 @@ function Checkout() {
                                                 className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
                                                 width="100%"
                                                 required
+                                                onChange={e => formik.setFieldValue('name', e.target.value)}
                                                 placeholder="John Doe" 
                                             />
                                             </div>
@@ -131,6 +132,7 @@ function Checkout() {
                                                 className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
                                                 width="100%"
                                                 required
+                                                onChange={e => formik.setFieldValue('email', e.target.value)}
                                                 placeholder="john.doe@gmail.com" 
                                             />
                                             </div>

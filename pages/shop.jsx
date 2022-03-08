@@ -3,6 +3,7 @@ import ProductImages from '../components/shop/ProductImages.jsx'
 import ProductDetails from '../components/shop/ProductDetails.jsx'
 import ClientReview from '../components/shop/ClientReview.jsx'
 import ProductConfiguration from '../components/shop/ProductConfiguration.jsx'
+import Social from '../components/shop/Social.jsx'
 import {Spacer } from '@geist-ui/core'
 
 export default function Shop() {
@@ -31,7 +32,7 @@ export default function Shop() {
 
   return (
     <Layout title="Boutique" actual="shop">
-      <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col lg:flex-row">
+      <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col lg:flex-row" data-aos="zoom-y-out" data-aos-delay="250">
         <div className="w-full lg:w-1/2 px-0 md:px-6">
           <ProductImages images={productImage}/>
         </div>
@@ -41,13 +42,19 @@ export default function Shop() {
       </div>
         
       <Spacer h={6} />
-      <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col">
+      <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col" data-aos="zoom-y-out" data-aos-delay="250">
         <ProductConfiguration product={product}/>
 
         <Spacer h={4} />
         <ClientReview />
         <Spacer h={2} />
       </div>
+
+      <Spacer h={4}/>
+          <div data-aos="zoom-y-out" data-aos-delay="450">
+              <Social />
+          </div>
+      <Spacer h={4}/>
 
     </Layout>
   )
