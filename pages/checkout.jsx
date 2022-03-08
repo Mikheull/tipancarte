@@ -38,7 +38,7 @@ function Checkout() {
                 <div className="flex md:flex-row flex-col mt-10">
                     <div className="md:w-6/12 w-full mb-6">
                         <Formik
-                            initialValues={{ name: (userInfo.name) ? userInfo.name : '', email: (userInfo.email) ? userInfo.email : '', telephone: (userInfo.telephone) ? userInfo.telephone : '', country: '', city: '', address: '', address2: '', postalCode: '', comment: '', paymentMethod: 'paypal'}}
+                            initialValues={{ name: '', email: '', telephone: '', country: '', city: '', address: '', address2: '', postalCode: '', comment: '', paymentMethod: 'paypal'}}
                             validationSchema={Yup.object({
                                 name: Yup.string().required('Veuillez entrer votre nom complet'),
                                 email: Yup.string()
@@ -65,25 +65,31 @@ function Checkout() {
                                     const taxPrice = 0;
                                     const totalPrice = round2(price + taxPrice + shippingPrice)
                                     
-                                    const { data } = await axios.post('/api/orders', {
-                                        orderItems: cartItems,
-                                        paymentMethod,
-                                        shippingAddress,
-                                        shippingPrice,
-                                        comment,
-                                        taxPrice,
-                                        totalPrice,
-                                        itemsPrice: price,
-                                    }, {
-                                        headers: {
-                                            authorization: `Bearer ${userInfo.token}`
-                                        }
-                                    })
-                                    // Clear All cartItems state and Cookies
-                                    dispatch({ type: 'CART_CLEAR' })
-                                    Cookies.remove('cartItems')
-                                    // Push user to Single order details page (REQUIRES DATA._ID RESPONSE)
-                                    router.push(`/order/${data._id}`)
+                                    if(userInfo.token){
+                                        const { data } = await axios.post('/api/orders', {
+                                            orderItems: cartItems,
+                                            paymentMethod,
+                                            shippingAddress,
+                                            shippingPrice,
+                                            comment,
+                                            taxPrice,
+                                            totalPrice,
+                                            itemsPrice: price,
+                                        }, {
+                                            headers: {
+                                                authorization: `Bearer ${userInfo.token}`
+                                            }
+                                        })
+                                        // Clear All cartItems state and Cookies
+                                        dispatch({ type: 'CART_CLEAR' })
+                                        Cookies.remove('cartItems')
+                                        // Push user to Single order details page (REQUIRES DATA._ID RESPONSE)
+                                        router.push(`/order/${data._id}`)
+                                    }else{
+                                        setToast({ text: 'Connectez vous pour passer commande', delay: 2000, placement: 'topRight', type: 'error' })
+                                        router.push('/login?redirect=/checkout')
+                                    }
+                                    
                                 } catch (error) {
                                     setToast({ text: error.message, delay: 2000, placement: 'topRight', type: 'error' })
                                 }
