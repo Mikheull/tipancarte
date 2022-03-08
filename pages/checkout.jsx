@@ -38,7 +38,7 @@ function Checkout() {
                 <div className="flex md:flex-row flex-col mt-10">
                     <div className="md:w-6/12 w-full mb-6">
                         <Formik
-                            initialValues={{ name: userInfo.name, email: userInfo.email, telephone: userInfo.telephone, country: '', city: '', address: '', address2: '', postalCode: '', comment: '', paymentMethod: 'paypal'}}
+                            initialValues={{ name: (userInfo.name) ? userInfo.name : '', email: (userInfo.email) ? userInfo.email : '', telephone: (userInfo.telephone) ? userInfo.telephone : '', country: '', city: '', address: '', address2: '', postalCode: '', comment: '', paymentMethod: 'paypal'}}
                             validationSchema={Yup.object({
                                 name: Yup.string().required('Veuillez entrer votre nom complet'),
                                 email: Yup.string()
