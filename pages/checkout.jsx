@@ -114,7 +114,6 @@ function Checkout() {
                                                 id="name"
                                                 className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
                                                 width="100%"
-                                                initialValue={userInfo.name}
                                                 required
                                                 placeholder="John Doe" 
                                             />
@@ -131,7 +130,6 @@ function Checkout() {
                                                 id="email"
                                                 className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
                                                 width="100%"
-                                                initialValue={userInfo.email}
                                                 required
                                                 placeholder="john.doe@gmail.com" 
                                             />
@@ -150,7 +148,6 @@ function Checkout() {
                                                 id="telephone"
                                                 className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
                                                 width="100%"
-                                                initialValue={userInfo.telephone}
                                                 placeholder="0607080910" 
                                                 onChange={e => formik.setFieldValue('telephone', e.target.value)}
                                             />
