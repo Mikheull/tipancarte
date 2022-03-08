@@ -10,7 +10,7 @@ import ProductPreview from '../../components/shop/ProductPreview.jsx'
 import Social from '../../components/shop/Social.jsx'
 import { Store } from "../../context/Store";
 
-import {  Text, useToasts, Spacer } from '@geist-ui/core'
+import { Spacer } from '@geist-ui/core'
 
 function reducer(state, action) {
     switch (action.type) {
@@ -30,8 +30,7 @@ function Preview({ params }) {
     const router = useRouter()
     const { state } = useContext(Store)
     const { userInfo } = state;
-    const { setToast } = useToasts()
-    const [{ loading, error, product }, dispatch] = useReducer(reducer, { loading: true, product: {}, error: '' })
+    const [{ product }, dispatch] = useReducer(reducer, { loading: true, product: {}, error: '' })
 
     useEffect(() => {
         const fetchProduct = async () => {
