@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import { Store } from "../context/Store"
-import {Table, Button, Text, Card } from '@geist-ui/core'
+import {Table, Button, Text, Card, Divider } from '@geist-ui/core'
 
 function CartPage() {
     const router = useRouter()
@@ -29,10 +29,11 @@ function CartPage() {
                     <span className="ml-2 font-bold">{item.name}</span>
                 </div>
             ),
-            quantity: item.quantity, 
             price: item.price, 
             action: (
-            <Button type="error" auto scale={1/3} font="12px" onClick={(() => removeItemHandler(item))}>x</Button>
+                <div onClick={(() => removeItemHandler(item))}>
+                    <img src="/images/icons/cross.svg" alt="" className="w-4 cursor-pointer" />
+                </div>
             ) 
         }
     });
@@ -40,20 +41,23 @@ function CartPage() {
     return (
         <Layout title="Panier">
             <>
-                <div className="my-6 mx-auto max-w-7xl md:px-0 px-10">
-                    <Text h1>Mon panier</Text>
+                <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
+                    <div className="w-full text-center">
+                        <Text h1 className="font-bitter">Mon panier</Text>
+                    </div>
+
                     {
                         cartItems.length === 0 ? (
                             <div className="w-full text-center my-10">
-                                <img src="/images/states/empty_cart.svg" alt="Visuel représentant un panier vide" className="md:w-1/3 w-full mx-auto" />
-                                <p className="my-6">Votre panier est vide ! <Link href="/shop" passHref><strong style={{ cursor: 'pointer' }}>Créez votre pancarte ici</strong></Link></p>
+                                <img src="/images/states/empty_cart.svg" alt="Visuel représentant un panier vide" className="md:w-2/5 w-full mx-auto mb-8" />
+                                <Divider />
+                                <p className="my-6">Votre panier est vide ! <Link href="/shop" passHref><strong style={{ cursor: 'pointer' }} className="underline">Créez votre pancarte ici</strong></Link></p>
                             </div>
                         ) : (
-                            <div className="flex md:flex-row flex-col">
+                            <div className="flex md:flex-row flex-col my-10">
                                 <div className="md:w-8/12 w-full mb-6 overflow-scroll">
                                     <Table data={data}>
                                         <Table.Column width={50} prop="name" label="Nom" />
-                                        <Table.Column width={30} prop="quantity" label="Quantité" />
                                         <Table.Column width={20} prop="price" label="Prix" />
                                         <Table.Column width={10} prop="action" label="" />
                                     </Table>
@@ -61,7 +65,7 @@ function CartPage() {
                                 <div className="md:w-1/12 w-0"></div>
                                 <div className="md:w-3/12 w-full">
                                     <Card width="100%">
-                                        <Text h4 my={0}>Total :</Text>
+                                        <Text h4 my={0} className="font-bitter">Total :</Text>
                                         <Text>{cartItems.reduce((a, c) => a + c.quantity, 0)}{' '} pancarte : <span className="font-bold">{cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}€</span></Text>
                                         
                                         <Card.Footer>

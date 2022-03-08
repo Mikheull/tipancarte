@@ -9,10 +9,10 @@ const handler = nc({ onError })
 handler.post(async (req, res) => {
     // console.log('Creating new product from: ', req.user)
     // console.log('New product body: ', req.body)
+    const body = req.body
+    
     await dbConnect()
-    const newProduct = new Product({
-        ...req.body, rating: 0, image: 'https://tipancarte.fr/images/shop/placeholder.jpg'
-    });
+    const newProduct = new Product(body);
     const product = await newProduct.save();
     // console.log(product)
     res.status(201).send(product)

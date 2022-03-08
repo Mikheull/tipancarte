@@ -44,11 +44,11 @@ function ProductDetails({ product }) {
                 <ClientReviewStars />
             </div>
 
-            <Text h1 className="my-4">{product.name}</Text>
-            <Text p className="my-4">{product.description}</Text>
+            <Text h1 className="my-4 font-bitter">{product.name}</Text>
+            <Text p className="my-4"><span dangerouslySetInnerHTML={{__html: product.description}}></span></Text>
 
             <div className="flex py-4">
-                <button disabled={product.soldOut} onClick={handleConfigurationClick} className="h-12 w-full bg-black text-white pl-3 pr-4 items-center text-center" type="button">
+                <button disabled={product.soldOut} onClick={handleConfigurationClick} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black pl-3 pr-4 items-center text-center" type="button">
                     { product.soldOut ? 'Rupture de stock' : 'Configurer' }
                 </button>
             </div>
@@ -60,7 +60,8 @@ function ProductDetails({ product }) {
                 </div>
                 <Collapse isOpened={showShipping}>
                     <div className="pb-4 font-normal text-gray-700">
-                        Livraison dans toute la France métropolitaine en 5 à 7 jours.
+                        Livraison dans toute la France métropolitaine en 5 à 7 jours.<br />
+                        Retours sous 14 jours.
                     </div>
                 </Collapse>
                 <Divider />
@@ -72,9 +73,9 @@ function ProductDetails({ product }) {
                 <Collapse isOpened={showDetails}>
                     <div className="pb-4 font-normal text-gray-700">
                         Taille des planches : L25cm x h6cm <br/>
+                        Vous pouvez choisir des textes, des couleurs et la directions pour chaque flèches. <br/> 
                         Les pancartes sont peintes à la main, et peuvent être différentes de l&apos;aperçu ci-dessous ! <br/>
-                        Vous pouvez choisir des textes, des couleurs et la directions pour chaque flêches. <br/> <br/>
-                        Le lot vous est livré sans la barre de soutient, ni clous !
+                        Le lot vous est livré sans la barre de soutien, ni clous !
                     </div>
                 </Collapse>
                 <Divider />

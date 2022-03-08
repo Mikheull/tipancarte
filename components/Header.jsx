@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { Store } from '../context/Store';
 import { Text, User, Popover, Badge, useBodyScroll, Spacer } from '@geist-ui/core'
 
-function Header() {
+function Header({actual}) {
     const router = useRouter()
     const { state, dispatch } = useContext(Store)
     const { cart, userInfo } = state;
@@ -23,17 +23,20 @@ function Header() {
 
     const links = [
         {
+            key: 'index',
             name: 'Accueil',
             link: '/'
         },
         {
+            key: 'shop',
             name: 'Boutique',
             link: '/shop'
         },
-        // {
-        //     name: 'A propos',
-        //     link: '/about'
-        // }
+        {
+            key: 'about',
+            name: 'A propos',
+            link: '/about'
+        }
     ];
     
     const defaultStyle = {
@@ -56,38 +59,37 @@ function Header() {
 
     return (
         <>
-            <div className="bg-white border-b border-black px-4 py-2">
-                <div className="container mx-auto flex items-center justify-between">
-                    <div>
+            <div className="h-24 border-b border-gray-100">
+                <div className='h-24 flex items-center justify-between mx-auto max-w-7xl md:px-4 px-10'>
+                    <div className='md:w-2/12 w-4/12'>
                         <Link href="/" passHref>
                             <img
                                 src="/images/brand/logo_dark.svg"
-                                className="cursor-pointer h-6"
+                                className="cursor-pointer h-6 w-64"
                                 alt="Logo"
                             />
                         </Link>
                     </div>
 
-                    <ul className="hidden w-8/12 lg:flex items-center justify-center space-x-8">
+                    <div className='md:w-8/12 w-0 hidden lg:flex justify-center gap-x-4'>
                         {links.map((item, i) => (
                             <Link key={i} href={item.link} passHref>
-                                <a className="text-black font-semibold text-lg">{item.name}</a>
+                                <a className={`text-black text-lg ${(actual == item.key) ? 'font-bold' : 'font-semibold'}`}>{item.name}</a>
                             </Link>
                         ))}
-                    </ul>
+                    </div>
 
-                    <div className="md:w-2/12 justify-end flex items-center space-x-4 xl:space-x-8">
-
+                    <div className='md:w-2/12 w-8/12 justify-end flex items-center'>
                         <div className='lg:hidden flex'>
                             <img
-                                src={`/images/icons/${showMobileMenu ? 'cross' : 'menu'}.svg`}
+                                src={`/images/icons/menu.svg`}
                                 className="cursor-pointer h-6"
                                 alt="Burger"
                                 onClick={toggleMobileMenu}
                             />
                         </div>
-                        
-                        <div className="hidden lg:flex items-center space-x-4 xl:space-x-8">
+
+                        <div className="hidden lg:flex items-center gap-x-4">
                             <div>
                             {
                                 userInfo ? (
@@ -106,27 +108,27 @@ function Header() {
                                                 </Popover.Item>
                                             </>
                                         )}>
-                                            <User src="https://unix.bio/assets/avatar.png" name={userInfo.name} className="cursor-pointer">
+                                            <User src="/images/brand/avatar.png" name={userInfo.name} className="cursor-pointer">
                                                 {userInfo.email}
                                             </User>
                                         </Popover>
                                     </>
                                 ) :
                                     (
-                                        <Link href="login" passHref>
+                                        <Link href="/login" passHref>
                                             <a className="text-black font-semibold text-lg">Connexion</a>
                                         </Link>
                                     )
                             }
                             </div>
                             <div>
-                                <Link href="cart" passHref>
+                                <Link href="/cart" passHref>
                                     <Text className='flex text-white'>
                                         <Badge.Anchor>
-                                            <Badge scale={0.5} type="warning">{cart.cartItems.length > 0 ? cart.cartItems.length : 0}</Badge>
+                                            <Badge scale={0.5} type="success">{cart.cartItems.length > 0 ? cart.cartItems.length : 0}</Badge>
                                             <img
-                                                src="/images/icons/cartbag.svg"
-                                                className="cursor-pointer h-8 w-8"
+                                                src="/images/icons/shopping_bag.svg"
+                                                className="cursor-pointer h-6 w-6"
                                                 alt="Cart"
                                             />
                                         </Badge.Anchor>
@@ -142,46 +144,65 @@ function Header() {
             <Transition in={showMobileMenu} timeout={300}>
                 {state => (
                     <div
-                    className="flex lg:hidden fixed left-0 right-0 overflow-hidden"
-                    style={{
-                        ...defaultStyle,
-                        ...transitionStyles[state],
-                        top: '1.5em'
-                    }}
+                        className="flex lg:hidden fixed left-0 right-0 overflow-hidden"
+                        style={{
+                            ...defaultStyle,
+                            ...transitionStyles[state],
+                            top: '0'
+                        }}
                     >
-                        <div
-                            className="absolute top-0 left-0 right-0 h-screen bg-black flex flex-col justify-center"
-                            style={{
-                            top: '1em'
-                            }}
-                        >
+                        <div className="absolute top-0 left-0 right-0 h-screen bg-black flex flex-col px-10">
+                            
+                            <div className='h-24 flex items-center justify-between'>
+                                <div className='md:w-2/12 w-4/12'>
+                                    <Link href="/" passHref>
+                                        <img
+                                            src="/images/brand/logo_light.svg"
+                                            className="cursor-pointer h-6 w-64"
+                                            alt="Logo"
+                                        />
+                                    </Link>
+                                </div>
+
+                                <div className='md:w-2/12 w-8/12 justify-end flex items-center'>
+                                    <div className='lg:hidden flex'>
+                                        <img
+                                            src={`/images/icons/cross-white.svg`}
+                                            className="cursor-pointer h-6"
+                                            alt="Burger"
+                                            onClick={toggleMobileMenu}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                                
                             {links.map((item, i) => (
                                 <Link key={i} href={item.link}>
-                                    <a className="text-white font-semibold text-2xl text-center">{item.name}</a>
+                                    <a className="text-white font-semibold text-2xl border-slate-900 border-b py-4">{item.name}</a>
                                 </Link>
                             ))}
 
-                            <Spacer h={2}/>
+                            <Spacer h={1}/>
 
                             {
                                 userInfo ? (
                                     <>
-                                        <Link href="/profile"><a className='text-white font-semibold text-2xl text-center'>Profile</a></Link>
-                                        <Link href="/orders"><a className='text-white font-semibold text-2xl text-center'>Mes commandes</a></Link>
-                                        <a onClick={logOutClickHandler} href="./" className='text-white font-semibold text-2xl text-center'>Déconnexion</a>
+                                        <Link href="/profile"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Profile</a></Link>
+                                        <Link href="/orders"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes commandes</a></Link>
+                                        <a onClick={logOutClickHandler} href="./" className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Déconnexion</a>
                                     </>
                                 ) :
                                     (
-                                        <Link href="login">
-                                            <a className="text-white font-semibold text-lg">Connexion</a>
+                                        <Link href="/login">
+                                            <a className="text-white font-semibold text-2xl border-slate-900 border-b py-4">Connexion</a>
                                         </Link>
                                     )
                             }
 
-                            <Spacer h={2}/>
+                            <Spacer h={1}/>
 
-                            <Link href="cart">
-                                <a className='text-white font-semibold text-2xl text-center'>Panier ({cart.cartItems.length > 0 ? cart.cartItems.length : 0})</a>
+                            <Link href="/cart">
+                                <a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Panier ({cart.cartItems.length > 0 ? cart.cartItems.length : 0})</a>
                             </Link>
                         </div>
                     </div>

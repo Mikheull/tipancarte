@@ -41,7 +41,10 @@ function GoogleButton() {
     }
 
     return (
-        <Button icon={ <img src={`/images/icons/google.svg`} className="h-6" alt="Icon Google"/>} auto onClick={signInWithGoogleHandler}>Connexion avec Google</Button>
+        <Button auto onClick={signInWithGoogleHandler}>
+            <img src={`/images/icons/google.svg`} className="h-6" alt="Icon Google"/>
+            Connexion avec Google
+        </Button>
     )
 }
 

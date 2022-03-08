@@ -3,6 +3,7 @@ import ProductImages from '../components/shop/ProductImages.jsx'
 import ProductDetails from '../components/shop/ProductDetails.jsx'
 import ClientReview from '../components/shop/ClientReview.jsx'
 import ProductConfiguration from '../components/shop/ProductConfiguration.jsx'
+import {Spacer } from '@geist-ui/core'
 
 export default function Shop() {
   const productImage = [
@@ -24,13 +25,13 @@ export default function Shop() {
   ];
   const product = {
     name: 'Pancarte personnalisé',
-    description: 'Créez votre propre pancarte en ajoutant jusqu\'à 6 planches totalement personnalisable ! Modifiez les couleurs, les textes et la direction de la flèche.',
+    description: 'Dans un style martiniquais, configurez votre propre pancarte en ajoutant jusqu\'à 6 planches totalement personnalisable !<br /> Modifiez les couleurs, les textes et la direction de la flèche.<br /> Laissez libre cours à votre immagination ou choisissez parmis un de nos modèles.',
     soldOut: false,
   }
 
   return (
-    <Layout title="Boutique">
-      <div className="flex my-6 mx-auto md:max-w-7xl max-w-sm flex-col lg:flex-row">
+    <Layout title="Boutique" actual="shop">
+      <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 px-0 md:px-6">
           <ProductImages images={productImage}/>
         </div>
@@ -39,12 +40,13 @@ export default function Shop() {
         </div>
       </div>
         
-      <div className="mx-auto md:max-w-7xl max-w-sm my-24">
+      <Spacer h={6} />
+      <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col">
         <ProductConfiguration product={product}/>
 
-        <div className="mt-10">
-          <ClientReview />
-        </div>
+        <Spacer h={4} />
+        <ClientReview />
+        <Spacer h={2} />
       </div>
 
     </Layout>

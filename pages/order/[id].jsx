@@ -2,12 +2,13 @@ import { useContext, useEffect, useReducer } from "react"
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useRouter } from "next/router";
+import Moment from 'react-moment';
 import axios from "axios";
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import Layout from "../../components/Layout";
 import { Store } from "../../context/Store";
 
-import {  Text, Card, Divider, Table, useToasts} from '@geist-ui/core'
+import {  Text, Card, Table, useToasts, Spacer, Tag } from '@geist-ui/core'
 
 function reducer(state, action) {
     switch (action.type) {
@@ -39,6 +40,9 @@ function Order({ params }) {
     const { userInfo } = state;
     const { setToast } = useToasts()
 
+    // Supprimer pour réouvrir le paiement !
+    const PaymentDisabled = true
+
     // This useReducer will fill after Fetch request action
     const [{ loading, error, order, successPay }, dispatch] = useReducer(reducer, { loading: true, order: {}, error: '' })
     // 'order' will fill after data-API request
@@ -60,8 +64,8 @@ function Order({ params }) {
                 // Send received response as payload
                 dispatch({ type: 'FETCH_SUCCESS', payload: data }) // Loader: false, error: '', order: {...}
             } catch (error) {
-
-                dispatch({ type: 'FETCH_FAIL', payload: error })
+                router.push('/')
+                // dispatch({ type: 'FETCH_FAIL', payload: error })
             }
         }
         // console.log('Order received: ', order)
@@ -130,13 +134,19 @@ function Order({ params }) {
 
     return (
         <Layout title={`Commande ${orderId}`} >
-            <div className="my-6 mx-auto max-w-7xl md:px-0 px-10">
-                <Text h2>Commande : {orderId}</Text>
-                
-                <div className="flex md:flex-row flex-col mt-10">
+            <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
+                <Text h3 className="font-bitter">Commande : {orderId}</Text>
+                <Spacer h={2} />
+
+                <div className="flex md:flex-row flex-col">
                     {loading ? (
                         <>
                             <div className="md:w-7/12 w-full mb-6">
+                                <Table>
+                                    <Table.Column width={50} prop="name" label="Produit" />
+                                    <Table.Column width={20} prop="price" label="Prix" />
+                                </Table>
+
                                 <div className="border rounded-md p-4 w-full mx-auto my-6">
                                     <div className="animate-pulse flex space-x-4">
                                         <div className="rounded-full bg-slate-200 h-10 w-10"></div>
@@ -180,19 +190,17 @@ function Order({ params }) {
                                                     <span className="ml-2 font-bold">{item.name}</span>
                                                 </div>
                                             ),
-                                            quantity: item.quantity, 
                                             price: item.price+' €', 
                                         }
                                     })
                                 }>
-                                    <Table.Column width={50} prop="name" label="Nom" />
-                                    <Table.Column width={30} prop="quantity" label="Quantité" />
+                                    <Table.Column width={50} prop="name" label="Produit" />
                                     <Table.Column width={20} prop="price" label="Prix" />
                                 </Table>
 
-                                <Divider />
+                                <Spacer h={2} />
 
-                                <div className="flex flex-col my-4">
+                                <div className="flex flex-col my-4 font-bitter">
                                     <div className="flex justify-between">
                                         <Text h4>Frais</Text>
                                         <Text h4 className="font-bold">{taxPrice}€</Text>
@@ -206,13 +214,13 @@ function Order({ params }) {
                                         <Text h4 className="font-bold">{totalPrice}€</Text>
                                     </div>
                                 </div>
-
-
                             </div>
+
                             <div className="md:w-1/12 w-0"></div>
+                            
                             <div className="md:w-4/12 w-full">
                                 <div className="bg-gray-50 px-8 py-6">
-                                    <Text h4>Adresse de paiement</Text>
+                                    <Text h4 className="font-bitter">Adresse de livraison</Text>
                                     <Card>
                                         <Text>{shippingAddress.fullName}</Text>
                                         <Text>{shippingAddress.address}</Text>
@@ -220,12 +228,13 @@ function Order({ params }) {
                                         <Text>{shippingAddress.postalCode}</Text>
                                         <Text>{shippingAddress.country}</Text>
                                         <Card.Footer>
-                                            <Text>Status: {isDelivered ? `Livré le ${deliveredAt}` : 'Non livré'}</Text>
+                                            <Text>Status: <Tag>{isDelivered ? <Moment format="[Livré le] DD/MM/YYYY à HH[h]mm">{deliveredAt}</Moment> : 'Non livré'}</Tag></Text>
                                         </Card.Footer>
                                     </Card>
-                                    <Divider />
 
-                                    <Text h4>Méthode de paiement</Text>
+                                    <Spacer h={2} />
+
+                                    <Text h4 className="font-bitter">Méthode de paiement</Text>
                                     <Card>
                                         <Text>
                                             {!isPaid && (
@@ -242,21 +251,28 @@ function Order({ params }) {
                                                         </div>
                                                     ) :
                                                         (
-                                                            <div>
-                                                                <PayPalButtons
-                                                                    createOrder={createOrder}
-                                                                    onApprove={onApprove}
-                                                                    onError={onError}>
-                                                                </PayPalButtons>
+                                                            <div className="text-red-500">
+                                                                {PaymentDisabled ? 'Paiement suspendu pour le moment' : (
+                                                                    <PayPalButtons
+                                                                        createOrder={createOrder}
+                                                                        onApprove={onApprove}
+                                                                        onError={onError}>
+                                                                    </PayPalButtons>
+                                                                )}
                                                             </div>
                                                         )
                                                     }
                                                 </div>
                                             )}
+                                            {isPaid && (
+                                                <Text>Status: <Tag>{isPaid ? <Moment format="[Payé le] DD/MM/YYYY à HH[h]mm">{paidAt}</Moment> : 'Non payé'}</Tag></Text>
+                                            )}
                                         </Text>
-                                        <Card.Footer>
-                                            <Text>Status: {isPaid ? `Payé le ${paidAt}` : 'Non payé'}</Text>
-                                        </Card.Footer>
+                                        {!isPaid && (
+                                            <Card.Footer>
+                                                <Text>Status: <Tag>{isPaid ? <Moment format="[Payé le] DD/MM/YYYY à HH[h]mm">{paidAt}</Moment> : 'Non payé'}</Tag></Text>
+                                            </Card.Footer>
+                                        )}
                                     </Card>
 
                                 </div>

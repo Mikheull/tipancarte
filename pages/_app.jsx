@@ -1,6 +1,8 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 import '../styles/globals.css'
 import { StoreProvider } from '../context/Store'
 import { CacheProvider } from '@emotion/react';
@@ -12,6 +14,15 @@ import { GeistProvider, CssBaseline } from '@geist-ui/core'
 const clientSideEmotionCache = createEmotionCache();
 
 function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache}) {
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: 'phone',
+      duration: 700,
+      easing: 'ease-out-cubic',
+    });
+  });
+  
   return (
     <CacheProvider value={emotionCache}>
       <StoreProvider >

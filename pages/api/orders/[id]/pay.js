@@ -36,9 +36,7 @@ handler.put(async (req, res) => {
             // console.log('Iterations', item)
             const found = await Product.findById(`${item.id}`)
             // console.log('we found this: ', found, `${item.id}`)
-            found.countInStock -= item.quantity
             await found.save()
-            // Product.findByIdAndUpdate(item._id, {countInStock: this.countInStock -  item._id})
         })
         res.send({ message: 'La commande à été payée', order: paidOrder })
     } else {

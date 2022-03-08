@@ -8,7 +8,7 @@ import axios from "axios";
 import Layout from "../components/Layout"
 import { Store } from "../context/Store"
 import GoogleButton from "../elements/GoogleButton"
-import { Text, Input, Button, useToasts } from '@geist-ui/core'
+import { Text, Input, Button, useToasts, Divider, Spacer } from '@geist-ui/core'
 
 function Login() {
     const router = useRouter()
@@ -27,15 +27,17 @@ function Login() {
     }, [])
 
     return (
-        <Layout title="Connexion ">
-            <div className="my-6 mx-auto max-w-xl">
-                <Text h1>Connexion</Text>
+        <Layout title="Connexion">
+            <div className="py-6 mx-auto max-w-xl md:px-4 px-10 min-h-screen flex flex-col justify-center">
+                <Text h1 className="font-bitter">Connexion</Text>
 
                 <Formik
                     initialValues={{ email: '', password: '' }}
                     validationSchema={Yup.object({
-                        email: Yup.string().email('Email invalide').required('Un email est requis'),
-                        password: Yup.string().required('Un mot de passe est requis'),
+                        email: Yup.string()
+                        .email('L\'adresse email est invalide')
+                        .required('Veuillez entrer votre adresse email'),
+                        password: Yup.string().required('Veuillez entrer un mot de passe'),
                     })}
                     onSubmit={async (values, { setSubmitting }) => {
                         const { email, password } = values;
@@ -72,7 +74,7 @@ function Login() {
                                         onChange={e => formik.setFieldValue('email', e.target.value)}
                                     />
 
-                                    <div className="text-cred text-sm">
+                                    <div className="text-red-500 text-sm">
                                         <ErrorMessage name="email" />
                                     </div>
                                 </div>
@@ -93,7 +95,7 @@ function Login() {
                                         onChange={e => formik.setFieldValue('password', e.target.value)}
                                     />
 
-                                    <div className="text-cred text-sm">
+                                    <div className="text-red-500 text-sm">
                                         <ErrorMessage name="password" />
                                     </div>
                                 </div>
@@ -106,13 +108,17 @@ function Login() {
                             : 
                                 <Button onClick={formik.handleSubmit}>Connexion</Button>
                             }
-                            <GoogleButton />
                         </div>
                     </form>
                 )}
                 </Formik>
                 
                 <div>Vous n&rsquo;avez pas de compte ? <Link href={`/register`}><a className="text-black font-bold">Cliquez ici</a></Link></div>
+
+                <Spacer h={4}/>
+                <Divider>Google</Divider>
+                <Spacer h={2}/>
+                <GoogleButton />
             </div>
         </Layout>
     )

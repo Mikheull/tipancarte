@@ -9,12 +9,15 @@ const orderSchema = new mongoose.Schema({
 
     shippingAddress: {
         fullName: { type: String, required: true },
+        telephone: { type: String },
         address: { type: String, required: true },
-        address_line2: { type: String },
+        address2: { type: String },
         city: { type: String, required: true },
         postalCode: { type: String, required: true },
-        country: { type: String, required: true }
+        country: { type: String, required: true },
     },
+    comment: { type: String },
+    delivery_tracking: { type: String },
     shippingPrice: { type: Number, required: true },
     taxPrice: { type: Number, required: true },
     totalPrice: { type: Number, required: true },

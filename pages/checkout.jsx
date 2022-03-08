@@ -8,7 +8,7 @@ import Cookies from "js-cookie"
 import axios from "axios";
 import Layout from "../components/Layout";
 import { Store } from "../context/Store"
-import { Button, Text, Input, Radio, Divider, useToasts} from '@geist-ui/core'
+import { Button, Text, Input, Radio, Divider, useToasts, Spacer } from '@geist-ui/core'
 
 function Checkout() {
     const router = useRouter()
@@ -30,30 +30,34 @@ function Checkout() {
 
     return (
         <Layout title="Paiement">
-            <div className="my-6 mx-auto max-w-7xl md:px-0 px-10">
-                <Text h1>Paiement</Text>
-                
+            <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
+                <div className="w-full">
+                    <Text h1 className="font-bitter">Paiement</Text>
+                </div>
+            
                 <div className="flex md:flex-row flex-col mt-10">
                     <div className="md:w-6/12 w-full mb-6">
                         <Formik
                             initialValues={{ name: userInfo.name, email: userInfo.email, telephone: userInfo.telephone, country: '', city: '', address: '', address2: '', postalCode: '', comment: '', paymentMethod: 'paypal'}}
                             validationSchema={Yup.object({
-                                name: Yup.string().required('Un nom est requis'),
-                                email: Yup.string().email('Email invalide').required('Un email est requis'),
-                                telephone: Yup.string().matches(phoneRegExp, 'Le telephone est invalide'),
-                                country: Yup.string().required('Un pays est requis'),
-                                city: Yup.string().required('Une ville est requise'),
-                                address: Yup.string().required('Une adresse est requise'),
+                                name: Yup.string().required('Veuillez entrer votre nom complet'),
+                                email: Yup.string()
+                                .email('L\'adresse email est invalide')
+                                .required('Veuillez entrer votre adresse email'),
+                                telephone: Yup.string().matches(phoneRegExp, 'Le numéro de téléphone est invalide'),
+                                country: Yup.string().required('Veuillez entrer votre pays'),
+                                city: Yup.string().required('Veuillez entrer votre ville'),
+                                address: Yup.string().required('Veuillez entrer votre adresse'),
                                 address2: Yup.string(),
-                                postalCode: Yup.string().required('Un code postal est requis'),
+                                postalCode: Yup.string().required('Veuillez entrer votre code postal'),
                                 comment: Yup.string(),
-                                paymentMethod: Yup.string().required('Un moyen de paiement est requis'),
+                                paymentMethod: Yup.string().required('Veuillez choisir un moyen de paiement'),
                             })}
                             onSubmit={async (values, { setSubmitting }) => {
-                                const { name, address, address2, city, postalCode, country, paymentMethod } = values;
+                                const { name, telephone, address, address2, city, postalCode, country, paymentMethod, comment} = values;
 
                                 try {
-                                    const shippingAddress = {fullName: name, address, address2, city, postalCode, country}
+                                    const shippingAddress = {fullName: name, telephone, address, address2, city, postalCode, country}
 
                                     const price = cartItems.reduce((a, c) => a + c.price, 0);
                                     const shippingPrice = 9;
@@ -66,6 +70,7 @@ function Checkout() {
                                         paymentMethod,
                                         shippingAddress,
                                         shippingPrice,
+                                        comment,
                                         taxPrice,
                                         totalPrice,
                                         itemsPrice: price,
@@ -145,7 +150,7 @@ function Checkout() {
                                             />
                                             </div>
 
-                                            <div className="text-cred text-sm">
+                                            <div className="text-red-500 text-sm">
                                                 <ErrorMessage name="telephone" />
                                             </div>
                                         </div>
@@ -153,7 +158,7 @@ function Checkout() {
                                     </div>
                                 </div>
 
-
+                                <Spacer h={4} />
                                 <div>
                                     <Text h4>Adresse de livraison</Text>
                                     
@@ -174,7 +179,7 @@ function Checkout() {
                                             />
                                             </div>
 
-                                            <div className="text-cred text-sm">
+                                            <div className="text-red-500 text-sm">
                                                 <ErrorMessage name="country" />
                                             </div>
                                         </div>
@@ -195,7 +200,7 @@ function Checkout() {
                                             />
                                             </div>
 
-                                            <div className="text-cred text-sm">
+                                            <div className="text-red-500 text-sm">
                                                 <ErrorMessage name="city" />
                                             </div>
                                         </div>
@@ -218,7 +223,7 @@ function Checkout() {
                                             />
                                             </div>
 
-                                            <div className="text-cred text-sm">
+                                            <div className="text-red-500 text-sm">
                                                 <ErrorMessage name="address" />
                                             </div>
                                         </div>
@@ -238,7 +243,7 @@ function Checkout() {
                                             />
                                             </div>
 
-                                            <div className="text-cred text-sm">
+                                            <div className="text-red-500 text-sm">
                                                 <ErrorMessage name="address2" />
                                             </div>
                                         </div>
@@ -261,7 +266,7 @@ function Checkout() {
                                                 />
                                             </div>
 
-                                            <div className="text-cred text-sm">
+                                            <div className="text-red-500 text-sm">
                                                 <ErrorMessage name="postalCode" />
                                             </div>
                                         </div>
@@ -287,6 +292,7 @@ function Checkout() {
                                     </div>
                                 </div>
 
+                                <Spacer h={4} />
                                 <div>
                                     <Text h4>Paiement</Text>
 
@@ -295,19 +301,20 @@ function Checkout() {
                                             Paypal
                                             <Radio.Desc>Payer via Paypal</Radio.Desc>
                                         </Radio>
-                                        <Radio value="stripe">
-                                            Stripe
-                                            <Radio.Desc>Payer via Stripe</Radio.Desc>
-                                        </Radio>
                                     </Radio.Group>
                                 </div>
 
+                                <Spacer h={4} />
                                 <div className='flex w-full pb-10 items-center'>
-                                    {formik.isSubmitting ? 
-                                        <Button loading auto></Button>
-                                    : 
-                                        <Button onClick={formik.handleSubmit}>Payer :p</Button>
-                                    }
+                                    <div className="w-full">
+                                        {formik.isSubmitting ? 
+                                            <Button loading auto></Button>
+                                        : 
+                                            <button disabled={formik.isSubmitting} onClick={formik.handleSubmit} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
+                                                Payer
+                                            </button>
+                                        }
+                                    </div>
                                 </div>
                             </form>
                         )}
@@ -316,8 +323,9 @@ function Checkout() {
                     <div className="md:w-1/12 w-0"></div>
                     <div className="md:w-5/12 w-full">
                         <div className="bg-gray-50 px-8 py-6">
-                            <Text h4>Votre commande</Text>
+                            <Text h4 className="font-bitter">Votre commande</Text>
                             <Divider />
+                            <Spacer h={1} />
 
                             {
                                 cartItems.length === 0 ? (
@@ -335,7 +343,7 @@ function Checkout() {
                                                                 <Image src="/images/shop/placeholder.jpg" alt="Image du produit" width="100" height="100" />
                                                             </div>
                                                             <div className="w-4/6 ml-2">{item.name}</div>
-                                                            <div className="w-1/6 font-bold text-right">{item.price} €</div>
+                                                            <div className="w-1/6 font-bold text-right font-bitter">{item.price} €</div>
                                                         </div>
                                                     </>
                                                 )
@@ -345,8 +353,9 @@ function Checkout() {
                                 )
                             }
                             <Divider />
+                            <Spacer h={2} />
 
-                            <div className="flex flex-col my-4">
+                            <div className="flex flex-col font-bitter">
                                 <div className="flex justify-between">
                                     <Text h6>Sous-total</Text>
                                     <Text h6 className="font-bold">{cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}€</Text>
@@ -365,8 +374,9 @@ function Checkout() {
                                 </div>
                             </div>
                             <Divider />
+                            <Spacer h={2} />
 
-                            <div className="my-6 flex justify-between">
+                            <div className="flex justify-between font-bitter">
                                 <Text h4 my={0}>Total :</Text>
                                 <Text h5 className="font-bold">{cartItems.reduce((a, c) => a + c.price, 0) + 9}€</Text>
                             </div>

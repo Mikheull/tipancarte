@@ -27,7 +27,7 @@ function Profile() {
 
     return (
         <Layout title="Profile" >
-            <div className="my-6 mx-auto max-w-4xl md:px-0 px-10">
+            <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
                 <div className="border-b-2 border-gray-200">
                     <ul className="flex flex-wrap gap-x-6">
                         <li className="">
@@ -52,7 +52,7 @@ function Profile() {
                     <Formik
                         initialValues={{ name: '' }}
                         validationSchema={Yup.object({
-                            name: Yup.string().required('Un nom est requis'),
+                            name: Yup.string().required('Veuillez entrer votre nom complet'),
                         })}
                         onSubmit={async (values, { setSubmitting }) => {
                             const { name } = values;
@@ -91,7 +91,7 @@ function Profile() {
                                         onChange={e => formik.setFieldValue('name', e.target.value)}
                                     />
 
-                                    <div className="text-cred text-sm">
+                                    <div className="text-red-500 text-sm">
                                         <ErrorMessage name="name" />
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@ function Profile() {
                                                 onChange={e => formik.setFieldValue('password', e.target.value)}
                                             />
 
-                                            <div className="text-cred text-sm">
+                                            <div className="text-red-500 text-sm">
                                                 <ErrorMessage name="password" />
                                             </div>
                                         </div>
@@ -179,7 +179,7 @@ function Profile() {
                                                 onChange={e => formik.setFieldValue('confirmPassword', e.target.value)}
                                             />
 
-                                            <div className="text-cred text-sm">
+                                            <div className="text-red-500 text-sm">
                                                 <ErrorMessage name="confirmPassword" />
                                             </div>
                                         </div>

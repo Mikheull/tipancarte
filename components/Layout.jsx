@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Footer from '../components/Footer'
 import Header from './Header'
 
-function Layout({ title, description, children }) {
+function Layout({ actual, title, description, children }) {
 
     return (
         <div>
@@ -12,7 +12,7 @@ function Layout({ title, description, children }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Header />
+            <Header actual={actual}/>
             <div>
                 {children}
             </div>

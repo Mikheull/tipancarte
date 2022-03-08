@@ -3,6 +3,7 @@ import Link from 'next/link'
 import dynamic from "next/dynamic"
 import { useRouter } from "next/router"
 import axios from "axios";
+import Moment from 'react-moment';
 import Layout from "../components/Layout";
 import { Store } from "../context/Store"
 import { Table, Button, Text } from '@geist-ui/core'
@@ -54,21 +55,21 @@ function OrdersHistory() {
     const data = orders.map(function(order){
         return { 
             id: order._id.substring(20, 24), 
-            date: order.createdAt, 
+            date: <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>, 
             total: `${order.totalPrice}€`,
-            paid: order.isPaid ? `Payée le ${order.paidAt}` : 'Non payée', 
-            delivered: order.isDelivered ? `Livré le ${order.deliveredAt}` : 'Non livré', 
+            paid: order.isPaid ? <Moment format="[Payée le] DD/MM/YYYY à HH[h]mm">{order.paidAt}</Moment> : 'Non payée', 
+            delivered: order.isDelivered ?  <Moment format="[Livré le] DD/MM/YYYY à HH[h]mm">{order.deliveredAt}</Moment> : 'Non livré', 
             action: (
-            <Link href={`/order/${order._id}`} passHref>
-                <Button>Details</Button>
-            </Link>
+                <Link href={`/order/${order._id}`} passHref>
+                    <Button>Details</Button>
+                </Link>
             ) 
         }
     });
 
     return (
         <Layout title="Commandes" >
-            <div className="my-6 mx-auto max-w-4xl md:px-0 px-10">
+            <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
 
                 <div className="border-b-2 border-gray-200">
                     <ul className="flex flex-wrap gap-x-6">

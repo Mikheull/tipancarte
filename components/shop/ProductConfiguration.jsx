@@ -4,12 +4,13 @@ import { Store } from "../../context/Store";
 import Select from 'react-select'
 import axios from "axios";
 import colors from '../../seeds/colors.json';
-import { Text, Input, Button, Divider, useToasts } from '@geist-ui/core'
+import { Text, Input, Button, Divider, useToasts, Spacer } from '@geist-ui/core'
 
 export default function ProductConfiguration({product}) {
   const { dispatch } = useContext(Store)
   const [config, setConfig] = useState({ })
   const [loading, setLoading] = useState(true)
+  const [creation, setCreation] = useState(false)
   const router = useRouter()
   const { setToast } = useToasts()
 
@@ -82,32 +83,39 @@ export default function ProductConfiguration({product}) {
   }
   
   const addToCartHandler = async () => {
+    setCreation(true)
 
-    const ref = 'Ma pancarte personnalisé';
-    const category = 'pancarte_custom';
-    const price = config.price;
-    const brand = 'brand';
-    let description = `${ref} : <br /><br />`;
-    description += `Quantité de planches : ${config.configureOptions.quantity}<br />`
-    description += `Vernissage : ${(config.configureOptions.varnishing) ? 'Oui' : 'Non'} <br /><br />`
+    const body = {
+      name: 'Ma pancarte personnalisé', 
+      description: 'Ma pancarte personnalisé', 
+      category : 'pancarte_custom', 
+      price: parseInt(config.price),
+      image: '/images/shop/placeholder.jpg',
+      planks: []
+    }
+    config.configureOptions.content.forEach(plank => {
+      let p = {}
+      
+      p.position = plank.index
+      p.text = plank.text
+      p.direction = plank.direction
+      p.bg_color = plank.color_background
+      p.bg_color_ref = plank.color_background_raw
+      p.text_color = plank.color_text
+      p.text_color_ref = plank.color_text_raw
 
-    config.configureOptions.content.map(function(plank){
-      description += `Planche n°${plank.index} :<br />`
-      description += `Texte : ${plank.text}<br />`
-      description += `Couleur du fond : ${plank.color_background} (${plank.color_background_raw})<br />`
-      description += `Couleur du texte : ${plank.color_text} (${plank.color_text_raw})<br />`
-      description += `Direction de la flèche : ${plank.direction} <br /><br />`
-      return plank
-    })
+      body.planks.push(p)
+    });
 
     try {
-      const data = await axios.post('/api/products/light_create', { name: ref, description, category, price: parseInt(price), countInStock: 1, brand }, {})
+      const data = await axios.post('/api/products/light_create', body, {})
       const product = data.data;
       dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: 1 } })
       router.push('/cart')
-
+      
     } catch (error) {
       setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
+      setCreation(false)
     }
   }
 
@@ -146,35 +154,41 @@ export default function ProductConfiguration({product}) {
       };
     },
   }
-  
+
   if(loading){return 'loading'}
 
   return (
     <div id="configuration">
 
       <div className="w-full">
-        <Text h2>Configurer vos pancartes</Text>
+        <Text h2 className="font-bitter">Configurer vos pancartes</Text>
       </div>
 
       <div className="my-6 w-full">
         {config.configureOptions.content.map(plank => (
           <>
             <div className="block lg:flex" key={plank.index}>
-              <div className={`md:w-7/12 flex items-center justify-center w-full plank ${ plank.direction ? `plank-${plank.direction}` : '' }`} style={ { backgroundColor: `${ plank.color_background }` } }>
-                <span style={ { color: `${ plank.color_text }` } } className="text-6xl md:text-10xl">{plank.text}</span>
+              <div className={`lg:w-7/12 flex items-center justify-center w-full plank ${ plank.direction ? `plank-${plank.direction}` : '' }`} style={ { backgroundColor: `${ plank.color_background }` } }>
+                <span style={ { color: `${ plank.color_text }` } } className="text-6xl lg:text-10xl">{plank.text}</span>
               </div>
 
-              <div className="md:w-1/12 w-0"></div>
+              <div className="lg:w-1/12 w-0"></div>
 
-              <div className="md:w-4/12 w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="lg:w-4/12 w-full">
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:mt-0 mt-4">
                   <div className="w-full">
-                    <Input initialValue={plank.text} maxLength={15} placeholder="TiPancarte" scale={4/3} onChange={(val) => handleUpdatePlankClick('text', val.target.value, plank.index)}><span className="text-sm m-0 text-black">Texte</span></Input>
+                     <label className="">
+                      <p className="text-sm m-0 text-black pb-2">
+                        Texte
+                      </p>
+                      <Input width="100%" initialValue={plank.text} maxLength={15} placeholder="TiPancarte" onChange={(val) => handleUpdatePlankClick('text', val.target.value, plank.index)}></Input>
+                    </label>
                   </div>
                   
                   <div className="w-full">
-                    <label className="w-100">
-                        <p className="text-sm m-0 text-black pb-3">
+                    <label className="">
+                        <p className="text-sm m-0 text-black pb-2">
                           Direction
                         </p>
                         <Select
@@ -186,7 +200,7 @@ export default function ProductConfiguration({product}) {
                   </div>
 
                   <div className="w-full mt-2">
-                    <label className="w-100">
+                    <label className="">
                         <p className="text-sm m-0 text-black pb-3">
                           Couleur du fond
                         </p>
@@ -198,7 +212,7 @@ export default function ProductConfiguration({product}) {
                       </label>
                   </div>
                   <div className="w-full mt-2">
-                    <label className="w-100">
+                    <label className="">
                       <p className="text-sm m-0 text-black pb-3">
                       Couleur du texte
                     </p>
@@ -214,9 +228,11 @@ export default function ProductConfiguration({product}) {
             </div>
 
             { plank.index < 6 ? (
-              <div className="my-4">
-                <Divider />
-              </div>
+                <>
+                  <Spacer h={2}/>
+                  <Divider />
+                  <Spacer h={2}/>
+                </>
             ) : '' }
           </>
         ))}
@@ -232,8 +248,15 @@ export default function ProductConfiguration({product}) {
           <Text type="error">Vous êtes limité à 6 planches au maximum !</Text>
       ) }
       
-      <div className="my-6 w-full">
-        <Button type="secondary" onClick={addToCartHandler}>{ soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }</Button>
+      <div className="md:w-1/3 w-full">
+        <Spacer h={5}/>
+          {creation ? 
+            <Button loading auto></Button>
+          : 
+            <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
+              { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
+            </button>
+          }
       </div>
     </div>
   );

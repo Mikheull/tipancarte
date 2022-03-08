@@ -8,7 +8,7 @@ import axios from "axios";
 import Layout from "../components/Layout"
 import { Store } from "../context/Store"
 import GoogleButton from "../elements/GoogleButton"
-import { Text, Input, Button, useToasts } from '@geist-ui/core'
+import { Text, Input, Button, useToasts, Spacer, Divider } from '@geist-ui/core'
 
 function Register() {
     const router = useRouter()
@@ -28,18 +28,20 @@ function Register() {
 
     return (
         <Layout title="Inscription ">
-            <div className="my-6 mx-auto max-w-xl">
-                <Text h1>Inscription</Text>
+            <div className="py-6 mx-auto max-w-xl md:px-4 px-10 min-h-screen flex flex-col justify-center">
+                <Text h1 className="font-bitter">Inscription</Text>
 
 
                 <Formik
                     initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
                     validationSchema={Yup.object({
-                        name: Yup.string().required('Un nom est requis'),
-                        email: Yup.string().email('Email invalide').required('Un email est requis'),
+                        name: Yup.string().required('Veuillez entrer votre nom complet'),
+                        email: Yup.string()
+                        .email('L\'adresse email est invalide')
+                        .required('Veuillez entrer votre adresse email'),
                         password: Yup.string().required('Veuillez entrer un mot de passe'),
-                        confirmPassword: Yup.string().when("password", {
-                            is: val => (val && val.length > 0 ? true : false),
+                        changepassword: Yup.string().when("password", {
+                        is: val => (val && val.length > 0 ? true : false),
                             then: Yup.string().oneOf(
                                 [Yup.ref("password")],
                                 "Le mot de passe est différent"
@@ -81,7 +83,7 @@ function Register() {
                                         onChange={e => formik.setFieldValue('name', e.target.value)}
                                     />
 
-                                    <div className="text-cred text-sm">
+                                    <div className="text-red-500 text-sm">
                                         <ErrorMessage name="name" />
                                     </div>
                                 </div>
@@ -102,7 +104,7 @@ function Register() {
                                         onChange={e => formik.setFieldValue('email', e.target.value)}
                                     />
 
-                                    <div className="text-cred text-sm">
+                                    <div className="text-red-500 text-sm">
                                         <ErrorMessage name="email" />
                                     </div>
                                 </div>
@@ -123,7 +125,7 @@ function Register() {
                                         onChange={e => formik.setFieldValue('password', e.target.value)}
                                     />
 
-                                    <div className="text-cred text-sm">
+                                    <div className="text-red-500 text-sm">
                                         <ErrorMessage name="password" />
                                     </div>
                                 </div>
@@ -144,7 +146,7 @@ function Register() {
                                         onChange={e => formik.setFieldValue('confirmPassword', e.target.value)}
                                     />
 
-                                    <div className="text-cred text-sm">
+                                    <div className="text-red-500 text-sm">
                                         <ErrorMessage name="confirmPassword" />
                                     </div>
                                 </div>
@@ -157,13 +159,17 @@ function Register() {
                             : 
                                 <Button onClick={formik.handleSubmit}>Inscription</Button>
                             }
-                            <GoogleButton />
                         </div>
                     </form>
                 )}
                 </Formik>
                 
                 <div className="my-6">Vous avez déjà un compte ? <Link href={`/login`}><a className="text-black font-bold">Cliquez ici</a></Link></div>
+
+                <Spacer h={4}/>
+                <Divider>Google</Divider>
+                <Spacer h={2}/>
+                <GoogleButton />
             </div>
         </Layout>
     )
