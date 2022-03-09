@@ -29,7 +29,6 @@ function Preview({ params }) {
     const productId = params.id
     const router = useRouter()
     const { state } = useContext(Store)
-    const { userInfo } = state;
     const [{ product }, dispatch] = useReducer(reducer, { loading: true, product: {}, error: '' })
 
     useEffect(() => {
