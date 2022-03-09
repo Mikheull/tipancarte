@@ -25,7 +25,7 @@ export default function Shop() {
     // }
   ];
   const product = {
-    name: 'Pancarte personnalisé',
+    name: 'Pancarte personnalisée',
     description: 'Dans un style martiniquais, configurez votre propre pancarte en ajoutant jusqu\'à 6 planches totalement personnalisable !<br /> Modifiez les couleurs, les textes et la direction de la flèche.<br /> Laissez libre cours à votre immagination ou choisissez parmis un de nos modèles.',
     soldOut: false,
   }

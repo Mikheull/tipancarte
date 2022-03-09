@@ -13,6 +13,7 @@
     "@emotion/server": "^11.4.0",
     "@geist-ui/core": "^2.3.4",
     "@paypal/react-paypal-js": "^7.3.3",
+    "@uiw/react-color-wheel": "^1.0.10",
     "aos": "^2.3.4",
     "axios": "^0.21.4",
     "bcrypt": "^5.0.1",

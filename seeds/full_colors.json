@@ -174,12 +174,6 @@
     "color_code": "#EA5E37"
   },
   {
-    "value": 80039302,
-    "price": "2.50 €",
-    "label": "Chili 5",
-    "color_code": "#28757,00 F"
-  },
-  {
     "value": 80039316,
     "price": "2.50 €",
     "label": "Coktail 5",
@@ -450,12 +444,6 @@
     "color_code": "#E5E9EB"
   },
   {
-    "value": 80038924,
-    "price": "2.50 €",
-    "label": "Havana 2",
-    "color_code": null
-  },
-  {
     "value": 80038931,
     "price": "2.50 €",
     "label": "Havana 3",
@@ -484,12 +472,6 @@
     "price": "2.50 €",
     "label": "Ink 3",
     "color_code": "#687A8B"
-  },
-  {
-    "value": 80038560,
-    "price": "2.50 €",
-    "label": "Ink 4",
-    "color_code": "#76909,00 F"
   },
   {
     "value": 80038574,
@@ -940,12 +922,6 @@
     "price": "2.50 €",
     "label": "Vert Céladon 4",
     "color_code": "#A1BABA"
-  },
-  {
-    "value": 80039155,
-    "price": "2.90 €",
-    "label": "Bistro 1",
-    "color_code": "#81565,00 F"
   },
   {
     "value": 80039183,

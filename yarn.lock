@@ -122,7 +122,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.13.10", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.3", "@babel/runtime@^7.16.7", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.13.10", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.3", "@babel/runtime@^7.16.7", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7", "@babel/runtime@~7.17.2":
   version "7.17.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
   integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
@@ -1012,6 +1012,27 @@
   dependencies:
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
+
+"@uiw/color-convert@1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@uiw/color-convert/-/color-convert-1.0.10.tgz#606e2ff116f14cdc03c325921fa815b34b2dc960"
+  integrity sha512-jAqe5dwGmn8KV/P1VNfcWTaUrfznEVWyuZWWYrAEeQT2FtVhPQjyTBkoeRMoghnpTCJ73EEeXNqsv3dsHLQ6aA==
+
+"@uiw/react-color-wheel@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@uiw/react-color-wheel/-/react-color-wheel-1.0.10.tgz#1192646e90b4b4b80fbd66643f45e77d3c4c0459"
+  integrity sha512-RK/6Vdi3RNCZEq/mOf5p+SzQp9RX2Vz9uXgdKm1BFYC4QjuNpvAsXof0XM+vMX/Hfg8u2OGZTiZqsCHCn1umyg==
+  dependencies:
+    "@babel/runtime" "~7.17.2"
+    "@uiw/color-convert" "1.0.10"
+    "@uiw/react-drag-event-interactive" "1.0.10"
+
+"@uiw/react-drag-event-interactive@1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@uiw/react-drag-event-interactive/-/react-drag-event-interactive-1.0.10.tgz#8ffdf6776394f9067adc2d2cf145e7e74e82337f"
+  integrity sha512-PpAuzEv8RpVN5U9COojC5uzRISalpNw459sASFmBefjY81PBmPBj4ScfYm1NnF30dpvFf262ALLBs6uR0XJGLA==
+  dependencies:
+    "@babel/runtime" "~7.17.2"
 
 abbrev@1:
   version "1.1.1"

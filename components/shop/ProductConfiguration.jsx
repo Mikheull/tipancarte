@@ -4,20 +4,26 @@ import { Store } from "../../context/Store";
 import Select from 'react-select'
 import axios from "axios";
 import Transition from '../../utils/Transition';
+import nearestColor from '../../utils/nearest_color';
 import colors from '../../seeds/colors.json';
-import { Text, Input, Button, Divider, useToasts, Spacer } from '@geist-ui/core'
+import { Text, Input, Button, Divider, useToasts, Spacer, Popover } from '@geist-ui/core'
+import Wheel from '@uiw/react-color-wheel';
 
 export default function ProductConfiguration({product}) {
-  const { dispatch } = useContext(Store)
+  const { state, dispatch } = useContext(Store)
+  const { userInfo } = state;
   const [config, setConfig] = useState({ })
   const [loading, setLoading] = useState(true)
   const [creation, setCreation] = useState(false)
+  const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
+
   const router = useRouter()
   const { setToast } = useToasts()
 
   useEffect(() => {
     setConfig({
       price: 5,
+      color: '',
       name: "Ma pancarte personnalisée",
       configureOptions: {
         quantity: 1,
@@ -71,17 +77,27 @@ export default function ProductConfiguration({product}) {
       }
       if(type == 'color_background'){
         items.configureOptions.content[index - 1].color_background = value.color_code;
-        items.configureOptions.content[index - 1].color_background_raw = value.value;
+        items.configureOptions.content[index - 1].color_background_raw = value.label;
       }
-    if(type == 'color_text'){
-        items.configureOptions.content[index - 1].color_text = value.color_code;
-        items.configureOptions.content[index - 1].color_text_raw = value.value;
-    }
-    if(type == 'arrow_direction'){
-        items.configureOptions.content[index - 1].direction = value;
-    }
+      if(type == 'color_background_wheel'){
+        const nearest = nearestColor(value);
+        items.configureOptions.content[index - 1].color_background = nearest.color_code;
+        items.configureOptions.content[index - 1].color_background_raw = nearest.label;
+      }
+      if(type == 'color_text'){
+          items.configureOptions.content[index - 1].color_text = value.color_code;
+          items.configureOptions.content[index - 1].color_text_raw = value.label;
+      }
+      if(type == 'color_text_wheel'){
+        const nearest = nearestColor(value);
+        items.configureOptions.content[index - 1].color_text = nearest.color_code;
+        items.configureOptions.content[index - 1].color_text_raw = nearest.label;
+      }
+      if(type == 'arrow_direction'){
+          items.configureOptions.content[index - 1].direction = value;
+      }
 
-    setConfig({ ...config, ...items })
+      setConfig({ ...config, ...items })
   }
 
   const renameConfiguration = async (value) => {
@@ -114,6 +130,10 @@ export default function ProductConfiguration({product}) {
 
       body.planks.push(p)
     });
+
+    if(userInfo){
+      body.user = userInfo._id
+    }
 
     try {
       const data = await axios.post('/api/products/light_create', body, {})
@@ -217,30 +237,72 @@ export default function ProductConfiguration({product}) {
                       </label>
                   </div>
 
-                  <div className="w-full mt-2">
-                    <label className="">
-                        <p className="text-sm m-0 text-black pb-3">
-                          Couleur du fond
-                        </p>
+                  <div className="w-full mt-2 flex items-end">
+                    <label className="w-5/6">
+                      <p className="text-sm m-0 text-black pb-3">
+                        Couleur du fond
+                      </p>
+                      <div className="flex items-center w-full">
                         <Select
                           styles={customStyles}
-                          className="select_color"
+                          className="select_color w-full"
+                          value={{ label: plank.color_background_raw, value: 0 }}
                           onChange={(val) => handleUpdatePlankClick('color_background', val, plank.index)}
                           options={colors} />
-                      </label>
-                  </div>
-                  <div className="w-full mt-2">
-                    <label className="">
-                      <p className="text-sm m-0 text-black pb-3">
-                      Couleur du texte
-                    </p>
-                    <Select
-                      styles={customStyles}
-                      className="select_color"
-                      onChange={(val) => handleUpdatePlankClick('color_text', val, plank.index)}
-                      options={colors} />
+                      </div>
                     </label>
+                    <div className="w-1/6 justify-self-end text-right">
+                      <Popover content={(
+                        <>
+                          <Popover.Item title>
+                            <span>Roue des couleurs</span>
+                          </Popover.Item>
+                          <Popover.Item>
+                            <Wheel
+                              color={hsva}
+                              onChange={(color) => setHsva({ ...hsva, ...color.hsva }) || handleUpdatePlankClick('color_background_wheel', color.hex, plank.index)}
+                            />
+                          </Popover.Item>
+                        </>
+                      )}>
+                        <img src="/images/icons/droplet.svg" alt="Icon pour choisir une couleur" className="h-4 mb-2 ml-4" />
+                      </Popover>
+                    </div>
                   </div>
+
+                  <div className="w-full mt-2 flex items-end">
+                    <label className="w-5/6">
+                      <p className="text-sm m-0 text-black pb-3">
+                        Couleur du texte
+                      </p>
+                      <div className="flex items-center w-full">
+                        <Select
+                          styles={customStyles}
+                          className="select_color w-full"
+                          value={{ label: plank.color_text_raw, value: 0 }}
+                          onChange={(val) => handleUpdatePlankClick('color_text', val, plank.index)}
+                          options={colors} />
+                      </div>
+                    </label>
+                    <div className="w-1/6 justify-self-end text-right">
+                      <Popover content={(
+                        <>
+                          <Popover.Item title>
+                            <span>Roue des couleurs</span>
+                          </Popover.Item>
+                          <Popover.Item>
+                            <Wheel
+                              color={hsva}
+                              onChange={(color) => setHsva({ ...hsva, ...color.hsva }) || handleUpdatePlankClick('color_text_wheel', color.hex, plank.index)}
+                            />
+                          </Popover.Item>
+                        </>
+                      )}>
+                        <img src="/images/icons/droplet.svg" alt="Icon pour choisir une couleur" className="h-4 mb-2 ml-4" />
+                      </Popover>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
