@@ -20,15 +20,10 @@ function reducer(state, action) {
             const existItem = state.cart.cartItems.find((item) =>
                 item._id == newItem._id
             );
-            // console.log('Is this item already in car?: ', existItem)
-            // SET NEW ITEM (named as 'cartItems to send directly through props )
-            // Replace the item with the same ID with the new one
-            // const cartItems = existItem ? state.cart.cartItems : [...state.cart.cartItems, newItem]
-
+            
             // TO ADD NO MATTER PRODUCT IS REPETEAD
             const cartItems = existItem ? state.cart.cartItems.map((item) =>
-                item.nanoId === existItem.nanoId ? newItem : item,
-                item.name === existItem.name ? newItem : item
+                item._id === existItem._id ? newItem : item
             ) : [...state.cart.cartItems, newItem];
             // console.log('cart items: ', cartItems)
             Cookies.set('cartItems', JSON.stringify(cartItems))

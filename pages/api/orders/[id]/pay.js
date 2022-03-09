@@ -16,9 +16,8 @@ handler.put(async (req, res) => {
     // console.log('my order: ', order.orderItems)
     const orderItems = order.orderItems;
 
-    // GET AN OBJECTS-ARRAY WHICH CONTAINS EVERY PRODUCT (._id) WITH ITS QUANTITY WITH (._id, and quantity)
     const orderReducer = orderItems.reduce((acc, curr) => {
-        return [...acc, { [curr.nanoId]: curr.quantity, id: curr.nanoId, quantity: curr.quantity }]
+        return [...acc, { [curr.nanoId]: 0, id: curr.nanoId }]
     }, [])
     // console.log('ORDER REDUCER:', orderReducer)
 

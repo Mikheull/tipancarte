@@ -70,7 +70,7 @@ function CartPage() {
                                 <div className="md:w-3/12 w-full">
                                     <Card width="100%">
                                         <Text h4 my={0} className="font-bitter">Total :</Text>
-                                        <Text>{cartItems.reduce((a, c) => a + c.quantity, 0)}{' '} pancarte : <span className="font-bold">{cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}€</span></Text>
+                                        <Text>{cartItems.length} pancarte{cartItems.length > 1 ? 's' : ''} : <span className="font-bold">{cartItems.reduce((a, c) => a + c.price, 0)}€</span></Text>
                                         
                                         <Card.Footer>
                                             <Button onClick={HandlerCheckOut}>Paiement</Button>

@@ -138,7 +138,7 @@ export default function ProductConfiguration({product}) {
     try {
       const data = await axios.post('/api/products/light_create', body, {})
       const product = data.data;
-      dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: 1 } })
+      dispatch({ type: 'CART_ADD_ITEM', payload: { ...product } })
       router.push('/cart')
       
     } catch (error) {

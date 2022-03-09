@@ -363,7 +363,7 @@ function Checkout() {
                             <div className="flex flex-col font-bitter">
                                 <div className="flex justify-between">
                                     <Text h6>Sous-total</Text>
-                                    <Text h6 className="font-bold">{cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}€</Text>
+                                    <Text h6 className="font-bold">{cartItems.reduce((a, c) => a + c.price, 0)}€</Text>
                                 </div>
                                 <div className="flex justify-between">
                                     <Text h6>Frais</Text>

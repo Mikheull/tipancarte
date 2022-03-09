@@ -207,6 +207,10 @@ function Order({ params }) {
 
                                 <div className="flex flex-col my-4 font-bitter">
                                     <div className="flex justify-between">
+                                        <Text h4>Sous-total</Text>
+                                        <Text h4 className="font-bold">{orderItems.reduce((a, c) => a + c.price, 0)}€</Text>
+                                    </div>
+                                    <div className="flex justify-between">
                                         <Text h4>Frais</Text>
                                         <Text h4 className="font-bold">{taxPrice}€</Text>
                                     </div>

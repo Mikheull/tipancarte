@@ -17,7 +17,7 @@ export default function ProductPreview({product}) {
     setCreation(true)
 
     try {
-      dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: 1 } })
+      dispatch({ type: 'CART_ADD_ITEM', payload: { ...product } })
       router.push('/cart')
       
     } catch (error) {
