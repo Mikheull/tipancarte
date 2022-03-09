@@ -252,7 +252,7 @@ export default function ProductConfiguration({product}) {
                       </div>
                     </label>
                     <div className="w-1/6 justify-self-end text-right">
-                      <Popover content={(
+                      <Popover placement="left" content={(
                         <>
                           <Popover.Item title>
                             <span>Roue des couleurs</span>
@@ -285,7 +285,7 @@ export default function ProductConfiguration({product}) {
                       </div>
                     </label>
                     <div className="w-1/6 justify-self-end text-right">
-                      <Popover content={(
+                      <Popover placement="left" content={(
                         <>
                           <Popover.Item title>
                             <span>Roue des couleurs</span>
