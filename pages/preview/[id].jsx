@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useRouter } from "next/router";
@@ -8,7 +8,6 @@ import ProductDetails from '../../components/shop/ProductDetails.jsx'
 import ClientReview from '../../components/shop/ClientReview.jsx'
 import ProductPreview from '../../components/shop/ProductPreview.jsx'
 import Social from '../../components/shop/Social.jsx'
-import { Store } from "../../context/Store";
 
 import { Spacer } from '@geist-ui/core'
 
@@ -28,7 +27,6 @@ function reducer(state, action) {
 function Preview({ params }) {
     const productId = params.id
     const router = useRouter()
-    const { state } = useContext(Store)
     const [{ product }, dispatch] = useReducer(reducer, { loading: true, product: {}, error: '' })
 
     useEffect(() => {
