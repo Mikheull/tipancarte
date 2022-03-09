@@ -37,9 +37,7 @@ function Preview({ params }) {
             try {
                 // productId comes from Url-Params
                 dispatch({ type: 'FETCH_REQUEST' });
-                const { data } = await axios.get(`/api/products/${productId}`, {
-                    headers: { authorization: `Bearer ${userInfo.token}` }
-                })
+                const { data } = await axios.get(`/api/products/${productId}`)
                 if(!data){router.push('/')}
                 
                 // Send received response as payload
