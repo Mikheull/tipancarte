@@ -41,7 +41,7 @@ function IndexUsers({users, loader}) {
         <LayoutAdmin title="Utilisateurs" actual="users">
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
                 <Breadcrumbs>
-                    <Link href="/admin">
+                    <Link href="/admin" passHref>
                         <Breadcrumbs.Item className="cursor-pointer">Admin</Breadcrumbs.Item>
                     </Link>
                     <Breadcrumbs.Item>Utilisateurs</Breadcrumbs.Item>

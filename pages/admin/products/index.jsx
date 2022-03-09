@@ -42,7 +42,7 @@ function IndexProducts({products, loader}) {
         <LayoutAdmin title="Produits" actual="products">
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
                 <Breadcrumbs>
-                    <Link href="/admin">
+                    <Link href="/admin" passHref>
                         <Breadcrumbs.Item className="cursor-pointer">Admin</Breadcrumbs.Item>
                     </Link>
                     <Breadcrumbs.Item>Produits</Breadcrumbs.Item>

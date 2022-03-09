@@ -1,16 +1,15 @@
 import { useContext, useEffect, useState } from "react"
 import Link from 'next/link'
 import dynamic from "next/dynamic"
-import Moment from 'react-moment';
 import dbConnect from "../../../utils/database";
 import User from '../../../models/User';
 import Product from '../../../models/Product';
 import Order from '../../../models/Order';
 import { Store } from "../../../context/Store";
 import LayoutAdmin from "../../../components/LayoutAdmin";
-import { Table, Button, Breadcrumbs } from '@geist-ui/core'
+import { Breadcrumbs } from '@geist-ui/core'
 
-function IndexUsers({user, products, orders, loader, params}) {
+function IndexUsers({user, products, orders, loader}) {
     const { state } = useContext(Store)
     const { userInfo } = state;
     const [hasAccess, setHasAccess] = useState(false)
@@ -42,7 +41,7 @@ function IndexUsers({user, products, orders, loader, params}) {
         <LayoutAdmin title="Utilisateurs" actual="users">
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
                 <Breadcrumbs>
-                    <Link href="/admin">
+                    <Link href="/admin" passHref>
                         <Breadcrumbs.Item className="cursor-pointer">Admin</Breadcrumbs.Item>
                     </Link>
                     <Breadcrumbs.Item>Utilisateurs</Breadcrumbs.Item>

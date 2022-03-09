@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react"
 import Link from 'next/link'
-import Image from 'next/image'
 import dynamic from "next/dynamic"
 import Moment from 'react-moment';
 import dbConnect from "../../../utils/database";
@@ -42,7 +41,7 @@ function IndexOrders({orders, loader}) {
         <LayoutAdmin title="Commandes" actual="orders">
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
                 <Breadcrumbs>
-                    <Link href="/admin">
+                    <Link href="/admin" passHref>
                         <Breadcrumbs.Item className="cursor-pointer">Admin</Breadcrumbs.Item>
                     </Link>
                     <Breadcrumbs.Item>Commandes</Breadcrumbs.Item>
