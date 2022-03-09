@@ -236,7 +236,7 @@ export default function ProductConfiguration({product}) {
         <Text h2 className="font-bitter">Configurer vos pancartes</Text>
       </div>
 
-      <div className="my-6 w-full overflow-hidden">
+      <div className="my-6 w-full">
         {config.configureOptions.content.map((plank, index) => (
            <Transition
             key={index}
