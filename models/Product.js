@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     category: { type: String, required: true },
-    image: { type: String, required: false, default: "/images/shop/placeholder.jpg" },
+    image_preview: { type: String, required: false, default: "/images/shop/preview_placeholder.jpg" },
     price: { type: Number, required: true },
     planks: [{
         position: {

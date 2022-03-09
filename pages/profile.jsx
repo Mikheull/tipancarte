@@ -26,14 +26,14 @@ function Profile() {
 
 
     return (
-        <Layout title="Profile" >
+        <Layout title="Profil" >
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
                 <div className="border-b-2 border-gray-200">
                     <ul className="flex flex-wrap gap-x-6">
                         <li className="">
                             <Link href="/profile">
                                 <a className="text-gray-800 font-bold">
-                                    Profile
+                                    Profil
                                 </a>
                             </Link>
                         </li>

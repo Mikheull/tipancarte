@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema({
         default: () => nanoid(),
     },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    orderItems: [{ nanoId: {type: String}, name: { type: String, required: true }, image: { type: String, required: true }, price: { type: Number, required: true } }],
+    orderItems: [{ nanoId: {type: String}, name: { type: String, required: true }, image_preview: { type: String, required: true }, price: { type: Number, required: true } }],
     paymentMethod: { type: String, required: true },
     paymentResult: { id: String, status: String, email_address: String },
 
@@ -26,6 +26,7 @@ const orderSchema = new mongoose.Schema({
     shippingPrice: { type: Number, required: true },
     taxPrice: { type: Number, required: true },
     totalPrice: { type: Number, required: true },
+    isConfirmed: { type: Boolean, required: true, default: false },
     isPaid: { type: Boolean, required: true, default: false },
     isDelivered: { type: Boolean, required: true, default: false },
     paidAt: { type: Date },

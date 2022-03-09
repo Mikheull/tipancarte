@@ -97,7 +97,7 @@ function Header({actual}) {
                                         <Popover content={(
                                             <>
                                                 <Popover.Item>
-                                                    <Link href="/profile"><a className='text-black'>Profile</a></Link>
+                                                    <Link href="/profile"><a className='text-black'>Profil</a></Link>
                                                 </Popover.Item>
                                                 <Popover.Item>
                                                     <Link href="/orders"><a className='text-black'>Mes commandes</a></Link>
@@ -187,7 +187,7 @@ function Header({actual}) {
                             {
                                 userInfo ? (
                                     <>
-                                        <Link href="/profile"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Profile</a></Link>
+                                        <Link href="/profile"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Profil</a></Link>
                                         <Link href="/orders"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes commandes</a></Link>
                                         <a onClick={logOutClickHandler} href="./" className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Déconnexion</a>
                                     </>

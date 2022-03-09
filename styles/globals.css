@@ -45,6 +45,9 @@ ul li:before {
   white-space: nowrap;
   border-radius: 10px;
 }
+.font-plank {
+  font-family: 'tipancarte';
+}
 .plank.plank-right {clip-path: polygon(85% 0, 100% 50%, 85% 100%, 0% 100%, 0 51%, 0% 0%);}
 .plank.plank-left {clip-path: polygon(100% 0, 100% 50%, 100% 100%, 15% 100%, 0 51%, 15% 0);}
 .plank p {width: max-content}
@@ -56,3 +59,6 @@ ul li:before {
 .font-bitter {font-family: "Bitter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
   "Segoe UI Symbol", "Noto Color Emoji" !important;}
+
+
+.preview_sharing_bottom_shape {clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);}

@@ -2,10 +2,13 @@ import React, {  useEffect, useState, useContext} from "react";
 import { useRouter } from "next/router"
 import { Store } from "../../context/Store";
 import Select from 'react-select'
-import axios from "axios";
+import * as htmlToImage from 'html-to-image';
+import axios from 'axios';
+import AWS from 'aws-sdk';
 import Transition from '../../utils/Transition';
 import nearestColor from '../../utils/nearest_color';
 import colors from '../../seeds/colors.json';
+import ImagePreview from '../../components/shop/ImagePreview.jsx'
 import { Text, Input, Button, Divider, useToasts, Spacer, Popover } from '@geist-ui/core'
 import Wheel from '@uiw/react-color-wheel';
 
@@ -16,9 +19,13 @@ export default function ProductConfiguration({product}) {
   const [loading, setLoading] = useState(true)
   const [creation, setCreation] = useState(false)
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
-
   const router = useRouter()
   const { setToast } = useToasts()
+
+  AWS.config.setPromisesDependency(require('bluebird'));
+  AWS.config.update({ accessKeyId: process.env.S3_UPLOAD_KEY, secretAccessKey: process.env.S3_UPLOAD_SECRET, region: process.env.S3_UPLOAD_REGION });
+  const s3 = new AWS.S3();
+
 
   useEffect(() => {
     setConfig({
@@ -114,7 +121,7 @@ export default function ProductConfiguration({product}) {
       description: 'Ma pancarte personnalisé', 
       category : 'pancarte_custom', 
       price: parseInt(config.price),
-      image: '/images/shop/placeholder.jpg',
+      image_preview: '/images/shop/placeholder.jpg',
       planks: []
     }
     config.configureOptions.content.forEach(plank => {
@@ -136,10 +143,48 @@ export default function ProductConfiguration({product}) {
     }
 
     try {
-      const data = await axios.post('/api/products/light_create', body, {})
-      const product = data.data;
-      dispatch({ type: 'CART_ADD_ITEM', payload: { ...product } })
-      router.push('/cart')
+
+      htmlToImage.toPng(document.getElementById("preview_sharing"))
+        .then(async function (dataUrl) {
+          var rand = function() {
+            return Math.random().toString(36).substr(2); 
+          };
+          var token = function() {
+            return rand() + rand();
+          };
+          
+          const filetoken = token();
+
+          const base64Data = new Buffer.from(dataUrl.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+          const type = dataUrl.split(';')[0].split('/')[1];
+        
+          const params = {
+            Bucket: process.env.S3_UPLOAD_BUCKET,
+            Key: `${filetoken}.${type}`, // type is not required
+            Body: base64Data,
+            ACL: 'public-read',
+            ContentEncoding: 'base64', // required
+            ContentType: `image/${type}` // required. Notice the back ticks
+          }
+
+          let location = '';
+          try {
+            const { Location } = await s3.upload(params).promise();
+            location = Location;
+          } catch (error) {
+            // console.log(error)
+          }
+          
+          if(location){
+            body.image_preview = location
+          }
+
+          const data = await axios.post('/api/products/light_create', body, {})
+          const product = data.data;
+          dispatch({ type: 'CART_ADD_ITEM', payload: { ...product } })
+          router.push('/cart')
+      });
+    
       
     } catch (error) {
       setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
@@ -192,9 +237,9 @@ export default function ProductConfiguration({product}) {
       </div>
 
       <div className="my-6 w-full">
-        {config.configureOptions.content.map(plank => (
-          <>
+        {config.configureOptions.content.map((plank, index) => (
            <Transition
+            key={index}
             show={true}
             appear={true}
             className="w-full"
@@ -315,10 +360,11 @@ export default function ProductConfiguration({product}) {
                 </>
             ) : '' }
           </Transition>
-          </>
         ))}
       </div>
     
+      <ImagePreview product={config.configureOptions.content} />
+
       { config.configureOptions.quantity < 6 ? (
           <div className={`md:w-7/12 border border-slate-500 border-dashed text-6xl w-full plank`}>
             <button onClick={handleAddPlankClick} className="w-full h-full flex items-center justify-center">

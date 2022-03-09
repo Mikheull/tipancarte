@@ -51,7 +51,7 @@ function Preview({ params }) {
 
     const productDetails = {
         name: product.name,
-        image: '/images/shop/tipancarte/48FF448F-2010-4FFA-A6C3-7B2F4A4CDEBD_1_105_c.jpg',
+        image_preview: product.image_preview,
         description: 'Dans un style martiniquais, configurez votre propre pancarte en ajoutant jusqu\'à 6 planches totalement personnalisable !<br /> Modifiez les couleurs, les textes et la direction de la flèche.<br /> Laissez libre cours à votre immagination ou choisissez parmis un de nos modèles.',
         soldOut: false,
     }
@@ -61,7 +61,7 @@ function Preview({ params }) {
             <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col lg:flex-row" data-aos="zoom-y-out" data-aos-delay="250">
                 <div className="w-full lg:w-1/2 px-0 md:px-6">
                     <div>
-                        <Image src={productDetails.image} alt="Image du produit" width="100%" height="100%" layout="responsive" objectFit="contain"  className="w-full"/>
+                        {productDetails.image_preview && <Image src={productDetails.image_preview} alt="Image du produit" width="100%" height="100%" layout="responsive" objectFit="contain"  className="w-full"/>}
                     </div>
                 </div>
                 <div className="w-full lg:w-1/2 mt-4 md:mt-0">
@@ -72,7 +72,6 @@ function Preview({ params }) {
             <Spacer h={6} />
             <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col" data-aos="zoom-y-out" data-aos-delay="250">
                 <ProductPreview product={product}/>
-
                 <Spacer h={4} />
                 <ClientReview />
                 <Spacer h={2} />

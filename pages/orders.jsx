@@ -76,7 +76,7 @@ function OrdersHistory() {
                         <li className="">
                             <Link href="/profile">
                                 <a className="text-gray-600 font-normal">
-                                    Profile
+                                    Profil
                                 </a>
                             </Link>
                         </li>

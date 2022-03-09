@@ -80,7 +80,7 @@ function IndexProducts({products, loader}) {
                                         <div className="p-4" >
                                             <Link href={`/preview/${product.nanoId}`}>
                                                 <a className="flex items-center text-black">
-                                                    <Image src={product.image} width="64" height="64" alt="Image du produit"/>
+                                                    <Image src={product.image_preview} width="64" height="64" alt="Image du produit"/>
                                                     <span className="ml-2 font-bold">{product.name}</span>
                                                 </a>
                                             </Link>
