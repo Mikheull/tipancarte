@@ -1,336 +1,143 @@
 [
   {
     "value": 80038210,
-    "price": "1.99",
     "label": "Blanc",
     "color_code": "#FCFFFE"
-  },
-  {
-    "value": 80038231,
-    "price": "1.99",
-    "label": "Cool",
-    "color_code": "#E7E7E2"
-  },
-  {
-    "value": 80038910,
-    "price": "1.99",
-    "label": "Fossil 2",
-    "color_code": "#E1DBD0"
-  },
-  {
-    "value": 80038294,
-    "price": "1.99",
-    "label": "Cream",
-    "color_code": "#F0E8D2"
-  },
-  {
+  },{
     "value": 80038854,
-    "price": "1.99",
-    "label": "Bohemia",
+    "label": "Bohemia 6",
     "color_code": "#D8CDCC"
-  },
-  {
+  },{
     "value": 80038973,
-    "price": "1.99",
-    "label": "Kenya",
+    "label": "Kenya 6",
     "color_code": "#FBEED2"
-  },
-  {
+  },{
     "value": 80039743,
-    "price": "1.99",
-    "label": "Saphir 3",
+    "label": "Saphir 6",
     "color_code": "#C7DDE6"
-  },
-  {
-    "value": 80038462,
-    "price": "1.99",
-    "label": "Fog",
-    "color_code": "#C7C6CD"
-  },
-  {
-    "value": 80039610,
-    "price": "1.99",
-    "label": "Fjord 3",
-    "color_code": "#BDDFE6"
-  },
-  {
-    "value": 82864862,
-    "price": "1.99",
-    "label": "Navajo",
-    "color_code": "#D5D2BD"
-  },
-  {
-    "value": 80039603,
-    "price": "1.99",
-    "label": "Fjord 2",
-    "color_code": "#B1CFD7"
-  },
-  {
+  },{
     "value": 80039701,
-    "price": "1.99",
-    "label": "Nemo",
+    "label": "Nemo 6",
     "color_code": "#B7CBE3"
-  },
-  {
+  },{
+    "value": 80039400,
+    "label": "Cactus 6",
+    "color_code": "#B6CDBF"
+  },{
+    "value": 80039862,
+    "label": "Plum 6",
+    "color_code": "#C1C5E1"
+  },{
+    "value": 80039442,
+    "label": "Forest 6",
+    "color_code": "#DEEABA"
+  },{
+    "value": 80038903,
+    "label": "Fossil 5",
+    "color_code": "#BFB4A7"
+  },{
     "value": 82864863,
-    "price": "1.99",
-    "label": "Pampa",
+    "label": "Pampa 5",
     "color_code": "#BAB9A5"
-  },
-  {
-    "value": 80039960,
-    "price": "1.99",
-    "label": "Pin up",
-    "color_code": "#EEC1C3"
-  },
-  {
-    "value": 80039050,
-    "price": "1.99",
-    "label": "Santal",
-    "color_code": "#C9ACA9"
-  },
-  {
-    "value": 82864856,
-    "price": "1.99",
-    "label": "Eva",
-    "color_code": "#C7A994"
-  },
-  {
-    "value": 80038952,
-    "price": "1.99",
-    "label": "Havana 2",
-    "color_code": "#C7A798"
-  },
-  {
-    "value": 80039211,
-    "price": "1.99",
-    "label": "Cabaret 2",
-    "color_code": "#F5B4B9"
-  },
-  {
-    "value": 80038574,
-    "price": "1.99",
-    "label": "Ink",
-    "color_code": "#8EA5B4"
-  },
-  {
+  },{
+    "value": 80039925,
+    "label": "Kiss 4",
+    "color_code": "#DEBAC6"
+  },{
+    "value": 80039596,
+    "label": "Fjord 4",
+    "color_code": "#98BCCC"
+  },{
+    "value": 80039666,
+    "label": "Miami 5",
+    "color_code": "#82CBD7"
+  },{
     "value": 80039393,
-    "price": "1.99",
-    "label": "Bali 2",
+    "label": "Bali 4",
     "color_code": "#C4D26C"
-  },
-  {
-    "value": 80039085,
-    "price": "1.99",
-    "label": "Terra 2",
-    "color_code": "#A69485"
-  },
-  {
-    "value": 80039526,
-    "price": "1.99",
-    "label": "Aqua",
-    "color_code": "#72AAAE"
-  },
-  {
-    "value": 80039491,
-    "price": "1.99",
-    "label": "Mint",
-    "color_code": "#7CADA3"
-  },
-  {
+  },{
     "value": 80039316,
-    "price": "1.99",
-    "label": "Coktail",
+    "label": "Coktail 5",
     "color_code": "#F3A07C"
-  },
-  {
-    "value": 82864859,
-    "price": "1.99",
-    "label": "Jane",
-    "color_code": "#EEC04F"
-  },
-  {
+  },{
     "value": 80039344,
-    "price": "1.99",
-    "label": "Banana",
+    "label": "Banana 3",
     "color_code": "#FCC548"
-  },
-  {
+  },{
+    "value": 80039855,
+    "label": "Plum 5",
+    "color_code": "#999CCF"
+  },{
     "value": 80039463,
-    "price": "1.99",
-    "label": "Jungle",
+    "label": "Jungle 4",
     "color_code": "#8DAC6A"
-  },
-  {
+  },{
     "value": 80039260,
-    "price": "1.99",
-    "label": "Geisha 2",
+    "label": "Geisha 5",
     "color_code": "#EF8886"
-  },
-  {
-    "value": 82864854,
-    "price": "1.99",
-    "label": "Cotta",
-    "color_code": "#C88362"
-  },
-  {
+  },{
+    "value": 80039582,
+    "label": "Fjord 3",
+    "color_code": "#6695B3"
+  },{
+    "value": 80039302,
+    "label": "Chili 5",
+    "color_code": "#fd8857"
+  },{
+    "value": 80039974,
+    "label": "Pin up 4",
+    "color_code": "#EA7D97"
+  },{
+    "value": 80039036,
+    "label": "Santal 3",
+    "color_code": "#947771"
+  },{
+    "value": 80039694,
+    "label": "Nemo 4",
+    "color_code": "#6481A7"
+  },{
+    "value": 80039631,
+    "label": "Miami 2",
+    "color_code": "#0298A5"
+  },{
     "value": 80039813,
-    "price": "1.99",
-    "label": "Elixir",
+    "label": "Elixir 4",
     "color_code": "#8F7AAC"
-  },
-  {
-    "value": 80038483,
-    "price": "1.99",
-    "label": "Granit",
-    "color_code": "#6D7174"
-  },
-  {
+  },{
+    "value": 80039736,
+    "label": "Saphir 3",
+    "color_code": "#5388C1"
+  },{
+    "value": 80039204,
+    "label": "Cabaret 5",
+    "color_code": "#C96D7D"
+  },{
     "value": 80039295,
-    "price": "1.99",
-    "label": "Chili",
+    "label": "Chili 4",
     "color_code": "#EA5E37"
-  },
-  {
-    "value": 82864860,
-    "price": "1.99",
-    "label": "Lava",
-    "color_code": "#C66552"
-  },
-  {
-    "value": 80039470,
-    "price": "1.99",
-    "label": "Laguna",
-    "color_code": "#5B7976"
-  },
-  {
-    "value": 80039281,
-    "price": "1.99",
-    "label": "Cocktail",
-    "color_code": "#C65F56"
-  },
-  {
-    "value": 80039274,
-    "price": "1.99",
-    "label": "Chili 2",
-    "color_code": "#B75F52"
-  },
-  {
-    "value": 80038931,
-    "price": "1.99",
-    "label": "Havana",
-    "color_code": "#936356"
-  },
-  {
-    "value": 80039834,
-    "price": "1.99",
-    "label": "Orchid",
-    "color_code": "#6D637B"
-  },
-  {
-    "value": 80039162,
-    "price": "1.99",
-    "label": "Bistro",
-    "color_code": "#915E5D"
-  },
-  {
-    "value": 80039561,
-    "price": "1.99",
-    "label": "Fjord",
-    "color_code": "#466A79"
-  },
-  {
-    "value": 82864847,
-    "price": "1.99",
-    "label": "Bali",
-    "color_code": "#537253"
-  },
-  {
-    "value": 80038861,
-    "price": "1.99",
-    "label": "Fossil",
-    "color_code": "#675E5D"
-  },
-  {
-    "value": 80039911,
-    "price": "1.99",
-    "label": "Kiss",
-    "color_code": "#9C5971"
-  },
-  {
-    "value": 80039253,
-    "price": "1.99",
-    "label": "Geisha",
-    "color_code": "#BA4E51"
-  },
-  {
-    "value": 80039624,
-    "price": "1.99",
-    "label": "Miami",
-    "color_code": "#116D7C"
-  },
-  {
-    "value": 80039750,
-    "price": "1.99",
-    "label": "Berry",
-    "color_code": "#7F566F"
-  },
-  {
+  },{
     "value": 80039232,
-    "price": "1.99",
-    "label": "Carmen",
+    "label": "Carmen 3",
     "color_code": "#9C413E"
   },{
-    "value": 82864832,
-    "price": "1.99",
-    "label": "Agata",
-    "color_code": "#3F5A6C"
-  },
-  {
     "value": 80039722,
-    "price": "1.99",
     "label": "Saphir 2",
     "color_code": "#245D95"
-  },
-  {
-    "value": 80039064,
-    "price": "1.99",
-    "label": "Terra",
-    "color_code": "#5E4F4A"
-  },
-  {
-    "value": 80039176,
-    "price": "1.99",
-    "label": "Cabaret",
-    "color_code": "#7A4751"
-  },
-  {
-    "value": 80039953,
-    "price": "1.99",
-    "label": "Candy",
-    "color_code": "#774561"
-  },
-  {
-    "value": 80039946,
-    "price": "1.99",
-    "label": "Lotus",
-    "color_code": "#764363"
   },{
-    "value": 80038581,
-    "price": "1.99",
-    "label": "Khol",
-    "color_code": "#47494A"
-  },
-  {
-    "value": 80039715,
-    "price": "1.99",
-    "label": "Saphir",
-    "color_code": "#384C6C"
-  },
-  {
+    "value": 80039953,
+    "label": "Candy 2",
+    "color_code": "#774561"
+  },{
+    "value": 80039246,
+    "label": "Geisha 2",
+    "color_code": "#94263B"
+  },{
+    "value": 80039015,
+    "label": "Santal 1",
+    "color_code": "#544447"
+  },{
     "value": 80038224,
-    "price": "1.99",
     "label": "Noir",
-    "color_code": "#202020"
+    "color_code": "#010101"
   }
 ]

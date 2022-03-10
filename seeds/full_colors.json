@@ -78,6 +78,12 @@
     "color_code": "#D1B8CD"
   },
   {
+    "value": 80039155,
+    "price": "2.50 €",
+    "label": "Bistro 1",
+    "color_code": "#825761"
+  },
+  {
     "value": 80039162,
     "price": "2.50 €",
     "label": "Bistro 2",
@@ -172,6 +178,12 @@
     "price": "2.50 €",
     "label": "Chili 4",
     "color_code": "#EA5E37"
+  },
+  {
+    "value": 80039302,
+    "price": "2.50 €",
+    "label": "Chili 5",
+    "color_code": "#fd8857"
   },
   {
     "value": 80039316,
@@ -474,6 +486,12 @@
     "color_code": "#687A8B"
   },
   {
+    "value": 80038560,
+    "price": "2.50 €",
+    "label": "Ink 4",
+    "color_code": "#78949f"
+  },
+  {
     "value": 80038574,
     "price": "2.50 €",
     "label": "Ink 5",
@@ -693,7 +711,7 @@
     "value": 80038224,
     "price": "2.50 €",
     "label": "Noir",
-    "color_code": "#202020"
+    "color_code": "#010101"
   },
   {
     "value": 80039834,
