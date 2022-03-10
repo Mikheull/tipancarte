@@ -9,7 +9,6 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content="#FFF " />
-          <meta name="viewport" content="width=device-width"/>
         </Head>
         <body>
           <Main />

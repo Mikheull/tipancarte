@@ -74,7 +74,7 @@ export default function ImagePreview({product}) {
 
   return (
     <>
-      <div className="absolute top-0" style={{left: "200%"}}>
+      <div className="absolute top-0 block md:hidden" style={{left: "200%"}}>
         <div id="preview_sharing" className="relative" style={{height: '720px', width: '540px', backgroundColor: choosenColor.color}}>
           <div className="absolute top-10 left-1/2 transform -translate-x-1/2">
             {choosenColor.logo == 'dark' ? (
