@@ -125,7 +125,7 @@ export default function ImagePreview({product}) {
               <path d="M.5,1.96c.27-.79,.8-1.18,.8-1.18,.57-.41,1.24-.42,1.6-.39,71.55-.13,143.1-.26,214.64-.39,4.81,4.69,9.76,9.78,14.76,15.3,4.61,5.08,8.86,10.07,12.77,14.91-2.92,3.27-5.85,6.54-8.78,9.81-6.36,7.08-12.74,14.15-19.15,21.19-42.99-1.36-76.94-1.41-100.54-1.18-11.58,.11-29.15,.42-66.23,.78-19.67,.2-35.86,.32-46.68,.39-.3,.05-1.35,.21-2.39-.39-.66-.38-1.03-.9-1.2-1.18-.03-13.18-.06-26.37-.1-39.55,.2-.51,.42-1.2,.5-2.03,.13-1.37-.17-2.49-.4-3.14C-.08,8.17,.08,3.18,.5,1.96Z"/>
               
               <svg width="245px" height="60px">
-                <text x="50%" dominant-baseline="middle" text-anchor="middle" y="50%" 
+                <text x="50%" dominantBaseline="middle" textAnchor="middle" y="50%" 
                   fill={plank.color_text} 
                   fontFamily="TiPancarte" 
                   fontSize={(plank.text.length <= 9 ) ? '50px' : (plank.text.length >= 9 && plank.text.length <= 11) ? '40px' : (plank.text.length >= 11 && plank.text.length <= 13) ? '35px' : (plank.text.length >= 13) ? '30px' : '25px'}
@@ -139,7 +139,7 @@ export default function ImagePreview({product}) {
               c11.6,0.1,29.2,0.4,66.2,0.8c19.7,0.2,35.9,0.3,46.7,0.4c0.3,0,1.4,0.2,2.4-0.4c0.7-0.4,1-0.9,1.2-1.2c0-13.2,0.1-26.4,0.1-39.5
               c-0.2-0.5-0.4-1.2-0.5-2c-0.1-1.4,0.2-2.5,0.4-3.1C245.1,8.2,245,3.2,244.6,2z"/>
               <svg width="245px" height="60px">
-                <text x="50%" dominant-baseline="middle" text-anchor="middle" y="50%" 
+                <text x="50%" dominantBaseline="middle" textAnchor="middle" y="50%" 
                   fill={plank.color_text} 
                   fontFamily="TiPancarte" 
                   fontSize={(plank.text.length <= 9 ) ? '50px' : (plank.text.length >= 9 && plank.text.length <= 11) ? '40px' : (plank.text.length >= 11 && plank.text.length <= 13) ? '35px' : (plank.text.length >= 13) ? '30px' : '25px'}
