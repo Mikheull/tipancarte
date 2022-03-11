@@ -363,7 +363,8 @@ export default function ProductConfiguration({product}) {
         ))}
       </div>
     
-      <ImagePreview product={config.configureOptions.content} />
+      {userInfo && userInfo.role === 'admin' && <ImagePreview product={config.configureOptions.content} />}
+      
 
       { config.configureOptions.quantity < 6 ? (
           <div className={`md:w-7/12 border border-slate-500 border-dashed text-6xl w-full plank`}>
