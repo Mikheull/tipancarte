@@ -30,7 +30,7 @@ async function dbConnect() {
        useFindAndModify: false,
        useCreateIndex: true, */
     }
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+    cached.promise = await mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       console.log("Successfully connected to database")
       return mongoose
     })

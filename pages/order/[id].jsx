@@ -62,10 +62,15 @@ function Order({ params }) {
                 const { data } = await axios.get(`/api/orders/${orderId}`, {
                     headers: { authorization: `Bearer ${userInfo.token}` }
                 })
+
+                if(data.user === userInfo._id){
+                    dispatch({ type: 'FETCH_SUCCESS', payload: data }) // Loader: false, error: '', order: {...}
+                }else{
+                    router.push('/orders')
+                }
                 // Send received response as payload
-                dispatch({ type: 'FETCH_SUCCESS', payload: data }) // Loader: false, error: '', order: {...}
             } catch (error) {
-                router.push('/')
+                router.push('/orders')
                 // dispatch({ type: 'FETCH_FAIL', payload: error })
             }
         }
