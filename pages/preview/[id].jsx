@@ -57,7 +57,7 @@ function Preview({ params }) {
     }
 
     return (
-        <Layout title={`Previsualisation de ${productId}`} actual="shop">
+        <Layout title={`Previsualisation de ${product.name}`} description="Prenez inspiration dans cette pancarte créé par un de nos utilisateurs et ajoutez la dans votre panier pour passer commande." actual="shop" og_image={productDetails.image_preview} og_image_width="540" og_image_height="720">
             <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col lg:flex-row" data-aos="zoom-y-out" data-aos-delay="250">
                 <div className="w-full lg:w-1/2 px-0 md:px-6">
                     <div>

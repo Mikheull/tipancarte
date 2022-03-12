@@ -6,9 +6,19 @@ import createEmotionCache from '../src/createEmotionCache';
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="fr">
         <Head>
-          <meta name="theme-color" content="#FFF " />
+            <meta charset="utf-8" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            {/* <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/> */}
+
+            <meta name="language" content="fr"/>
+            <meta name="author" content="Mikhael Bailly"/>
+            <meta name="category" content="ecommerce"/>
+            <meta name="theme-color" content="#FFFFFF"/>
+            <meta property="og:type" content="website"/>
+            <meta property="og:url" content="https://tipancarte.fr"/>
+            <meta property="twitter:url" content="https://tipancarte.fr"/>
         </Head>
         <body>
           <Main />
