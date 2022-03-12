@@ -144,47 +144,48 @@ export default function ProductConfiguration({product}) {
 
     try {
 
-      htmlToImage.toPng(document.getElementById("preview_sharing"))
-        .then(async function (dataUrl) {
-          var rand = function() {
-            return Math.random().toString(36).substr(2); 
-          };
-          var token = function() {
-            return rand() + rand();
-          };
-          
-          const filetoken = token();
 
-          const base64Data = new Buffer.from(dataUrl.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-          const type = dataUrl.split(';')[0].split('/')[1];
+    htmlToImage.toPng(document.getElementById("preview_tipancarte"))
+      .then(async function (dataUrl) {
+        var rand = function() {
+          return Math.random().toString(36).substr(2); 
+        };
+        var token = function() {
+          return rand() + rand();
+        };
         
-          const params = {
-            Bucket: process.env.S3_UPLOAD_BUCKET,
-            Key: `${filetoken}.${type}`, // type is not required
-            Body: base64Data,
-            ACL: 'public-read',
-            ContentEncoding: 'base64', // required
-            ContentType: `image/${type}` // required. Notice the back ticks
-          }
+        const filetoken = token();
 
-          let location = '';
-          try {
-            const { Location } = await s3.upload(params).promise();
-            location = Location;
-          } catch (error) {
-            // console.log(error)
-          }
-          
-          if(location){
-            body.image_preview = location
-          }
+        const base64Data = new Buffer.from(dataUrl.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+        const type = dataUrl.split(';')[0].split('/')[1];
+      
+        const params = {
+          Bucket: process.env.S3_UPLOAD_BUCKET,
+          Key: `${filetoken}.${type}`, // type is not required
+          Body: base64Data,
+          ACL: 'public-read',
+          ContentEncoding: 'base64', // required
+          ContentType: `image/${type}` // required. Notice the back ticks
+        }
 
-          const data = await axios.post('/api/products/light_create', body, {})
-          const product = data.data;
-          dispatch({ type: 'CART_ADD_ITEM', payload: { ...product } })
-          router.push('/cart')
-      });
-    
+        let location = '';
+        try {
+          const { Location } = await s3.upload(params).promise();
+          location = Location;
+        } catch (error) {
+          // console.log(error)
+        }
+        
+        if(location){
+          body.image_preview = location
+        }
+
+        const data = await axios.post('/api/products/light_create', body, {})
+        const product = data.data;
+        dispatch({ type: 'CART_ADD_ITEM', payload: { ...product } })
+        router.push('/cart')
+    });
+  
       
     } catch (error) {
       setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
@@ -230,7 +231,7 @@ export default function ProductConfiguration({product}) {
   if(loading){return 'loading'}
 
   return (
-    <div id="configuration">
+    <div id="configuration" className="relative overflow-hidden">
 
       <div className="w-full">
         <Text h2 className="font-bitter">Configurer vos pancartes</Text>

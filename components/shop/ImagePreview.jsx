@@ -74,7 +74,8 @@ export default function ImagePreview({product}) {
 
   return (
     <>
-      <svg xmlns="http://www.w3.org/2000/svg" width="540px" height="720px" viewBox="0 0 540 720" id="preview_sharing">
+    <div style={{width: "540px", height: "720px", position: 'absolute', top: 0, left: "200%"}}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="540px" height="720px" viewBox="0 0 540 720" id="preview_tipancarte">
         <rect fill={choosenColor.color} width="540px" height="720px" />
         <polygon fill={choosenColor.color_contrast} points="540 706.5 540 720 0 720 0 620.19 440.52 620.19 540 706.5" />
         <rect fill="#000" x="261.05" y="173.26" width="18" height="500" />
@@ -149,6 +150,7 @@ export default function ImagePreview({product}) {
           )
         ))}
       </svg>
+    </div>
     </>
   );
 }
