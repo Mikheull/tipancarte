@@ -3,6 +3,7 @@ import User from '../../../models/User'
 import dbConnect from '../../../utils/database'
 import bcrypt from 'bcrypt'
 import { signToken } from '../../../utils/auth'
+import { newCustomer } from '../../../templates/TiPancarte/newCustomer.jsx'
 const handler = nc()
 
 // Generating a new user (Register)
@@ -15,6 +16,12 @@ handler.post(async (req, res) => {
     const user = await newUser.save()
     const token = signToken(user) // Return the token
     // console.log('User created: ', user, token)
+
+    // Send email Welcome
+    if(user){
+        await newCustomer(user.name, user.email)
+    }
+
     res.send({
         token,
         _id: user._id,
