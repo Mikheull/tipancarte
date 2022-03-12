@@ -60,7 +60,7 @@ function Checkout() {
                                     const shippingAddress = {fullName: name, telephone, address, address2, city, postalCode, country}
 
                                     const price = cartItems.reduce((a, c) => a + c.price, 0);
-                                    const shippingPrice = 9;
+                                    const shippingPrice = 4.90;
                                     // const taxPrice = round2(price * 0.20) // TVA
                                     const taxPrice = 0;
                                     const totalPrice = round2(price + taxPrice + shippingPrice)

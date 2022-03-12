@@ -29,7 +29,7 @@ export default function ProductConfiguration({product}) {
 
   useEffect(() => {
     setConfig({
-      price: 5,
+      price: 7,
       color: '',
       name: "Ma pancarte personnalisée",
       configureOptions: {
@@ -70,7 +70,7 @@ export default function ProductConfiguration({product}) {
     }
 
     items.configureOptions.content[index - 1] = body;
-    items.price = items.price + 5;
+    items.price = items.price + 7;
     items.configureOptions.quantity = index;
 
     setConfig({ ...config, ...items })
@@ -253,7 +253,13 @@ export default function ProductConfiguration({product}) {
           >
             <div className="block lg:flex" key={plank.index}>
               <div className={`lg:w-7/12 flex items-center justify-center w-full plank ${ plank.direction ? `plank-${plank.direction}` : '' }`} style={ { backgroundColor: `${ plank.color_background }`, transition: "all .5s ease",WebkitTransition: "all .5s ease",MozTransition: "all .5s ease" } }>
-                <span style={ { color: `${ plank.color_text }`, transition: "all .3s ease",WebkitTransition: "all .3s ease",MozTransition: "all .3s ease"  } } className="text-6xl lg:text-10xl">{plank.text}</span>
+                <span style={ { 
+                  color: `${ plank.color_text }`, 
+                  transition: "all .3s ease",
+                  WebkitTransition: "all .3s ease",
+                  MozTransition: "all .3s ease",
+                  fontSize: (plank.text.length <= 9 ) ? '8vw' : (plank.text.length >= 9 && plank.text.length <= 11) ? '7vw' : (plank.text.length >= 11 && plank.text.length <= 13) ? '6vw' : (plank.text.length >= 13) ? '5vw' : '4vw'  
+                  } }>{plank.text}</span>
               </div>
 
               <div className="lg:w-1/12 w-0"></div>
@@ -380,7 +386,7 @@ export default function ProductConfiguration({product}) {
         <Spacer h={5}/>
           <div className='flex flex-col w-full md:w-full'>
             <label htmlFor="name" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
-              Nom de la configuration
+              Donnez un nom a votre configuration
             </label>
             <Input
                 name="name"

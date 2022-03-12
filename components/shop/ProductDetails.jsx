@@ -56,22 +56,24 @@ function ProductDetails({ product, previewMode = false }) {
                 </div>
                 <Collapse isOpened={showShipping}>
                     <div className="pb-4 font-normal text-gray-700">
-                        Livraison dans toute la France métropolitaine en 5 à 7 jours.<br />
-                        Retours sous 14 jours.
+                        Expédition dans toute la France métropolitaine en 5 à 7 jours par Mondial Relais.<br />
+                        Retours et échanges non acceptés dû a la grande configuration des flèches.
                     </div>
                 </Collapse>
                 <Divider />
 
                 <div onClick={toggleDetails} className="flex justify-between cursor-pointer py-3 font-medium">
-                    Details
+                    Détails
                     {showDetails ? <img src="/images/icons/minus.svg" alt="Icon Plus" /> : <img src="/images/icons/plus.svg" alt="Icon Moins" />}
                 </div>
                 <Collapse isOpened={showDetails}>
                     <div className="pb-4 font-normal text-gray-700">
-                        Taille des planches : L25cm x h6cm <br/>
-                        Vous pouvez choisir des textes, des couleurs et la directions pour chaque flèches. <br/> 
-                        Les pancartes sont peintes à la main, et peuvent être différentes de l&apos;aperçu ci-dessous ! <br/>
-                        Le lot vous est livré sans la barre de soutien, ni clous !
+                        Pancarte de décorations avec des flèches directionnelle en bois personnalisable.<br />
+                        Taille des flèches : L25cm x h6cm <br/>
+                        Vous pouvez choisir des textes, des couleurs et la directions pour chaque flèches. <br/>
+                        Les pancartes sont réalisées à la main, et peuvent être différentes de l&apos;aperçu ci-dessous ! <br/>
+                        Le lot vous est livré sans la barre de soutien, ni clous !<br />
+                        Fabriqué en France.
                     </div>
                 </Collapse>
                 <Divider />
