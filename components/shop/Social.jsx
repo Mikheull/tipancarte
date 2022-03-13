@@ -4,7 +4,7 @@ import { Text, Link } from '@geist-ui/core'
 const imagesInfo = [
   {
     ref: 'feed_01',
-    image: '/images/insta/1.png',
+    image: '/images/insta/original__post_insta.png',
     translateRatio: -50
   },
   {

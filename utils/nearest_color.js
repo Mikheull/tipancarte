@@ -1,7 +1,4 @@
-
-import colors from '../seeds/colors.json';
-  
-function hexToRgb(hex) {
+  function hexToRgb(hex) {
     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, function(m, r, g, b) {
       return r + r + g + g + b + b;
@@ -21,7 +18,7 @@ function distance(a, b) {
 }
   
 // return nearest color from array
-function nearestColor(colorHex){
+function nearestColor(colorHex, colors){
     var lowest = Number.POSITIVE_INFINITY;
     var tmp;
     let index = 0;

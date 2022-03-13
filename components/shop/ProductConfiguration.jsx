@@ -8,9 +8,10 @@ import AWS from 'aws-sdk';
 import Transition from '../../utils/Transition';
 import nearestColor from '../../utils/nearest_color';
 import colors from '../../seeds/colors.json';
+import full_colors from '../../seeds/full_colors.json';
 import ImagePreview from '../../components/shop/ImagePreview.jsx'
 import { Text, Input, Button, Divider, useToasts, Spacer, Popover } from '@geist-ui/core'
-import Wheel from '@uiw/react-color-wheel';
+import Circle from '@uiw/react-color-circle';
 
 export default function ProductConfiguration({product}) {
   const { state, dispatch } = useContext(Store)
@@ -20,7 +21,13 @@ export default function ProductConfiguration({product}) {
   const [creation, setCreation] = useState(false)
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
   const router = useRouter()
+  const { color } = router.query;
   const { setToast } = useToasts()
+
+  const color_list = (color) ? full_colors : colors
+  const circle_color_list = color_list.map(function(color){
+    return color.color_code
+  })
 
   AWS.config.setPromisesDependency(require('bluebird'));
   AWS.config.update({ accessKeyId: process.env.S3_UPLOAD_KEY, secretAccessKey: process.env.S3_UPLOAD_SECRET, region: process.env.S3_UPLOAD_REGION });
@@ -37,9 +44,9 @@ export default function ProductConfiguration({product}) {
         content: [
           {
             color_background: '#384C6C',
-            color_background_raw: 'Saphir',
-            color_text: '#F5B4B9',
-            color_text_raw: 'Cabaret 2',
+            color_background_raw: 'Saphir 1',
+            color_text: '#C96D7D',
+            color_text_raw: 'Cabaret 5',
             text: 'LE SOLEIL',
             direction: 'right',
             index: 1,
@@ -61,9 +68,9 @@ export default function ProductConfiguration({product}) {
     const index = items.configureOptions.quantity + 1;
     const body =  {
       color_background: '#384C6C',
-      color_background_raw: 'Saphir',
-      color_text: '#F5B4B9',
-      color_text_raw: 'Cabaret 2',
+      color_background_raw: 'Saphir 1',
+      color_text: '#C96D7D',
+      color_text_raw: 'Cabaret 5',
       direction: 'right',
       text: 'Ti Punch',
       index: index,
@@ -87,7 +94,7 @@ export default function ProductConfiguration({product}) {
         items.configureOptions.content[index - 1].color_background_raw = value.label;
       }
       if(type == 'color_background_wheel'){
-        const nearest = nearestColor(value);
+        const nearest = nearestColor(value, color_list);
         items.configureOptions.content[index - 1].color_background = nearest.color_code;
         items.configureOptions.content[index - 1].color_background_raw = nearest.label;
       }
@@ -96,7 +103,7 @@ export default function ProductConfiguration({product}) {
           items.configureOptions.content[index - 1].color_text_raw = value.label;
       }
       if(type == 'color_text_wheel'){
-        const nearest = nearestColor(value);
+        const nearest = nearestColor(value, color_list);
         items.configureOptions.content[index - 1].color_text = nearest.color_code;
         items.configureOptions.content[index - 1].color_text_raw = nearest.label;
       }
@@ -106,6 +113,16 @@ export default function ProductConfiguration({product}) {
 
       setConfig({ ...config, ...items })
   }
+
+  const handleDeletePlankClick = async (index) => {
+    let items = {...config};
+    delete items.configureOptions.content[index - 1]
+    items.configureOptions.quantity = items.configureOptions.quantity - 1;
+    items.price = items.price - 7;
+
+    setConfig({ ...config, ...items })
+  }
+
 
   const renameConfiguration = async (value) => {
     let items = {...config};
@@ -201,7 +218,7 @@ export default function ProductConfiguration({product}) {
       return {
         ...styles,
         backgroundColor: '#FFF',
-        color: (data.label == 'Blanc') ? "#000" : data.color_code,
+        color: "#000",
         cursor: 'pointer',
         ':hover': {
           ...styles[':hover'],
@@ -300,18 +317,18 @@ export default function ProductConfiguration({product}) {
                           className="select_color w-full"
                           value={{ label: plank.color_background_raw, value: 0 }}
                           onChange={(val) => handleUpdatePlankClick('color_background', val, plank.index)}
-                          options={colors} />
+                          options={color_list} />
                       </div>
                     </label>
                     <div className="w-1/6 justify-self-end text-right">
                       <Popover placement="left" content={(
                         <>
                           <Popover.Item title>
-                            <span>Roue des couleurs</span>
+                            <span>Sélection des couleurs</span>
                           </Popover.Item>
-                          <Popover.Item>
-                            <Wheel
-                              color={hsva}
+                          <Popover.Item w="300px">
+                            <Circle
+                              colors={circle_color_list}
                               onChange={(color) => setHsva({ ...hsva, ...color.hsva }) || handleUpdatePlankClick('color_background_wheel', color.hex, plank.index)}
                             />
                           </Popover.Item>
@@ -333,18 +350,18 @@ export default function ProductConfiguration({product}) {
                           className="select_color w-full"
                           value={{ label: plank.color_text_raw, value: 0 }}
                           onChange={(val) => handleUpdatePlankClick('color_text', val, plank.index)}
-                          options={colors} />
+                          options={color_list} />
                       </div>
                     </label>
                     <div className="w-1/6 justify-self-end text-right">
                       <Popover placement="left" content={(
                         <>
                           <Popover.Item title>
-                            <span>Roue des couleurs</span>
+                            <span>Sélection des couleurs</span>
                           </Popover.Item>
-                          <Popover.Item>
-                            <Wheel
-                              color={hsva}
+                          <Popover.Item w="300px">
+                            <Circle
+                              colors={circle_color_list}
                               onChange={(color) => setHsva({ ...hsva, ...color.hsva }) || handleUpdatePlankClick('color_text_wheel', color.hex, plank.index)}
                             />
                           </Popover.Item>
@@ -352,6 +369,12 @@ export default function ProductConfiguration({product}) {
                       )}>
                         <img src="/images/icons/droplet.svg" alt="Icon pour choisir une couleur" className="h-4 mb-2 ml-4" />
                       </Popover>
+                    </div>
+                  </div>
+
+                  <div className="w-full mt-2 flex items-end">
+                    <div className="flex items-center w-full">
+                      <Button className="z-0" width="100%" onClick={(val) => handleDeletePlankClick(plank.index)}>Supprimer</Button>
                     </div>
                   </div>
 
@@ -399,13 +422,21 @@ export default function ProductConfiguration({product}) {
                 onChange={e => renameConfiguration(e.target.value)}
             />
         </div>
+        
         <Spacer h={2}/>
         {creation ? 
           <Button loading auto></Button>
         : 
+        config.configureOptions.quantity  >= 1? (
           <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
             { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
           </button>
+        ) : (
+          <button disabled className="h-12 w-full bg-red-200 text-red-900 hover:bg-white hover:text-red-800 hover:border border border-red-900 items-center text-center" type="button">
+            Votre pancarte est vide
+          </button>
+        )
+          
         }
       </div>
     </div>

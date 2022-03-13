@@ -47,9 +47,9 @@ export default function Home() {
             <div className="pt-10 pb-12 md:pt-40 md:pb-20">
               {/* Section header */}
               <div className="text-center pb-12 md:pb-16">
-                <Text h1 className='text-5xl font-bitter md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4' data-aos="zoom-y-out">Créez vos <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-violet-400">pancartes</span></Text>
+                <Text h1 className='text-5xl font-bitter md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4' data-aos="zoom-y-out">Créez vos <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-violet-400">TiPancartes</span></Text>
                 <div className="max-w-3xl mx-auto">
-                  <p className="text-xl text-gray-600 mb-8" data-aos="zoom-y-out" data-aos-delay="150">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida ac tellus id porttitor.</p>
+                  <p className="text-xl font-bitter font-semibold text-gray-800 mb-8" data-aos="zoom-y-out" data-aos-delay="150">Personnalisée selon vos idées et vos couleurs</p>
                 </div>
               </div>
 
@@ -90,7 +90,7 @@ export default function Home() {
             <div className="pt-12 md:pt-20">
 
                 {/* Section header */}
-                <Text h2 className='font-bitter '>Notre process</Text>
+                <Text h2 className='font-bitter'>Nos étapes de conception</Text>
 
                 {/* Section content */}
                 <div className="md:grid md:grid-cols-12 md:gap-6">
@@ -99,9 +99,9 @@ export default function Home() {
                     {/* Tabs buttons */}
                     <div className="mb-8 md:mb-0">
                       <a
-                          className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 1 ? 'bg-white border-gray-200' : 'bg-gray-100 border-gray-200'}`}
-                          href="#0"
-                          onClick={(e) => { e.preventDefault(); setTab(1); }}
+                        className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 1 ? 'bg-white border-gray-200' : 'bg-gray-100 border-gray-200'}`}
+                        href="#0"
+                        onClick={(e) => { e.preventDefault(); setTab(1); }}
                       >
                         <div>
                           <div className="font-bold leading-snug tracking-tight mb-1 text-gray-900">Découpe et ponçage des planches</div>
@@ -113,9 +113,9 @@ export default function Home() {
                       </a>
 
                       <a
-                          className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 2 ? 'bg-white border-gray-200' : 'bg-gray-100 border-gray-200'}`}
-                          href="#0"
-                          onClick={(e) => { e.preventDefault(); setTab(2); }}
+                        className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 2 ? 'bg-white border-gray-200' : 'bg-gray-100 border-gray-200'}`}
+                        href="#0"
+                        onClick={(e) => { e.preventDefault(); setTab(2); }}
                       >
                         <div>
                           <div className="font-bold leading-snug tracking-tight mb-1 text-gray-900">Peinture</div>
@@ -127,13 +127,13 @@ export default function Home() {
                       </a>
 
                       <a
-                          className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 3 ? 'bg-white border-gray-200' : 'bg-gray-100 border-gray-200'}`}
-                          href="#0"
-                          onClick={(e) => { e.preventDefault(); setTab(3); }}
+                        className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 3 ? 'bg-white border-gray-200' : 'bg-gray-100 border-gray-200'}`}
+                        href="#0"
+                        onClick={(e) => { e.preventDefault(); setTab(3); }}
                       >
                         <div>
                           <div className="font-bold leading-snug tracking-tight mb-1 text-gray-900">Livraison</div>
-                          <div className="text-gray-600">Après le séchage nous envoyons vos planches et vous les recevez sous 5 à 7 jours</div>
+                          <div className="text-gray-600">Après le séchage nous envoyons vos planches et vous les recevez sous 5 à 7 jours.</div>
                         </div>
                         <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
                           <img src="/images/icons/shipping.svg" className='w-4' alt="Icon livraison des planches" />

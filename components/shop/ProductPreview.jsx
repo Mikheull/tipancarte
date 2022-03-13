@@ -51,7 +51,13 @@ export default function ProductPreview({product}) {
           >
             <div className="block lg:flex" key={plank.position}>
               <div className={`lg:w-7/12 flex items-center justify-center w-full plank ${ plank.direction ? `plank-${plank.direction}` : '' }`} style={ { backgroundColor: `${ plank.bg_color }`, transition: "all .5s ease",WebkitTransition: "all .5s ease",MozTransition: "all .5s ease" } }>
-                <span style={ { color: `${ plank.text_color }`, transition: "all .3s ease",WebkitTransition: "all .3s ease",MozTransition: "all .3s ease"  } } className="text-6xl lg:text-10xl">{plank.text}</span>
+                <span style={ { 
+                  color: `${ plank.text_color }`, 
+                  transition: "all .3s ease",
+                  WebkitTransition: "all .3s ease",
+                  MozTransition: "all .3s ease", 
+                  fontSize: (plank.text.length <= 9 ) ? '8vw' : (plank.text.length >= 9 && plank.text.length <= 11) ? '7vw' : (plank.text.length >= 11 && plank.text.length <= 13) ? '6vw' : (plank.text.length >= 13) ? '5vw' : '4vw'  
+                  } } className="text-6xl lg:text-10xl">{plank.text}</span>
               </div>
 
               <div className="lg:w-1/12 w-0"></div>

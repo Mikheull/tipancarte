@@ -26,30 +26,20 @@ export default function About() {
             
             <Spacer h={5} />
             <Collapse.Group>
-                <Collapse title="Question A">
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+                <Collapse title="Dans combien de temps receverai-je ma pancarte ?">
+                    <Text>La durée change en fonction du nombre de commande. En général une commande est réalisée en 3 jours et envoyée sous 5 à 7 jours selon notre transporteur.<br/> Une fois votre commande validée vous receverez un email pour vous indiquer les étapes de réalisation.</Text>
                 </Collapse>
-                <Collapse title="Question B">
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+                <Collapse title="Je ne trouve pas une référence de couleur">
+                    <Text>Nous publions régulièrement, sur Instagram, des idées de pancartes avec des couleurs et leurs référence. Il se peut que vous ne les trouviez pas dans le configurateur, en effet les couleurs sont sélectionnées en fonction de notre stock et tournent au fur et à mesure.</Text>
                 </Collapse>
-                <Collapse title="Question C">
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+                <Collapse title="Comment sera livré ma pancarte ?">
+                    <Text>Votre TiPancarte vous seras livrée en poins relais avec notre transporteur "Mondial relais" sous 5 à 7 jours.</Text>
                 </Collapse>
-                <Collapse title="Question D">
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+                <Collapse title="La pancarte est elle totalement peinte ?">
+                    <Text>Oui, nous peignons entièrement la pancarte et arrondissons les bords pour un coté agréable au toucher.</Text>
                 </Collapse>
-                <Collapse title="Question E">
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+                <Collapse title="Comment faire un retour">
+                    <Text>Nous ne pouvons malheureusement pas accépter le retour de votre produit personnalisé. En cas de problème avec votre commande, contactez nous par email !</Text>
                 </Collapse>
             </Collapse.Group>
 
