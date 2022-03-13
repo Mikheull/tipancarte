@@ -545,7 +545,7 @@ export default function ProductConfiguration({product, savedMode}) {
               id="comment"
               onChange={e => commentConfiguration(e.target.value)}
               placeholder="Votre message" 
-              value={(savedMode) ? product.comment : config.comment}
+              initialValue={(savedMode) ? product.comment : config.comment}
           />
         </div>
         
