@@ -1,4 +1,4 @@
-import React, {  useEffect, useState, useContext} from "react";
+import React, { useEffect, useState, useContext} from "react";
 import { useRouter } from "next/router"
 import { Store } from "../../context/Store";
 import Select from 'react-select'
@@ -13,12 +13,15 @@ import ImagePreview from '../../components/shop/ImagePreview.jsx'
 import { Text, Input, Button, Divider, useToasts, Spacer, Popover } from '@geist-ui/core'
 import Circle from '@uiw/react-color-circle';
 
-export default function ProductConfiguration({product}) {
+export default function ProductConfiguration({product, savedMode}) {
   const { state, dispatch } = useContext(Store)
   const { userInfo } = state;
+  // eslint-disable-next-line no-unused-vars
+  const [loadedProduct, setLoadedProduct] = useState(false)
   const [config, setConfig] = useState({ })
   const [loading, setLoading] = useState(true)
   const [creation, setCreation] = useState(false)
+  const [saving, setSaving] = useState(false)
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
   const router = useRouter()
   const { color } = router.query;
@@ -32,40 +35,80 @@ export default function ProductConfiguration({product}) {
   AWS.config.setPromisesDependency(require('bluebird'));
   AWS.config.update({ accessKeyId: process.env.S3_UPLOAD_KEY, secretAccessKey: process.env.S3_UPLOAD_SECRET, region: process.env.S3_UPLOAD_REGION });
   const s3 = new AWS.S3();
-
-
+  
   useEffect(() => {
-    setConfig({
-      price: 7,
-      color: '',
-      name: "Ma pancarte personnalisée",
-      configureOptions: {
-        quantity: 1,
-        content: [
-          {
-            color_background: '#384C6C',
-            color_background_raw: 'Saphir 1',
-            color_text: '#C96D7D',
-            color_text_raw: 'Cabaret 5',
-            text: 'LE SOLEIL',
-            direction: 'right',
-            index: 1,
-          }
-        ],
-        varnishing: false,
-      },
-    })
-    setLoading(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if(savedMode && product && product.planks){
+      const planks_list = product.planks.map(function(plank){
+        return {
+          color_background: plank.bg_color,
+          color_background_raw: plank.bg_color_ref,
+          color_text: plank.text_color,
+          color_text_raw: plank.text_color_ref,
+          text: plank.text,
+          direction: plank.direction,
+          index: plank.position,
+        }
+      })
 
+      setConfig({
+        price: product.price,
+        color: '',
+        name: product.name,
+        configureOptions: {
+          quantity: product.planks.length,
+          content: planks_list,
+          varnishing: false,
+        },
+      })
+    }else{
+      setConfig({
+        price: 7,
+        color: '',
+        name: "Ma pancarte personnalisée",
+        configureOptions: {
+          quantity: 1,
+          content: [
+            {
+              color_background: '#384C6C',
+              color_background_raw: 'Saphir 1',
+              color_text: '#C96D7D',
+              color_text_raw: 'Cabaret 5',
+              text: 'LE SOLEIL',
+              direction: 'right',
+              index: 1,
+            }
+          ],
+          varnishing: false,
+        },
+      })
+    }
+
+    setLoading(false)
+    setLoadedProduct(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product])
+
+  const reorderPlanks = async () => {
+    let items = {...config};
+
+    let bulkUpdate = [];
+
+    let i = 1;
+    items.configureOptions.content.forEach(element => {
+      let up = element
+      up.index = i
+
+      bulkUpdate.push(up);
+      i ++
+    });
+  }
 
   const handleAddPlankClick = async () => {
     let items = {...config};
 
     if(config.configureOptions.quantity == 6 ){return false}
 
-    const index = items.configureOptions.quantity + 1;
+    const index = items.configureOptions.quantity;
     const body =  {
       color_background: '#384C6C',
       color_background_raw: 'Saphir 1',
@@ -73,14 +116,15 @@ export default function ProductConfiguration({product}) {
       color_text_raw: 'Cabaret 5',
       direction: 'right',
       text: 'Ti Punch',
-      index: index,
+      index: index + 1,
     }
 
-    items.configureOptions.content[index - 1] = body;
+    items.configureOptions.content.push(body);
     items.price = items.price + 7;
-    items.configureOptions.quantity = index;
+    items.configureOptions.quantity = index + 1;
 
     setConfig({ ...config, ...items })
+    reorderPlanks();
   }
 
   const handleUpdatePlankClick = async (type, value, index) => {
@@ -116,11 +160,17 @@ export default function ProductConfiguration({product}) {
 
   const handleDeletePlankClick = async (index) => {
     let items = {...config};
-    delete items.configureOptions.content[index - 1]
+    
+    const content = items.configureOptions.content.filter(function( obj ) {
+      return obj.index !== index;
+    });
+    
+    items.configureOptions.content = content
     items.configureOptions.quantity = items.configureOptions.quantity - 1;
     items.price = items.price - 7;
 
     setConfig({ ...config, ...items })
+    reorderPlanks();
   }
 
 
@@ -135,7 +185,6 @@ export default function ProductConfiguration({product}) {
 
     const body = {
       name: config.name, 
-      description: 'Ma pancarte personnalisé', 
       category : 'pancarte_custom', 
       price: parseInt(config.price),
       image_preview: '/images/shop/placeholder.jpg',
@@ -209,7 +258,60 @@ export default function ProductConfiguration({product}) {
       setCreation(false)
     }
   }
+  
+  const saveProductHandler = async () => {
+    setSaving(true)
 
+    const body = {
+      name: config.name, 
+      price: parseInt(config.price),
+      planks: [],
+      user: userInfo._id
+    }
+    config.configureOptions.content.forEach(plank => {
+      let p = {}
+      
+      p.position = plank.index
+      p.text = plank.text
+      p.direction = plank.direction
+      p.bg_color = plank.color_background
+      p.bg_color_ref = plank.color_background_raw
+      p.text_color = plank.color_text
+      p.text_color_ref = plank.color_text_raw
+
+      body.planks.push(p)
+    });
+
+    try {
+      if(savedMode){
+        const data = await axios.put(`/api/products_saved/update/${product.nanoId}`, body, {
+            headers: { authorization: `Bearer ${userInfo.token}` }
+        })
+        if(data){
+          setToast({ text: 'Sauvegardé !', delay: 2000, placement: 'topRight', type: 'success' })
+        }else{
+          setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
+        }
+        
+        setSaving(false)
+      }else{
+        const data = await axios.post('/api/products_saved/create', body, {
+          headers: {
+              authorization: `Bearer ${userInfo.token}`
+          }
+        })
+  
+        const newproduct = data.data;
+        router.push(`/saved/${newproduct.nanoId}`)
+      }
+      
+    } catch (error) {
+      setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
+      setSaving(false)
+    }
+  }
+
+  
   const { price } = config;
   const soldOut = product.sold_out;
 
@@ -275,7 +377,7 @@ export default function ProductConfiguration({product}) {
                   transition: "all .3s ease",
                   WebkitTransition: "all .3s ease",
                   MozTransition: "all .3s ease",
-                  fontSize: (plank.text.length <= 9 ) ? '8vw' : (plank.text.length >= 9 && plank.text.length <= 11) ? '7vw' : (plank.text.length >= 11 && plank.text.length <= 13) ? '6vw' : (plank.text.length >= 13) ? '5vw' : '4vw'  
+                  fontSize: (plank.text.length <= 9 ) ? 'clamp(4.5rem, 12vw, 9rem)' : (plank.text.length >= 9 && plank.text.length <= 11) ? 'clamp(3.5rem, 10vw, 7.5rem)' : (plank.text.length >= 11 && plank.text.length <= 14) ? 'clamp(2.5rem, 9vw, 6rem)' : (plank.text.length >= 14) ? 'clamp(2rem, 8vw, 5rem)' : 'clamp(1rem, 7vw, 3rem)'  
                   } }>{plank.text}</span>
               </div>
 
@@ -418,26 +520,36 @@ export default function ProductConfiguration({product}) {
                 width="100%"
                 required
                 placeholder="Ma pancarte personnalisée"
-                initialValue={config.name}
+                initialValue={(savedMode) ? product.name : config.name}
                 onChange={e => renameConfiguration(e.target.value)}
             />
         </div>
         
         <Spacer h={2}/>
-        {creation ? 
-          <Button loading auto></Button>
-        : 
-        config.configureOptions.quantity  >= 1? (
-          <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
-            { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
-          </button>
-        ) : (
-          <button disabled className="h-12 w-full bg-red-200 text-red-900 hover:bg-white hover:text-red-800 hover:border border border-red-900 items-center text-center" type="button">
-            Votre pancarte est vide
-          </button>
-        )
+        <div className="flex items-center gap-2">
+          {
+            (config.configureOptions.quantity  >= 1) ? (
+              <>
+                {creation ? 
+                  <Button loading auto></Button>
+                : 
+                  <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
+                    { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
+                  </button>
+                }
+
+                {saving ? 
+                    <Button loading icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>}>Sauvegarder</Button>
+                  : 
+                    <Button icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>} onClick={saveProductHandler}>Sauvegarder</Button>
+                }
+              </>
+            ) : (
+              <Text type="error">Votre pancarte est vide !</Text>
+            )
+          }
           
-        }
+        </div>
       </div>
     </div>
   );

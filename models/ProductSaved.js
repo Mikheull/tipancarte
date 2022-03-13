@@ -3,7 +3,7 @@ import { customAlphabet } from 'nanoid'
 const nanoid = customAlphabet('1234567890abcdef', 6)
 var mongoose_delete = require('mongoose-delete');
 
-const productSchema = new mongoose.Schema({
+const productSavedSchema = new mongoose.Schema({
     /*  id: { type: String, required: false },  */
     nanoId: {
       type: String,
@@ -11,8 +11,6 @@ const productSchema = new mongoose.Schema({
     },
     name: { type: String, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    category: { type: String, required: true },
-    image_preview: { type: String, required: false, default: "/images/shop/preview_placeholder.jpg" },
     price: { type: Number, required: true },
     planks: [{
         position: {
@@ -43,6 +41,6 @@ const productSchema = new mongoose.Schema({
 },
     { timestamps: true }
 )
-productSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
-const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
-export default Product;
+productSavedSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
+const ProductSaved = mongoose.models.ProductSaved || mongoose.model("ProductSaved", productSavedSchema);
+export default ProductSaved;

@@ -56,7 +56,7 @@ export default function ProductPreview({product}) {
                   transition: "all .3s ease",
                   WebkitTransition: "all .3s ease",
                   MozTransition: "all .3s ease", 
-                  fontSize: (plank.text.length <= 9 ) ? '8vw' : (plank.text.length >= 9 && plank.text.length <= 11) ? '7vw' : (plank.text.length >= 11 && plank.text.length <= 13) ? '6vw' : (plank.text.length >= 13) ? '5vw' : '4vw'  
+                  fontSize: (plank.text.length <= 9 ) ? 'clamp(4.5rem, 12vw, 9rem)' : (plank.text.length >= 9 && plank.text.length <= 11) ? 'clamp(3.5rem, 10vw, 7.5rem)' : (plank.text.length >= 11 && plank.text.length <= 14) ? 'clamp(2.5rem, 9vw, 6rem)' : (plank.text.length >= 14) ? 'clamp(2rem, 8vw, 5rem)' : 'clamp(1rem, 7vw, 3rem)'
                   } } className="text-6xl lg:text-10xl">{plank.text}</span>
               </div>
 

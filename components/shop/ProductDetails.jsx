@@ -6,7 +6,7 @@ import { Link as LinkScroll } from 'react-scroll';
 
 import { Text, Divider, Tag, Tooltip} from '@geist-ui/core'
 
-function ProductDetails({ product, previewMode = false }) {
+function ProductDetails({ product, previewMode = false, savedMode = false }) {
     const [showShipping, setShowShipping] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
 
@@ -29,6 +29,7 @@ function ProductDetails({ product, previewMode = false }) {
 
             <Text h1 className="my-4 font-bitter">{product.name}</Text>
             {previewMode && <Tooltip text={'Cette pancarte à été crée par un utilisateur !'} placement="right" type="dark"><Tag>Mode: Previsualisation</Tag></Tooltip>}
+            {savedMode && <Tooltip text={'Cette pancarte à été sauvegardée dans votre profil !'} placement="right" type="dark"><Tag>Mode: Sauvegarde</Tag></Tooltip>}
             <Text p className="my-4"><span dangerouslySetInnerHTML={{__html: product.description}}></span></Text>
 
             <div className="flex py-4">

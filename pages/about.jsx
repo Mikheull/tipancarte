@@ -39,7 +39,7 @@ export default function About() {
                     <Text>Oui, nous peignons entièrement la pancarte et arrondissons les bords pour un coté agréable au toucher.</Text>
                 </Collapse>
                 <Collapse title="Comment faire un retour">
-                    <Text>Nous ne pouvons malheureusement pas accépter le retour de votre produit personnalisé. En cas de problème avec votre commande, contactez nous par email !</Text>
+                    <Text>Nous ne pouvons malheureusement pas accepter le retour de votre produit personnalisé. En cas de problème avec votre commande, contactez nous par email !</Text>
                 </Collapse>
             </Collapse.Group>
 

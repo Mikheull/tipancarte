@@ -28,10 +28,15 @@ function OrderItem({order, loader}) {
     const [hasAccess, setHasAccess] = useState(false)
     const [loading, setLoading] = useState(true);
     const router = useRouter()
-    const [toggleDeletion, bindingsDeletion] = useCustomModal();
-    const [toggleConfirm, bindingsConfirm] = useCustomModal();
-    const [toggleShip, bindingsShip] = useCustomModal();
-    const [toggleClosed, bindingsClosed] = useCustomModal();
+
+    // eslint-disable-next-line no-unused-vars
+    const [visibleDeletion, toggleDeletion, bindingsDeletion] = useCustomModal();
+    // eslint-disable-next-line no-unused-vars
+    const [visibleConfirm, toggleConfirm, bindingsConfirm] = useCustomModal();
+    // eslint-disable-next-line no-unused-vars
+    const [visibleShip, toggleShip, bindingsShip] = useCustomModal();
+    // eslint-disable-next-line no-unused-vars
+    const [visibleClosed, toggleClosed, bindingsClosed] = useCustomModal();
     
     const { setToast } = useToasts()
 

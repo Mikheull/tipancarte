@@ -39,12 +39,16 @@ ul li:before {
 .plank {
   /* width: 700px; */
   height: 200px;
-  text-align: center;
   font-family: 'tipancarte';
-  line-height: 200px;
   white-space: nowrap;
   border-radius: 10px;
 }
+@media (max-width: 765px) {
+  .plank {
+    height: 100px;
+  }
+}
+
 .font-plank {
   font-family: 'tipancarte';
 }
@@ -64,9 +68,6 @@ div[title="#FCFFFE"] {border: 1px solid #000;}
 
 
 .preview_sharing_bottom_shape {clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);}
-
-
-
 .footer-follow .footer-follow--images {margin: 0 -1rem;}
 .footer-follow .footer-follow--images .follow-images {
   flex-grow: 1;

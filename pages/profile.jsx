@@ -44,6 +44,13 @@ function Profile() {
                                 </a>
                             </Link>
                         </li>
+                        <li className="">
+                            <Link href="/saved">
+                                <a className="text-gray-600">
+                                    Favoris
+                                </a>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
     

@@ -13,7 +13,7 @@ function reducer(state, action) {
         case 'FETCH_REQUEST':
             return { ...state, loading: true, error: '' };
         case 'FETCH_SUCCESS':
-            return { ...state, loading: false, orders: action.payload, error: '' };
+            return { ...state, loading: false, productSaved: action.payload, error: '' };
         case 'FETCH_FAIL':
             return { ...state, loading: false, error: action.payload };
         default:
@@ -21,13 +21,13 @@ function reducer(state, action) {
     }
 }
 
-function OrdersHistory() {
+function SavedHistory() {
     const { state } = useContext(Store)
     const { userInfo } = state;
     const router = useRouter()
 
     // This useReducer will fill after Fetch request action
-    const [{ loading, error, orders }, dispatch] = useReducer(reducer, { loading: true, orders: [], error: '' })
+    const [{ loading, error, productSaved }, dispatch] = useReducer(reducer, { loading: true, productSaved: [], error: '' })
 
     useEffect(() => {
         // Only authenticated user can access this page
@@ -36,13 +36,12 @@ function OrdersHistory() {
         }
         const fetchOrder = async () => {
             try {
-                // orderId comes from Url-Params
                 dispatch({ type: 'FETCH_REQUEST' }); // Loading: true, error: ''
-                const { data } = await axios.get(`/api/orders/history`, {
+                const { data } = await axios.get(`/api/products_saved/history`, {
                     headers: { authorization: `Bearer ${userInfo.token}` }
                 })
                 // Send received response as payload
-                dispatch({ type: 'FETCH_SUCCESS', payload: data }) // Loading: false, error: '', orders: [{...}, {...}]
+                dispatch({ type: 'FETCH_SUCCESS', payload: data }) // Loading: false, error: '', productSaved: [{...}, {...}]
             } catch (error) {
                 dispatch({ type: 'FETCH_FAIL', payload: error })
             }
@@ -52,15 +51,22 @@ function OrdersHistory() {
     }, [])
 
 
-    const data = orders.map(function(order){
+    const data = productSaved.map(function(product){
         return { 
-            id: order.nanoId, 
-            date: <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>, 
-            total: `${order.totalPrice}€`,
-            paid: order.isPaid ? <Moment format="[Payée le] DD/MM/YYYY à HH[h]mm">{order.paidAt}</Moment> : 'Non payée', 
-            delivered: order.isDelivered ?  <Moment format="[Livré le] DD/MM/YYYY à HH[h]mm">{order.deliveredAt}</Moment> : 'Non livré', 
+            id: product.name, 
+            date: <Moment format="[Crée le] DD/MM/YYYY à HH[h]mm">{product.createdAt}</Moment>,
+            name: (
+                <div className="p-4" >
+                    <Link href={`/preview/${product.nanoId}`}>
+                        <a className="flex items-center text-black">
+                            <span className="ml-2 font-bold">{product.name}</span>
+                        </a>
+                    </Link>
+                </div>
+            ),
+            price: product.price + ' €',
             action: (
-                <Link href={`/order/${order.nanoId}`} passHref>
+                <Link href={`/saved/${product.nanoId}`} passHref>
                     <Button>Details</Button>
                 </Link>
             ) 
@@ -68,9 +74,8 @@ function OrdersHistory() {
     });
 
     return (
-        <Layout title="Commandes" >
+        <Layout title="Mes favoris" >
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
-
                 <div className="border-b-2 border-gray-200">
                     <ul className="flex flex-wrap gap-x-6">
                         <li className="">
@@ -82,14 +87,14 @@ function OrdersHistory() {
                         </li>
                         <li className="">
                             <Link href="/orders">
-                                <a className="text-gray-800 font-bold">
+                                <a className="text-gray-600">
                                     Commandes
                                 </a>
                             </Link>
                         </li>
                         <li className="">
                             <Link href="/saved">
-                                <a className="text-gray-600">
+                                <a className="text-gray-800 font-bold">
                                     Favoris
                                 </a>
                             </Link>
@@ -97,15 +102,14 @@ function OrdersHistory() {
                     </ul>
                 </div>
 
+
                 <div className="my-6 overflow-scroll">
                     {loading ? (
                         <>
                             <Table>
                                 <Table.Column prop="id" label="ID" />
-                                <Table.Column prop="date" label="Date de commande" />
-                                <Table.Column prop="total" label="Total" />
-                                <Table.Column prop="paid" label="Payée" />
-                                <Table.Column prop="delivered" label="Livrée" />
+                                <Table.Column prop="date" label="Date" />
+                                <Table.Column prop="price" label="Prix" />
                                 <Table.Column prop="action" label="" />
                             </Table>
                             <div className="border rounded-md p-4 w-full mx-auto my-6">
@@ -123,10 +127,8 @@ function OrdersHistory() {
                         : (
                             <Table data={data}>
                                 <Table.Column prop="id" label="ID" />
-                                <Table.Column prop="date" label="Date de commande" />
-                                <Table.Column prop="total" label="Total" />
-                                <Table.Column prop="paid" label="Payée" />
-                                <Table.Column prop="delivered" label="Livrée" />
+                                <Table.Column prop="date" label="Date" />
+                                <Table.Column prop="price" label="Prix" />
                                 <Table.Column prop="action" label="" />
                             </Table>
                         )}
@@ -137,4 +139,4 @@ function OrdersHistory() {
     )
 }
 
-export default dynamic(() => Promise.resolve(OrdersHistory), { ssr: false })
+export default dynamic(() => Promise.resolve(SavedHistory), { ssr: false })

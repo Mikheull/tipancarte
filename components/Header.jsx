@@ -121,6 +121,17 @@ function Header({actual}) {
                                     )
                             }
                             </div>
+                            {
+                                userInfo && (
+                                    <Link href="/saved" passHref>
+                                        <img
+                                            src="/images/icons/heart.svg"
+                                            className="cursor-pointer h-6 w-6"
+                                            alt="Favoris"
+                                        />
+                                    </Link>
+                                )
+                            }
                             <div>
                                 <Link href="/cart" passHref>
                                     <Text className='flex text-white'>
@@ -129,7 +140,7 @@ function Header({actual}) {
                                             <img
                                                 src="/images/icons/shopping_bag.svg"
                                                 className="cursor-pointer h-6 w-6"
-                                                alt="Cart"
+                                                alt="Panier"
                                             />
                                         </Badge.Anchor>
                                     </Text>
@@ -189,6 +200,7 @@ function Header({actual}) {
                                     <>
                                         <Link href="/profile"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Profil</a></Link>
                                         <Link href="/orders"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes commandes</a></Link>
+                                        <Link href="/saved"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes favoris</a></Link>
                                         <a onClick={logOutClickHandler} href="./" className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Déconnexion</a>
                                     </>
                                 ) :
