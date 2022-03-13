@@ -10,7 +10,7 @@ import nearestColor from '../../utils/nearest_color';
 import colors from '../../seeds/colors.json';
 import full_colors from '../../seeds/full_colors.json';
 import ImagePreview from '../../components/shop/ImagePreview.jsx'
-import { Text, Input, Button, Divider, useToasts, Spacer, Popover } from '@geist-ui/core'
+import { Text, Input, Button, Divider, useToasts, Spacer, Popover, Textarea } from '@geist-ui/core'
 import Circle from '@uiw/react-color-circle';
 
 export default function ProductConfiguration({product, savedMode}) {
@@ -54,6 +54,7 @@ export default function ProductConfiguration({product, savedMode}) {
         price: product.price,
         color: '',
         name: product.name,
+        comment: product.comment,
         configureOptions: {
           quantity: product.planks.length,
           content: planks_list,
@@ -65,6 +66,7 @@ export default function ProductConfiguration({product, savedMode}) {
         price: 7,
         color: '',
         name: "Ma pancarte personnalisée",
+        comment: '',
         configureOptions: {
           quantity: 1,
           content: [
@@ -179,12 +181,18 @@ export default function ProductConfiguration({product, savedMode}) {
     items.name = value;
     setConfig({ ...config, ...items })
   }
+  const commentConfiguration = async (value) => {
+    let items = {...config};
+    items.comment = value;
+    setConfig({ ...config, ...items })
+  }
   
   const addToCartHandler = async () => {
     setCreation(true)
 
     const body = {
       name: config.name, 
+      comment: config.comment, 
       category : 'pancarte_custom', 
       price: parseInt(config.price),
       image_preview: '/images/shop/placeholder.jpg',
@@ -264,6 +272,7 @@ export default function ProductConfiguration({product, savedMode}) {
 
     const body = {
       name: config.name, 
+      comment: config.comment, 
       price: parseInt(config.price),
       planks: [],
       user: userInfo._id
@@ -523,6 +532,19 @@ export default function ProductConfiguration({product, savedMode}) {
                 initialValue={(savedMode) ? product.name : config.name}
                 onChange={e => renameConfiguration(e.target.value)}
             />
+        </div>
+        <Spacer h={2}/>
+        <div className='flex flex-col w-full md:w-full'>
+          <label htmlFor="name" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
+            Donnez des indications (optionnel)
+          </label>
+          <Textarea
+              width="100%"
+              resize
+              onChange={e => commentConfiguration(e.target.value)}
+              placeholder="Votre message" 
+              value={(savedMode) ? product.comment : config.comment}
+          />
         </div>
         
         <Spacer h={2}/>

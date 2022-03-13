@@ -37,7 +37,7 @@ const productSavedSchema = new mongoose.Schema({
           type: String,
         }
     }],
-    comment: { type: String, default: 'Aucun commentaire' },
+    comment: { type: String},
 },
     { timestamps: true }
 )
