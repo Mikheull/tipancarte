@@ -535,12 +535,14 @@ export default function ProductConfiguration({product, savedMode}) {
         </div>
         <Spacer h={2}/>
         <div className='flex flex-col w-full md:w-full'>
-          <label htmlFor="name" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
+          <label htmlFor="comment" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
             Donnez des indications (optionnel)
           </label>
           <Textarea
               width="100%"
               resize
+              name="comment"
+              id="comment"
               onChange={e => commentConfiguration(e.target.value)}
               placeholder="Votre message" 
               value={(savedMode) ? product.comment : config.comment}
