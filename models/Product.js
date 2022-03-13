@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { customAlphabet } from 'nanoid'
 const nanoid = customAlphabet('1234567890abcdef', 6)
+var mongoose_delete = require('mongoose-delete');
 
 const productSchema = new mongoose.Schema({
     /*  id: { type: String, required: false },  */
@@ -42,5 +43,6 @@ const productSchema = new mongoose.Schema({
 },
     { timestamps: true }
 )
+productSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
 export default Product;

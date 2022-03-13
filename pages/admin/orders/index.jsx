@@ -81,7 +81,7 @@ function IndexOrders({orders, loader}) {
                                     paid: order.isPaid ? <Moment format="[Payée le] DD/MM/YYYY à HH[h]mm">{order.paidAt}</Moment> : 'Non payée', 
                                     delivered: order.isDelivered ?  <Moment format="[Livré le] DD/MM/YYYY à HH[h]mm">{order.deliveredAt}</Moment> : 'Non livré', 
                                     action: (
-                                        <Link href={`/order/${order.nanoId}`} passHref>
+                                        <Link href={`/admin/orders/${order.nanoId}`} passHref>
                                             <Button>Details</Button>
                                         </Link>
                                     ) 

@@ -1,19 +1,18 @@
 import { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import Link from 'next/link'
-import Image from 'next/image'
 import dynamic from "next/dynamic"
 import Moment from 'react-moment';
 import axios from 'axios';
 import dbConnect from "../../../utils/database";
-import User from '../../../models/User';
 import Product from '../../../models/Product';
+import User from '../../../models/User';
 import Order from '../../../models/Order';
 import { Store } from "../../../context/Store";
 import LayoutAdmin from "../../../components/LayoutAdmin";
-import { Breadcrumbs, Input, Text, Spacer, Divider, Button, useModal, Modal, useToasts, Table } from '@geist-ui/core'
+import { Breadcrumbs, Text, Spacer, Divider, Button, useModal, Modal, useToasts, Table } from '@geist-ui/core'
 
-function UserItem({user, products, orders, loader}) {
+function ProductItem({product, orders, loader}) {
     const { state } = useContext(Store)
     const { userInfo } = state;
     const [hasAccess, setHasAccess] = useState(false)
@@ -43,14 +42,14 @@ function UserItem({user, products, orders, loader}) {
     }, [userInfo])
 
 
-    const deleteCustomer = async (id) => {
+    const deleteProduct = async (id) => {
         try {
-            const { data } = await axios.delete(`/api/users/delete/${id}`, {
+            const { data } = await axios.delete(`/api/products/delete/${id}`, {
                 headers: { authorization: `Bearer ${userInfo.token}` }
             })
 
             if(data){
-                router.push('/admin/users')
+                router.push('/admin/products')
             }else{
                 setToast({ text: 'Une erreur est survenue !', delay: 2000, type: "error"})
             }
@@ -63,14 +62,14 @@ function UserItem({user, products, orders, loader}) {
     if(!hasAccess) {return 'Accès interdit !'}
 
     return (
-        <LayoutAdmin title="Utilisateurs" actual="users">
+        <LayoutAdmin title="Produits" actual="products">
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
                 <Breadcrumbs>
                     <Link href="/admin" passHref>
                         <Breadcrumbs.Item className="cursor-pointer">Admin</Breadcrumbs.Item>
                     </Link>
-                    <Link href="/admin/users" passHref>
-                        <Breadcrumbs.Item className="cursor-pointer">Utilisateurs</Breadcrumbs.Item>
+                    <Link href="/admin/products" passHref>
+                        <Breadcrumbs.Item className="cursor-pointer">Produits</Breadcrumbs.Item>
                     </Link>
                 </Breadcrumbs>
 
@@ -83,62 +82,26 @@ function UserItem({user, products, orders, loader}) {
                     : 
                     (
                         <>
-                            <Text h3 className="font-bitter">Utilisateur : {user.name}</Text>
+                            <Text h3 className="font-bitter">Produit : {product.name}</Text>
+                            <Text p>Crée le {<Moment format="DD/MM/YYYY à HH[h]mm">{product.createdAt}</Moment>} par {(product.user) ? product.user.name : 'Anonyme'}</Text>
                             <Spacer h={2} />
                             <div className="flex flex-col gap-2 w-full md:w-1/2">
-                                <Input width="100%" initialValue={user.name} readOnly>Nom</Input>
-                                <Input width="100%" initialValue={user.email} readOnly>Email</Input>
-                                <Input width="100%" initialValue={user.role} readOnly>Role</Input>
+                               
 
-                                <Button className="mt-6" type="error" auto onClick={() => setVisible(true)}>Supprimer le compte</Button>
+                                <Button className="mt-6" type="error" auto onClick={() => setVisible(true)}>Supprimer le produit</Button>
                                 <Modal {...bindings}>
                                     <Modal.Title>Supprimer</Modal.Title>
                                     <Modal.Content>
-                                        <p>Êtes vous sûr de vouloir supprimer ce compte ?</p>
+                                        <p>Êtes vous sûr de vouloir supprimer ce produit ?</p>
                                     </Modal.Content>
                                     <Modal.Action passive onClick={() => setVisible(false)}>Annuler</Modal.Action>
-                                    <Modal.Action onClick={() => deleteCustomer(user._id)}>Confirmer</Modal.Action>
+                                    <Modal.Action onClick={() => deleteProduct(product._id)}>Confirmer</Modal.Action>
                                 </Modal>
                             </div>
                             <Spacer h={5} />
                             <Divider />
-                            <Spacer h={2} />
 
-                            <Text h4 className="font-bitter">Ses produits ({products.length})</Text>
-                            <Table data={(
-                                products.map(function(product){
-                                    return { 
-                                        id: product._id, 
-                                        nanoId: product.nanoId, 
-                                        name: (
-                                            <div className="p-4" >
-                                                <Link href={`/preview/${product.nanoId}`}>
-                                                    <a className="flex items-center text-black">
-                                                        <Image src={product.image_preview} width="64" height="64" alt="Image du produit"/>
-                                                        <span className="ml-2 font-bold">{product.name}</span>
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        ),
-                                        price: product.price+' €',
-                                        createdAt: <Moment format="DD/MM/YYYY">{product.createdAt}</Moment>, 
-                                        action: (
-                                            <Link href={`/admin/products/${product.nanoId}`} passHref>
-                                                <Button>Details</Button>
-                                            </Link>
-                                        ) 
-                                    }
-                                })
-                            )}>
-                                <Table.Column prop="nanoId" label="Id" />
-                                <Table.Column prop="name" label="Nom" />
-                                <Table.Column prop="price" label="prix" />
-                                <Table.Column prop="createdAt" label="Crée le" />
-                                <Table.Column prop="action" label="" />
-                            </Table>
-                            <Spacer h={2} />
-
-                            <Text h4 className="font-bitter">Ses commandes ({orders.length})</Text>
+                            <Text h4 className="font-bitter">Commandé ({orders.length})</Text>
                             <Table data={(
                                 orders.map(function(order){
                                     return { 
@@ -174,32 +137,28 @@ function UserItem({user, products, orders, loader}) {
 }
 
 
-export default dynamic(() => Promise.resolve(UserItem), { ssr: false })
+export default dynamic(() => Promise.resolve(ProductItem), { ssr: false })
 
 // Get data from server side before rendering page
 export async function getServerSideProps({params}) {
     try {
         await dbConnect();
+        const response_product = await Product.findOne({nanoId: params.id}).populate({path: 'user', model: User, select: 'name'});
+        const product = JSON.parse(JSON.stringify(response_product))
 
-        const response_user = await User.findById(params.id)
-        const user = JSON.parse(JSON.stringify(response_user))
-
-        const products_response = await Product.find({ user: params.id });
-        const products = JSON.parse(JSON.stringify(products_response))
-
-        const orders_response = await Order.find({ user: params.id });
+        const orders_response = await Order.find({"orderItems.nanoId": params.id});
         const orders = JSON.parse(JSON.stringify(orders_response))
-        
+
         return {
             props: {
-                params, user, products, orders, loader: false
+                params, product, orders ,loader: false
             }
         }
 
     } catch (error) {
         return {
             props: {
-                params, user: null, products: null, orders: null, error: "Something went wrong while fetching data"
+                params, product: null, orders: null, error: "Something went wrong while fetching data"
             },
         }
     }

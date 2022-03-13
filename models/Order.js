@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { customAlphabet } from 'nanoid'
 const nanoid = customAlphabet('1234567890abcdef', 8)
+var mongoose_delete = require('mongoose-delete');
 
 const orderSchema = new mongoose.Schema({
     nanoId: {
@@ -27,11 +28,16 @@ const orderSchema = new mongoose.Schema({
     taxPrice: { type: Number, required: true },
     totalPrice: { type: Number, required: true },
     isConfirmed: { type: Boolean, required: true, default: false },
+    isClosed: { type: Boolean, required: true, default: false },
     isPaid: { type: Boolean, required: true, default: false },
     isDelivered: { type: Boolean, required: true, default: false },
     paidAt: { type: Date },
+    confirmedAt: { type: Date },
+    delivredAt: { type: Date },
+    closedAt: { type: Date },
 },
     { timestamps: true }
 )
+orderSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
 export default Order;

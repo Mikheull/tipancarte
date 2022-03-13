@@ -1,7 +1,6 @@
 import nc from 'next-connect'
-import User from '../../../../models/User'
+import Product from '../../../../models/Product'
 import { isAuth } from '../../../../utils/auth'
-
 import dbConnect from '../../../../utils/database'
 
 const handler = nc()
@@ -9,10 +8,9 @@ const handler = nc()
 // USE THIS MIDDLEWARE TO CHECK ACTIVE USER (BEFORE CONTINUE WITH REQUEST)
 handler.use(isAuth)
 
-handler.put(async (req, res) => {
+handler.delete(async (req, res) => {
     await dbConnect()
-    const user = await User.findById(req.query.id);
-    user.save()
-    res.send('Mise à jour avec succès !')
+    await Product.deleteById(req.query.id);
+    res.send('Supprimé avec succès !')
 })
 export default handler;
