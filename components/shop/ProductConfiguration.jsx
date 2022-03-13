@@ -374,7 +374,7 @@ export default function ProductConfiguration({product}) {
 
                   <div className="w-full mt-2 flex items-end">
                     <div className="flex items-center w-full">
-                      <Button className="z-0" width="100%" onClick={(val) => handleDeletePlankClick(plank.index)}>Supprimer</Button>
+                      <Button className="z-0" width="100%" onClick={() => handleDeletePlankClick(plank.index)}>Supprimer</Button>
                     </div>
                   </div>
 

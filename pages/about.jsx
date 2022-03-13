@@ -33,7 +33,7 @@ export default function About() {
                     <Text>Nous publions régulièrement, sur Instagram, des idées de pancartes avec des couleurs et leurs référence. Il se peut que vous ne les trouviez pas dans le configurateur, en effet les couleurs sont sélectionnées en fonction de notre stock et tournent au fur et à mesure.</Text>
                 </Collapse>
                 <Collapse title="Comment sera livré ma pancarte ?">
-                    <Text>Votre TiPancarte vous seras livrée en poins relais avec notre transporteur "Mondial relais" sous 5 à 7 jours.</Text>
+                    <Text>Votre TiPancarte vous seras livrée en poins relais avec notre transporteur &quot;Mondial relais&quot; sous 5 à 7 jours.</Text>
                 </Collapse>
                 <Collapse title="La pancarte est elle totalement peinte ?">
                     <Text>Oui, nous peignons entièrement la pancarte et arrondissons les bords pour un coté agréable au toucher.</Text>
