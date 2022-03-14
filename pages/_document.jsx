@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import createEmotionCache from '../src/createEmotionCache';
 
 export default class MyDocument extends Document {
   render() {
@@ -28,24 +27,20 @@ export default class MyDocument extends Document {
   }
 }
 
+// MyDocument.getInitialProps = async (ctx) => {
+//   const originalRenderPage = ctx.renderPage;
 
+//   ctx.renderPage = () =>
+//     originalRenderPage({
+//       // eslint-disable-next-line react/display-name
+//       enhanceApp: (App) => (props) => <App {...props} />,
+//     });
 
-// `getInitialProps` belongs to `_document` (instead of `_app`),
-// it's compatible with static-site generation (SSG).
-MyDocument.getInitialProps = async (ctx) => {
-
-  const originalRenderPage = ctx.renderPage;
-
-  const cache = createEmotionCache();
-
-  ctx.renderPage = () =>
-    originalRenderPage({
-      // eslint-disable-next-line react/display-name
-      enhanceApp: (App) => (props) => <App emotionCache={cache} {...props} />,
-    });
-
-    const initialProps = await Document.getInitialProps(ctx);
-    return {
-      ...initialProps,
-    };
-  };
+//     const initialProps = await Document.getInitialProps(ctx);
+  
+//     return {
+//       ...initialProps,
+//       // Styles fragment is rendered after the app and page rendering finish.
+//       styles: [...React.Children.toArray(initialProps.styles)],
+//     };
+//   };

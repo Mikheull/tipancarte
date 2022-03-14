@@ -8,10 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/cache": "^11.4.0",
-    "@emotion/react": "^11.4.1",
     "@geist-ui/core": "^2.3.4",
-    "create-emotion-server": "^11.0.0",
     "@paypal/react-paypal-js": "^7.3.3",
     "@uiw/react-color-circle": "^1.0.10",
     "aos": "^2.3.4",
