@@ -550,22 +550,27 @@ export default function ProductConfiguration({product, savedMode}) {
         </div>
         
         <Spacer h={2}/>
-        <div className="flex items-center gap-2">
+        <div className="">
           {
             (config.configureOptions.quantity  >= 1) ? (
               <>
+                {userInfo && 
+                  <>
+                    {saving ? 
+                      <Button width="100%" loading icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>}>Sauvegarder</Button>
+                    : 
+                      <Button width="100%" icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>} onClick={saveProductHandler}>Sauvegarder</Button>
+                    }
+                    <Spacer h={2}/>
+                  </>
+                }
+
                 {creation ? 
                   <Button loading auto></Button>
                 : 
                   <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
                     { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
                   </button>
-                }
-
-                {saving ? 
-                    <Button loading icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>}>Sauvegarder</Button>
-                  : 
-                    <Button icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>} onClick={saveProductHandler}>Sauvegarder</Button>
                 }
               </>
             ) : (
