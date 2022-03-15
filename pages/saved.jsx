@@ -93,6 +93,13 @@ function SavedHistory() {
                             </Link>
                         </li>
                         <li className="">
+                            <Link href="/products">
+                                <a className="text-gray-600 font-normal">
+                                    Pancartes
+                                </a>
+                            </Link>
+                        </li>
+                        <li className="">
                             <Link href="/saved">
                                 <a className="text-gray-800 font-bold">
                                     Favoris

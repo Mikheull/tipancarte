@@ -102,6 +102,9 @@ function Header({actual}) {
                                                 <Popover.Item>
                                                     <Link href="/orders"><a className='text-black'>Mes commandes</a></Link>
                                                 </Popover.Item>
+                                                <Popover.Item>
+                                                    <Link href="/products"><a className='text-black'>Mes pancartes</a></Link>
+                                                </Popover.Item>
                                                 <Popover.Item line />
                                                 <Popover.Item>
                                                     <a onClick={logOutClickHandler} href="./" className='text-black'>Déconnexion</a>
@@ -200,6 +203,7 @@ function Header({actual}) {
                                     <>
                                         <Link href="/profile"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Profil</a></Link>
                                         <Link href="/orders"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes commandes</a></Link>
+                                        <Link href="/products"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes pancartes</a></Link>
                                         <Link href="/saved"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes favoris</a></Link>
                                         <a onClick={logOutClickHandler} href="./" className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Déconnexion</a>
                                     </>
