@@ -1,8 +1,5 @@
-import React, { useState, useContext} from "react";
-import { useRouter } from "next/router"
-import { Store } from "../../context/Store";
-import Transition from '../../utils/Transition';
-import { Text, Input, Button, Divider, useToasts, Spacer } from '@geist-ui/core'
+import React from "react";
+import { Text, Spacer } from '@geist-ui/core'
 
 export default function ProductPreviewLoading() {
   return (

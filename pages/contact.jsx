@@ -28,7 +28,7 @@ export default function Contact() {
 
                     setSubmitting(false);
                     setToast({ text: 'Le formulaire à bien été envoyé !', delay: 2000, placement: 'topRight', type: 'success'})
-                    const { data } = await axios.post('/api/emails/contact', { fullname, email, subject, message })
+                    await axios.post('/api/emails/contact', { fullname, email, subject, message })
               }}
           >
 
