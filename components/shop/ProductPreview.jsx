@@ -1,14 +1,17 @@
 import React, { useState, useContext} from "react";
 import { useRouter } from "next/router"
+import axios from 'axios';
 import { Store } from "../../context/Store";
 import Transition from '../../utils/Transition';
 import { Text, Input, Button, Divider, useToasts, Spacer } from '@geist-ui/core'
 
 export default function ProductPreview({product}) {
-  const { dispatch } = useContext(Store)
+  const { state, dispatch } = useContext(Store)
   const [creation, setCreation] = useState(false)
+  const [saving, setSaving] = useState(false)
   const router = useRouter()
   const { setToast } = useToasts()
+  const { userInfo } = state;
 
   const { price } = product;
   const soldOut = product.sold_out;
@@ -23,6 +26,47 @@ export default function ProductPreview({product}) {
     } catch (error) {
       setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
       // setCreation(false)
+    }
+  }
+
+  const saveProductHandler = async () => {
+    setSaving(true)
+
+    const body = {
+      name: product.name, 
+      comment: '', 
+      price: parseInt(product.price),
+      planks: [],
+      user: userInfo._id
+    }
+    product.planks.forEach(plank => {
+      let p = {}
+      
+      p.position = plank.position
+      p.text = plank.text
+      p.direction = plank.direction
+      p.bg_color = plank.bg_color
+      p.bg_color_ref = plank.bg_color_ref
+      p.text_color = plank.text_color
+      p.text_color_ref = plank.text_color_ref
+
+      body.planks.push(p)
+    });
+
+    try {
+      const data = await axios.post('/api/products_saved/create', body, {
+        headers: {
+            authorization: `Bearer ${userInfo.token}`
+        }
+      })
+
+      const newproduct = data.data;
+      router.push(`/saved/${newproduct.nanoId}`)
+      
+    } catch (error) {
+      console.log(error);
+      setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
+      setSaving(false)
     }
   }
 
@@ -116,14 +160,33 @@ export default function ProductPreview({product}) {
       </div>
     
       <div className="md:w-1/3 w-full">
-        <Spacer h={2}/>
-        {creation ? 
-          <Button loading auto></Button>
-        : 
-          <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
-            { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
-          </button>
+        {
+          (product.planks.length  >= 1) ? (
+            <>
+              {userInfo && 
+                <>
+                  {saving ? 
+                    <Button width="100%" loading icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>}>Sauvegarder</Button>
+                  : 
+                    <Button width="100%" icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>} onClick={saveProductHandler}>Sauvegarder</Button>
+                  }
+                  <Spacer h={2}/>
+                </>
+              }
+
+              {creation ? 
+                <Button loading auto></Button>
+              : 
+                <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
+                  { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
+                </button>
+              }
+            </>
+          ) : (
+            <Text type="error">Votre pancarte est vide !</Text>
+          )
         }
+        
       </div>
     </div>
   );
