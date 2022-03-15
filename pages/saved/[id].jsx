@@ -4,9 +4,11 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Layout from '../../components/Layout'
 import ProductDetails from '../../components/shop/ProductDetails.jsx'
+import ProductDetailsLoading from '../../components/loader/ProductDetailsLoading.jsx'
 import ProductImages from '../../components/shop/ProductImages.jsx'
 import ClientReview from '../../components/shop/ClientReview.jsx'
 import ProductConfiguration from '../../components/shop/ProductConfiguration.jsx'
+import ProductPreviewLoading from '../../components/loader/ProductPreviewLoading.jsx'
 import Social from '../../components/shop/Social.jsx'
 import {Spacer } from '@geist-ui/core'
 import { Store } from "../../context/Store";
@@ -34,7 +36,7 @@ function SavedProduct({ params }) {
 
     useEffect(() => {
         if (!userInfo) {
-            router.push('/')
+            router.push(`/login?redirect=/saved/${productId}`)
         }
 
         const fetchProduct = async () => {
@@ -48,9 +50,11 @@ function SavedProduct({ params }) {
                     router.push('/')
                 }
                 
-                setLoadedProduct(false)
+                dispatch({ type: 'FETCH_SUCCESS', payload: data })
+                setLoadedProduct(true)
             } catch (error) {
-                router.push('/')
+                setLoadedProduct(true)
+                dispatch({ type: 'FETCH_FAIL', payload: error })
             }
         }
 
@@ -82,6 +86,33 @@ function SavedProduct({ params }) {
         soldOut: false,
     }
 
+
+    if(!loadedProduct) return (
+        <Layout title={`Chargement en cours`} actual="shop" og_image={productDetails.image_preview} og_image_width="540" og_image_height="720">
+            <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col lg:flex-row" data-aos="zoom-y-out" data-aos-delay="250">
+                <div className="w-full lg:w-1/2 px-0 md:px-6">
+                    <div className="animate-pulse bg-slate-200 h-full w-full"></div>
+                </div>
+                <div className="w-full lg:w-1/2 mt-4 md:mt-0">
+                    <ProductDetailsLoading previewMode={true} />
+                </div>
+            </div>
+                
+            <Spacer h={6} />
+            <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col" data-aos="zoom-y-out" data-aos-delay="250">
+                <ProductPreviewLoading />
+                <Spacer h={4} />
+                <ClientReview />
+                <Spacer h={2} />
+            </div>
+
+            <Spacer h={4}/>
+                <div data-aos="zoom-y-out" data-aos-delay="450">
+                    <Social />
+                </div>
+            <Spacer h={4}/>
+        </Layout >
+    )
     return (
         <Layout title={`Sauvegarde de ${product.name}`} actual="shop" og_image={productDetails.image_preview} og_image_width="540" og_image_height="720">
             <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col lg:flex-row" data-aos="zoom-y-out" data-aos-delay="250">

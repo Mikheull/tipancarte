@@ -19,7 +19,7 @@ function Profile() {
     useEffect(() => {
         // Only authenticated user can access this page
         if (!userInfo) {
-            return router.push('/login')
+            return router.push('/login?redirect=/profile')
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

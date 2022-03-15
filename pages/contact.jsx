@@ -1,8 +1,8 @@
 import Layout from '../components/Layout'
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from "axios";
 import { Text, Input, Button, useToasts, Select, Textarea } from '@geist-ui/core'
-// import { contact } from '../templates/TiPancarte/contact.jsx'
 
 export default function Contact() {
   const { setToast } = useToasts()
@@ -23,12 +23,12 @@ export default function Contact() {
                   subject: Yup.string(),
                   message: Yup.string(),
               })}
-              onSubmit={async (values, { setSubmitting }) => {
-                //   const { fullname, email, subject, message } = values;
-                  // await contact(fullname, email, subject, message)
-                    
-                  setToast({ text: 'Le formulaire est désactivé pour le moment', delay: 2000, placement: 'topRight', type: 'error'})
-                  setSubmitting(false);
+              onSubmit={async (values, { setSubmitting}) => {
+                    const { fullname, email, subject, message } = values;
+
+                    setSubmitting(false);
+                    setToast({ text: 'Le formulaire à bien été envoyé !', delay: 2000, placement: 'topRight', type: 'success'})
+                    const { data } = await axios.post('/api/emails/contact', { fullname, email, subject, message })
               }}
           >
 

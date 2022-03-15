@@ -32,7 +32,7 @@ function OrdersHistory() {
     useEffect(() => {
         // Only authenticated user can access this page
         if (!userInfo) {
-            router.push('/login')
+            router.push('/login?redirect=/orders')
         }
         const fetchOrder = async () => {
             try {

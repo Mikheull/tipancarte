@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 const template = compile(`
   <mjml>
     <mj-head>
-      <mj-title>TiPancarte - Commande enregistrée !</mj-title>
+      <mj-title>TiPancarte - Contact !</mj-title>
       <mj-font name="Open Sans" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" />
       <mj-attributes>
         <mj-class name="opensansregular" font-family="'Open Sans', sans-serif" font-weight="400" />
@@ -22,56 +22,35 @@ const template = compile(`
         </mj-column>
         <mj-column width="100%">
           <mj-spacer height="20px" />
-          <mj-text color="#4a5568" line-height="1.3" font-size="25px"> Merci d'avoir passé commande, {{username}} </mj-text>
+          <mj-text color="#4a5568" line-height="1.3" font-size="25px"> Contact depuis le formulaire</mj-text>
         </mj-column>
       </mj-section>
       <mj-section background-color="#FFF" padding="0 0 0 0">
         <mj-column>
-          <mj-spacer height="50px" />
-          <mj-text color="#4a5568" line-height="1.3"> Vous venez de passer une commande sur TiPancarte, elle à été prise en compte et sera préparée bientôt ! Un email vous sera envoyé dès que la préparation aura débuté. Veuillez noter que la livraison se fera en 5 à 7 jours a compter de la confirmation de la commande ! </mj-text>
-          <mj-spacer height="30px" />
+          <mj-spacer height="20px" />
+          <mj-text color="#4a5568" line-height="1.3"> Vous avez reçu un message ! </mj-text>
         </mj-column>
       </mj-section>
-      
-      <mj-section background-color="#FFF" padding="0 0 0 0">
-        <mj-column>
-          <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
-        </mj-column>
-      </mj-section>
-      <mj-section background-color="#FFF" padding="20px 0 20px 0">
-        <mj-column>
-          <mj-text font-size="30px" font-weight="bold">Total</mj-text>
-        </mj-column>
-        <mj-column>
-          <mj-text font-size="30px" font-weight="bold" align="right">{{price_total}}€</mj-text>
-        </mj-column>
-      </mj-section>
-      <mj-section background-color="#e1ecf7" border-top="1px solid #dde6ed">
-        <mj-column width="100%">
-          <mj-text align="center" color="#2d3748" font-size="12px">Vous pouvez voir votre reçu <a href="{{order_link}}" style="color:#000">ici</a></mj-text>
-        </mj-column>
-      </mj-section>
-      
+    
       <mj-section background-color="#FFF" padding="0 0 0 0">
         <mj-column>
           <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
-          <mj-spacer height="50px" />
         </mj-column>
       </mj-section>
       
       <mj-section background-color="#FFF" padding="0 0 0 0">
         <mj-column>
-          <mj-text font-size="20px" font-weight="bold">Paiement</mj-text>
+          <mj-text font-size="20px" font-weight="bold">Détails</mj-text>
         </mj-column>
       </mj-section>
       <mj-section background-color="#FFF" padding="0 0 0 0">
         <mj-column>
-          <mj-text font-size="16px">{{payment_method}}</mj-text>
-          <mj-text font-size="12px">{{date}}</mj-text>
+          <mj-text font-size="16px">Nom complet : {{fullname}}</mj-text>
+          <mj-text font-size="16px">Email : {{email}}</mj-text>
+          <mj-text font-size="16px">Sujet : {{subject}}</mj-text>
+          <mj-text font-size="16px">Message : {{message}}</mj-text>
         </mj-column>
-        <mj-column>
-          <mj-text font-size="16px" font-weight="bold" align="right">{{price_total}}€</mj-text>
-        </mj-column>
+        
       </mj-section>
       <mj-section background-color="#FFF" padding="0 0 0 0">
         <mj-column>
@@ -96,7 +75,7 @@ const template = compile(`
         </mj-column>
       </mj-section>
     </mj-body>
-  </mjml>
+    </mjml>
 `);
 
 export const contact = async (fullname, email, subject, message) => {
@@ -124,5 +103,5 @@ export const contact = async (fullname, email, subject, message) => {
     to: "contact@tipancarte.fr"
 	};
 
-  transporter.sendMail({ ...mailOptions, to: email });
+  transporter.sendMail({ ...mailOptions, to: "contact@tipancarte.fr" });
 }

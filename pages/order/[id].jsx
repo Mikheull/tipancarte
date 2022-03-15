@@ -53,7 +53,7 @@ function Order({ params }) {
     useEffect(() => {
         if (!userInfo) {
             // push to /login because is not Authenticated User
-            router.push('/login')
+            router.push(`/login?redirect=/orders/${orderId}`)
         }
         const fetchOrder = async () => {
             try {
@@ -68,10 +68,9 @@ function Order({ params }) {
                 }else{
                     router.push('/orders')
                 }
-                // Send received response as payload
             } catch (error) {
                 router.push('/orders')
-                // dispatch({ type: 'FETCH_FAIL', payload: error })
+                dispatch({ type: 'FETCH_FAIL', payload: error })
             }
         }
         // console.log('Order received: ', order)

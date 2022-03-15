@@ -4,6 +4,7 @@ import { isAuth } from '../../../utils/auth'
 import dbConnect from '../../../utils/database'
 import { onError } from '../../../utils/error';
 import { createOrder } from '../../../templates/TiPancarte/createOrder.jsx'
+import { createOrderAdmin } from '../../../templates/TiPancarte/createOrderAdmin.jsx'
 const handler = nc({ onError })
 
 // USE A MIDDLEWARE TO CHECK ACTIVE USER (BEFORE CONTINUE WITH REQUEST)
@@ -21,6 +22,7 @@ handler.post(async (req, res) => {
     // Send email new order
     if(order){
         await createOrder(order.shippingAddress.fullName, order.totalPrice, `https://tipancarte.fr/orders/${order.nanoId}`, order.paymentMethod, order.paidAt, req.user.email)
+        await createOrderAdmin(order.shippingAddress.fullName, order.totalPrice, `https://tipancarte.fr/admin/orders/${order.nanoId}`, order.paymentMethod, order.paidAt)
     }
 
     res.status(201).send(order)
