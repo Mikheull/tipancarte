@@ -5,6 +5,7 @@ import dynamic from "next/dynamic"
 import Moment from 'react-moment';
 import dbConnect from "../../../utils/database";
 import Product from '../../../models/Product';
+import User from '../../../models/User';
 import { Store } from "../../../context/Store";
 import LayoutAdmin from "../../../components/LayoutAdmin";
 import { Table, Button, Breadcrumbs } from '@geist-ui/core'
@@ -56,6 +57,7 @@ function IndexProducts({products, loader}) {
                                 <Table.Column prop="name" label="Nom" />
                                 <Table.Column prop="price" label="prix" />
                                 <Table.Column prop="createdAt" label="Crée le" />
+                                <Table.Column prop="createdBy" label="Crée par" />
                                 <Table.Column prop="action" label="" />
                             </Table>
                             <div className="border rounded-md p-4 w-full mx-auto my-6">
@@ -88,6 +90,13 @@ function IndexProducts({products, loader}) {
                                     ),
                                     price: product.price+' €',
                                     createdAt: <Moment format="DD/MM/YYYY">{product.createdAt}</Moment>, 
+                                    createdBy: (product.user) ? (
+                                        <Link href={`/admin/users/${product.user._id}`}>
+                                            <a className="flex items-center text-black">
+                                                <span className="ml-2 font-bold">{product.user.name}</span>
+                                            </a>
+                                        </Link>
+                                    ) : 'Anonyme', 
                                     action: (
                                         <Link href={`/admin/products/${product.nanoId}`} passHref>
                                             <Button>Details</Button>
@@ -100,6 +109,7 @@ function IndexProducts({products, loader}) {
                             <Table.Column prop="name" label="Nom" />
                             <Table.Column prop="price" label="prix" />
                             <Table.Column prop="createdAt" label="Crée le" />
+                                <Table.Column prop="createdBy" label="Crée par" />
                             <Table.Column prop="action" label="" />
                         </Table>
                     )}
@@ -117,11 +127,9 @@ export default dynamic(() => Promise.resolve(IndexProducts), { ssr: false })
 export async function getServerSideProps() {
     try {
         await dbConnect();
-        const response = await Product.find({}) // GET ALL products
-        const products = response.map((doc) => {
-            const user = JSON.parse(JSON.stringify(doc))
-            return user
-        })
+        const response = await Product.find({}).populate({path: 'user', model: User, select: 'name'});
+        const products = JSON.parse(JSON.stringify(response))
+
         return {
             props: {
                 products, loader: false

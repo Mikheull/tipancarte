@@ -4,6 +4,7 @@ import dynamic from "next/dynamic"
 import Moment from 'react-moment';
 import dbConnect from "../../../utils/database";
 import Order from '../../../models/Order';
+import User from '../../../models/User';
 import { Store } from "../../../context/Store";
 import LayoutAdmin from "../../../components/LayoutAdmin";
 import { Table, Button, Breadcrumbs } from '@geist-ui/core'
@@ -56,6 +57,7 @@ function IndexOrders({orders, loader}) {
                                 <Table.Column prop="total" label="Total" />
                                 <Table.Column prop="paid" label="Payée" />
                                 <Table.Column prop="delivered" label="Livrée" />
+                                <Table.Column prop="createdBy" label="Commandé par" />
                                 <Table.Column prop="action" label="" />
                             </Table>
                             <div className="border rounded-md p-4 w-full mx-auto my-6">
@@ -80,6 +82,14 @@ function IndexOrders({orders, loader}) {
                                     total: `${order.totalPrice}€`,
                                     paid: order.isPaid ? <Moment format="[Payée le] DD/MM/YYYY à HH[h]mm">{order.paidAt}</Moment> : 'Non payée', 
                                     delivered: order.isDelivered ?  <Moment format="[Livré le] DD/MM/YYYY à HH[h]mm">{order.deliveredAt}</Moment> : 'Non livré', 
+                                    createdBy: (order.user) ? (
+                                        <Link href={`/admin/users/${order.user._id}`}>
+                                            <a className="flex items-center text-black">
+                                                <span className="ml-2 font-bold">{order.user.name}</span>
+                                            </a>
+                                        </Link>
+                                    ) : 'Anonyme', 
+                                    
                                     action: (
                                         <Link href={`/admin/orders/${order.nanoId}`} passHref>
                                             <Button>Details</Button>
@@ -93,6 +103,7 @@ function IndexOrders({orders, loader}) {
                             <Table.Column prop="total" label="Total" />
                             <Table.Column prop="paid" label="Payée" />
                             <Table.Column prop="delivered" label="Livrée" />
+                            <Table.Column prop="createdBy" label="Commandé par" />
                             <Table.Column prop="action" label="" />
                         </Table>
                     )}
@@ -110,11 +121,9 @@ export default dynamic(() => Promise.resolve(IndexOrders), { ssr: false })
 export async function getServerSideProps() {
     try {
         await dbConnect();
-        const response = await Order.find({}) // GET ALL orders
-        const orders = response.map((doc) => {
-            const user = JSON.parse(JSON.stringify(doc))
-            return user
-        })
+        const response = await Order.find({}).populate({path: 'user', model: User, select: 'name'});
+        const orders = JSON.parse(JSON.stringify(response))
+        
         return {
             props: {
                 orders, loader: false
