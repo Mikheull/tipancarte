@@ -64,7 +64,6 @@ export default function ProductPreview({product}) {
       router.push(`/saved/${newproduct.nanoId}`)
       
     } catch (error) {
-      console.log(error);
       setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
       setSaving(false)
     }
