@@ -9,12 +9,12 @@ const imagesInfo = [
   },
   {
     ref: 'feed_02',
-    image: '/images/insta/2.jpg',
+    image: '/images/insta/st_patrick_post__insta.png',
     translateRatio: 30
   },
   {
     ref: 'feed_03',
-    image: '/images/insta/3.jpg',
+    image: '/images/insta/st_patrick_sante_post__insta.png',
     translateRatio: 0
   },
   {
