@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState} from "react";
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -12,6 +12,7 @@ function GoogleButton() {
     const { redirect } = router.query;
     const { dispatch } = React.useContext(Store)
     const { setToast } = useToasts()
+    const [loading, setLoading] = useState(false)
 
     const signInGoogle = () => {
         const provider = new GoogleAuthProvider()
@@ -19,6 +20,8 @@ function GoogleButton() {
     }
 
     const signInWithGoogleHandler = async () => {
+        setLoading(true)
+
         signInGoogle().then(async (user) => {
             try {
                 // user.user to get access its credentials
@@ -31,21 +34,29 @@ function GoogleButton() {
                 return router.push(redirect || '/')
             } catch (error) {
                 // console.log(error.response)
+                setLoading(false)
                 setToast({ text: 'Votre email est invalide', delay: 2000, placement: 'topRight', type: 'error' })
             }
         })
             .catch(() => {
+                setLoading(false)
                 setToast({ text: 'Erreur avec la connexion via Google, essayez une autre méthode', delay: 2000, placement: 'topRight', type: 'error' })
                 // console.log(error)
             })
     }
 
     return (
-        <Button auto onClick={signInWithGoogleHandler}>
-            <img src={`/images/icons/google.svg`} className="h-6" style={{paddingRight: '10px'}} alt="Icon Google"/>
-            Connexion avec Google
-        </Button>
+        loading ? 
+            <Button loading auto></Button>
+        : 
+        <>
+            <Button auto onClick={signInWithGoogleHandler}>
+                <img src={`/images/icons/google.svg`} className="h-6" style={{paddingRight: '10px'}} alt="Icon Google"/>
+                Connexion avec Google
+            </Button>
+        </>
     )
 }
+
 
 export default GoogleButton
