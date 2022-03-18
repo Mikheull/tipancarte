@@ -4,8 +4,8 @@ import dynamic from "next/dynamic"
 import { useRouter } from "next/router"
 import axios from "axios";
 import Moment from 'react-moment';
-import Layout from "../components/Layout";
-import { Store } from "../context/Store"
+import Layout from "../../../components/Layout";
+import { Store } from "../../../context/Store"
 import { Table, Button, Text } from '@geist-ui/core'
 
 function reducer(state, action) {
@@ -25,15 +25,16 @@ function SavedHistory() {
     const { state } = useContext(Store)
     const { userInfo } = state;
     const router = useRouter()
-
-    // This useReducer will fill after Fetch request action
     const [{ loading, error, productSaved }, dispatch] = useReducer(reducer, { loading: true, productSaved: [], error: '' })
 
     useEffect(() => {
-        // Only authenticated user can access this page
-        if (!userInfo) {
-            router.push('/login?redirect=/saved')
+        if (!userInfo || !userInfo.email) {
+            router.push('/login?redirect=/profile/saved')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
         const fetchOrder = async () => {
             try {
                 dispatch({ type: 'FETCH_REQUEST' }); // Loading: true, error: ''
@@ -66,13 +67,15 @@ function SavedHistory() {
             ),
             price: product.price + ' €',
             action: (
-                <Link href={`/saved/${product.nanoId}`} passHref>
+                <Link href={`/profile/saved/${product.nanoId}`} passHref>
                     <Button>Details</Button>
                 </Link>
             ) 
         }
     });
 
+    if(!userInfo) return false
+    
     return (
         <Layout title="Mes favoris" >
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
@@ -86,23 +89,23 @@ function SavedHistory() {
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/orders">
+                            <Link href="/profile/orders">
                                 <a className="text-gray-600">
                                     Commandes
                                 </a>
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/products">
+                            <Link href="/profile/products">
                                 <a className="text-gray-600 font-normal">
                                     Pancartes
                                 </a>
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/saved">
+                            <Link href="/profile/saved">
                                 <a className="text-gray-800 font-bold">
-                                    Favoris
+                                    Sauvegardes
                                 </a>
                             </Link>
                         </li>

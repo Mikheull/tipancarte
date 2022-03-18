@@ -6,8 +6,8 @@ import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Cookies from "js-cookie"
 import axios from "axios";
-import Layout from "../components/Layout";
-import { Store } from "../context/Store"
+import Layout from "../../components/Layout";
+import { Store } from "../../context/Store"
 import { Input, Button, useToasts } from '@geist-ui/core'
 
 function Profile() {
@@ -25,6 +25,8 @@ function Profile() {
     }, [])
 
 
+    if(!userInfo) return false
+    
     return (
         <Layout title="Profil" >
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
@@ -38,23 +40,23 @@ function Profile() {
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/orders">
+                            <Link href="/profile/orders">
                                 <a className="text-gray-600 font-normal">
                                     Commandes
                                 </a>
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/products">
+                            <Link href="/profile/products">
                                 <a className="text-gray-600 font-normal">
                                     Pancartes
                                 </a>
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/saved">
+                            <Link href="/profile/saved">
                                 <a className="text-gray-600">
-                                    Favoris
+                                    Sauvegardes
                                 </a>
                             </Link>
                         </li>

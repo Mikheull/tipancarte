@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import Moment from 'react-moment';
 import axios from "axios";
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
-import Layout from "../../components/Layout";
-import { Store } from "../../context/Store";
+import Layout from "../../../components/Layout";
+import { Store } from "../../../context/Store";
 
 import {  Text, Card, Table, useToasts, Spacer, Tag } from '@geist-ui/core'
 
@@ -53,7 +53,7 @@ function Order({ params }) {
     useEffect(() => {
         if (!userInfo) {
             // push to /login because is not Authenticated User
-            router.push(`/login?redirect=/orders/${orderId}`)
+            router.push(`/login?redirect=/profile/orders/${orderId}`)
         }
         const fetchOrder = async () => {
             try {
@@ -66,10 +66,10 @@ function Order({ params }) {
                 if(data.user === userInfo._id){
                     dispatch({ type: 'FETCH_SUCCESS', payload: data }) // Loader: false, error: '', order: {...}
                 }else{
-                    router.push('/orders')
+                    router.push('/profile/orders')
                 }
             } catch (error) {
-                router.push('/orders')
+                router.push('/profile/orders')
                 dispatch({ type: 'FETCH_FAIL', payload: error })
             }
         }
@@ -136,6 +136,8 @@ function Order({ params }) {
     function onError() {
         setToast({ text: 'Paiement non complété', delay: 2000, placement: 'topRight', type: 'error' })
     }
+
+    if(!userInfo) return false
 
     return (
         <Layout title={`Commande ${orderId}`} >

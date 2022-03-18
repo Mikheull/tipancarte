@@ -40,6 +40,8 @@ const productSchema = new mongoose.Schema({
         }
     }],
     comment: { type: String },
+    public: { type: Boolean, default: false },
+
 },
     { timestamps: true }
 )

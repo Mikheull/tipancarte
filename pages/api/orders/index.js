@@ -21,7 +21,7 @@ handler.post(async (req, res) => {
 
     // Send email new order
     if(order){
-        await createOrder(order.shippingAddress.fullName, order.totalPrice, `https://tipancarte.fr/orders/${order.nanoId}`, order.paymentMethod, order.paidAt, req.user.email)
+        await createOrder(order.shippingAddress.fullName, order.totalPrice, `https://tipancarte.fr/profile/orders/${order.nanoId}`, order.paymentMethod, order.paidAt, req.user.email)
         await createOrderAdmin(order.shippingAddress.fullName, order.totalPrice, `https://tipancarte.fr/admin/orders/${order.nanoId}`, order.paymentMethod, order.paidAt)
     }
 

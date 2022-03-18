@@ -113,7 +113,7 @@ function Login() {
                 )}
                 </Formik>
                 
-                <div>Vous n&rsquo;avez pas de compte ? <Link href={`/register`}><a className="text-black font-bold">Cliquez ici</a></Link></div>
+                <div>Vous n&rsquo;avez pas de compte ? <Link href={`/register`}><a className="text-orange-400 font-bold underline">Cliquez ici</a></Link></div>
 
                 <Spacer h={4}/>
                 <Divider>Google</Divider>

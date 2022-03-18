@@ -28,6 +28,8 @@ function Checkout() {
     }
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
+    if(!userInfo) return false
+
     return (
         <Layout title="Paiement">
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
@@ -84,7 +86,7 @@ function Checkout() {
                                         dispatch({ type: 'CART_CLEAR' })
                                         Cookies.remove('cartItems')
                                         // Push user to Single order details page (REQUIRES DATA._ID RESPONSE)
-                                        router.push(`/order/${data.nanoId}`)
+                                        router.push(`/profile/orders/${data.nanoId}`)
                                     }else{
                                         setToast({ text: 'Connectez vous pour passer commande', delay: 2000, placement: 'topRight', type: 'error' })
                                         router.push('/login?redirect=/checkout')
@@ -371,7 +373,7 @@ function Checkout() {
                                 </div>
                                 <div className="flex justify-between">
                                     <Text h6>Livraison</Text>
-                                    <Text h6 className="font-bold">9€</Text>
+                                    <Text h6 className="font-bold">4.9€</Text>
                                 </div>
                                 <div className="flex justify-between">
                                     <Text h6>Réduction</Text>
@@ -383,7 +385,7 @@ function Checkout() {
 
                             <div className="flex justify-between font-bitter">
                                 <Text h4 my={0}>Total :</Text>
-                                <Text h5 className="font-bold">{cartItems.reduce((a, c) => a + c.price, 0) + 9}€</Text>
+                                <Text h5 className="font-bold">{cartItems.reduce((a, c) => a + c.price, 0) + 4.9}€</Text>
                             </div>
                         </div>
                     </div>

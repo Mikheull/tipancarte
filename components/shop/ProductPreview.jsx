@@ -3,15 +3,29 @@ import { useRouter } from "next/router"
 import axios from 'axios';
 import { Store } from "../../context/Store";
 import Transition from '../../utils/Transition';
-import { Text, Input, Button, Divider, useToasts, Spacer } from '@geist-ui/core'
+import { Text, Input, Button, Divider, useToasts, Spacer, useModal, Modal } from '@geist-ui/core'
+
+const useCustomModal = () => {
+  const { visible, setVisible, bindings } = useModal()
+
+  const toggle = () => {
+        setVisible(!visible);
+  };
+
+  return [visible, toggle, bindings];
+};
 
 export default function ProductPreview({product}) {
   const { state, dispatch } = useContext(Store)
   const [creation, setCreation] = useState(false)
+  // eslint-disable-next-line no-unused-vars
   const [saving, setSaving] = useState(false)
   const router = useRouter()
   const { setToast } = useToasts()
   const { userInfo } = state;
+
+  // eslint-disable-next-line no-unused-vars
+  const [visibleSave, toggleSave, bindingsSave] = useCustomModal();
 
   const { price } = product;
   const soldOut = product.sold_out;
@@ -61,7 +75,7 @@ export default function ProductPreview({product}) {
       })
 
       const newproduct = data.data;
-      router.push(`/saved/${newproduct.nanoId}`)
+      router.push(`/profile/saved/${newproduct.nanoId}`)
       
     } catch (error) {
       setToast({ text: 'Une erreur est survenue !', delay: 2000, placement: 'topRight', type: 'error' })
@@ -159,33 +173,30 @@ export default function ProductPreview({product}) {
       </div>
     
       <div className="md:w-1/3 w-full">
-        {
-          (product.planks.length  >= 1) ? (
-            <>
-              {userInfo && 
-                <>
-                  {saving ? 
-                    <Button width="100%" loading icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>}>Sauvegarder</Button>
-                  : 
-                    <Button width="100%" icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>} onClick={saveProductHandler}>Sauvegarder</Button>
-                  }
-                  <Spacer h={2}/>
-                </>
-              }
+        <Spacer h={2}/>
+        <div className="flex items-center gap-2">
+              <>
+                {creation ? 
+                  <Button loading auto></Button>
+                : 
+                  <>
+                    <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
+                      { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
+                    </button>
+                  </>
+                }
 
-              {creation ? 
-                <Button loading auto></Button>
-              : 
-                <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
-                  { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
-                </button>
-              }
-            </>
-          ) : (
-            <Text type="error">Votre pancarte est vide !</Text>
-          )
-        }
-        
+                <Button type="" icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>} ghost auto onClick={() => toggleSave(true)}></Button>
+                <Modal {...bindingsSave}>
+                    <Modal.Title>Sauvegarder</Modal.Title>
+                    <Modal.Content>
+                      <p>Vous allez sauvegarder cette pancarte partagée dans sa configuration actuelle.<br/> Elle sera alors disponible depuis votre profil et vous pourrez toujours la modifier avant de l&apos;ajouter au panier</p>
+                    </Modal.Content>
+                    <Modal.Action passive onClick={() => toggleSave(false)}>Annuler</Modal.Action>
+                    <Modal.Action onClick={() => saveProductHandler()}>Sauvegarder</Modal.Action>
+                </Modal>
+              </>
+        </div>
       </div>
     </div>
   );

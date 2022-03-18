@@ -58,11 +58,13 @@ function Header({actual}) {
                 <div className='h-24 flex items-center justify-between mx-auto max-w-7xl md:px-4 px-10'>
                     <div className='md:w-2/12 w-4/12'>
                         <Link href="/" passHref>
-                            <img
-                                src="/images/brand/logo_dark.svg"
-                                className="cursor-pointer h-6 w-64"
-                                alt="Logo"
-                            />
+                            <a>
+                                <img
+                                    src="/images/brand/logo_dark.svg"
+                                    className="cursor-pointer h-6 w-64"
+                                    alt="Logo"
+                                />
+                            </a>
                         </Link>
                     </div>
 
@@ -118,11 +120,13 @@ function Header({actual}) {
                             <div className='h-24 flex items-center justify-between'>
                                 <div className='md:w-2/12 w-4/12'>
                                     <Link href="/" passHref>
-                                        <img
-                                            src="/images/brand/logo_light.svg"
-                                            className="cursor-pointer h-6 w-64"
-                                            alt="Logo"
-                                        />
+                                        <a>
+                                            <img
+                                                src="/images/brand/logo_light.svg"
+                                                className="cursor-pointer h-6 w-64"
+                                                alt="Logo"
+                                            />
+                                        </a>
                                     </Link>
                                 </div>
 

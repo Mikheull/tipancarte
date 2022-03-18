@@ -2,16 +2,16 @@ import { useEffect, useReducer, useState, useContext } from "react"
 import dynamic from 'next/dynamic'
 import { useRouter } from "next/router";
 import axios from "axios";
-import Layout from '../../components/Layout'
-import ProductDetails from '../../components/shop/ProductDetails.jsx'
-import ProductDetailsLoading from '../../components/loader/ProductDetailsLoading.jsx'
-import ProductImages from '../../components/shop/ProductImages.jsx'
-import ClientReview from '../../components/shop/ClientReview.jsx'
-import ProductConfiguration from '../../components/shop/ProductConfiguration.jsx'
-import ProductPreviewLoading from '../../components/loader/ProductPreviewLoading.jsx'
-import Social from '../../components/shop/Social.jsx'
+import Layout from '../../../components/Layout'
+import ProductDetails from '../../../components/shop/ProductDetails.jsx'
+import ProductDetailsLoading from '../../../components/loader/ProductDetailsLoading.jsx'
+import ProductImages from '../../../components/shop/ProductImages.jsx'
+import ClientReview from '../../../components/shop/ClientReview.jsx'
+import ProductConfiguration from '../../../components/shop/ProductConfiguration.jsx'
+import ProductPreviewLoading from '../../../components/loader/ProductPreviewLoading.jsx'
+import Social from '../../../components/shop/Social.jsx'
 import {Spacer } from '@geist-ui/core'
-import { Store } from "../../context/Store";
+import { Store } from "../../../context/Store";
 
 function reducer(state, action) {
     switch (action.type) {
@@ -36,7 +36,7 @@ function SavedProduct({ params }) {
 
     useEffect(() => {
         if (!userInfo) {
-            router.push(`/login?redirect=/saved/${productId}`)
+            router.push(`/login?redirect=/profile/saved/${productId}`)
         }
 
         const fetchProduct = async () => {
@@ -87,6 +87,8 @@ function SavedProduct({ params }) {
     }
 
 
+    if(!userInfo) return false
+    
     if(!loadedProduct) return (
         <Layout title={`Chargement en cours`} actual="shop" og_image={productDetails.image_preview} og_image_width="540" og_image_height="720">
             <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col lg:flex-row" data-aos="zoom-y-out" data-aos-delay="250">

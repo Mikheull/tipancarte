@@ -55,7 +55,7 @@ function CartPage() {
                             <div className="w-full text-center my-10">
                                 <img src="/images/states/empty_cart.svg" alt="Visuel représentant un panier vide" className="md:w-2/5 w-full mx-auto mb-8" />
                                 <Divider />
-                                <p className="my-6">Votre panier est vide ! <Link href="/shop" passHref><strong style={{ cursor: 'pointer' }} className="underline">Créez votre pancarte ici</strong></Link></p>
+                                <p className="my-6">Votre panier est vide ! <Link href="/shop" passHref><span style={{ cursor: 'pointer' }} className="text-orange-400 font-bold underline">Créez votre pancarte ici</span></Link></p>
                             </div>
                         ) : (
                             <div className="flex md:flex-row flex-col my-10">

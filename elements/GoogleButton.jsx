@@ -34,7 +34,7 @@ function GoogleButton() {
                 setToast({ text: 'Votre email est invalide', delay: 2000, placement: 'topRight', type: 'error' })
             }
         })
-            .catch((error) => {
+            .catch(() => {
                 setToast({ text: 'Erreur avec la connexion via Google, essayez une autre méthode', delay: 2000, placement: 'topRight', type: 'error' })
                 // console.log(error)
             })
@@ -42,7 +42,7 @@ function GoogleButton() {
 
     return (
         <Button auto onClick={signInWithGoogleHandler}>
-            <img src={`/images/icons/google.svg`} className="h-6" alt="Icon Google"/>
+            <img src={`/images/icons/google.svg`} className="h-6" style={{paddingRight: '10px'}} alt="Icon Google"/>
             Connexion avec Google
         </Button>
     )

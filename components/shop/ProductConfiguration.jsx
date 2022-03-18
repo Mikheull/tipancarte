@@ -10,8 +10,19 @@ import nearestColor from '../../utils/nearest_color';
 import colors from '../../seeds/colors.json';
 import full_colors from '../../seeds/full_colors.json';
 import ImagePreview from '../../components/shop/ImagePreview.jsx'
-import { Text, Input, Button, Divider, useToasts, Spacer, Popover, Textarea } from '@geist-ui/core'
+  // eslint-disable-next-line no-unused-vars
+import { Text, Input, Button, Divider, useToasts, Spacer, Popover, Textarea, useModal, Modal, Toggle } from '@geist-ui/core'
 import Circle from '@uiw/react-color-circle';
+
+const useCustomModal = () => {
+  const { visible, setVisible, bindings } = useModal()
+
+  const toggle = () => {
+        setVisible(!visible);
+  };
+
+  return [visible, toggle, bindings];
+};
 
 export default function ProductConfiguration({product, savedMode}) {
   const { state, dispatch } = useContext(Store)
@@ -21,11 +32,17 @@ export default function ProductConfiguration({product, savedMode}) {
   const [config, setConfig] = useState({ })
   const [loading, setLoading] = useState(true)
   const [creation, setCreation] = useState(false)
+  // eslint-disable-next-line no-unused-vars
   const [saving, setSaving] = useState(false)
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
   const router = useRouter()
   const { color } = router.query;
   const { setToast } = useToasts()
+
+  // eslint-disable-next-line no-unused-vars
+  const [visibleSave, toggleSave, bindingsSave] = useCustomModal();
+  // eslint-disable-next-line no-unused-vars
+  const [visibleAddToCart, toggleAddToCart, bindingsAddToCart] = useCustomModal();
 
   const color_list = (color) ? full_colors : colors
   const circle_color_list = color_list.map(function(color){
@@ -55,6 +72,7 @@ export default function ProductConfiguration({product, savedMode}) {
         color: '',
         name: product.name,
         comment: product.comment,
+        public: product.public,
         configureOptions: {
           quantity: product.planks.length,
           content: planks_list,
@@ -67,6 +85,7 @@ export default function ProductConfiguration({product, savedMode}) {
         color: '',
         name: "Ma pancarte personnalisée",
         comment: '',
+        public: false,
         configureOptions: {
           quantity: 1,
           content: [
@@ -186,6 +205,13 @@ export default function ProductConfiguration({product, savedMode}) {
     items.comment = value;
     setConfig({ ...config, ...items })
   }
+  // eslint-disable-next-line no-unused-vars
+  const publicableConfiguration = async (value) => {
+    let items = {...config};
+    items.public = value;
+    setConfig({ ...config, ...items })
+  }
+  
   
   const addToCartHandler = async () => {
     setCreation(true)
@@ -268,6 +294,9 @@ export default function ProductConfiguration({product, savedMode}) {
   }
   
   const saveProductHandler = async () => {
+    if (!userInfo) {
+      return router.push('/login')
+    }
     setSaving(true)
 
     const body = {
@@ -311,7 +340,7 @@ export default function ProductConfiguration({product, savedMode}) {
         })
   
         const newproduct = data.data;
-        router.push(`/saved/${newproduct.nanoId}`)
+        router.push(`/profile/saved/${newproduct.nanoId}`)
       }
       
     } catch (error) {
@@ -356,7 +385,7 @@ export default function ProductConfiguration({product, savedMode}) {
     },
   }
 
-  if(loading){return 'loading'}
+  if(loading){return false}
 
   return (
     <div id="configuration" className="relative overflow-hidden">
@@ -432,7 +461,7 @@ export default function ProductConfiguration({product, savedMode}) {
                       </div>
                     </label>
                     <div className="w-1/6 justify-self-end text-right">
-                      <Popover placement="left" content={(
+                      <Popover className="cursor-pointer" placement="left" content={(
                         <>
                           <Popover.Item title>
                             <span>Sélection des couleurs</span>
@@ -465,7 +494,7 @@ export default function ProductConfiguration({product, savedMode}) {
                       </div>
                     </label>
                     <div className="w-1/6 justify-self-end text-right">
-                      <Popover placement="left" content={(
+                      <Popover className="cursor-pointer" placement="left" content={(
                         <>
                           <Popover.Item title>
                             <span>Sélection des couleurs</span>
@@ -482,13 +511,10 @@ export default function ProductConfiguration({product, savedMode}) {
                       </Popover>
                     </div>
                   </div>
+                </div>
 
-                  <div className="w-full mt-2 flex items-end">
-                    <div className="flex items-center w-full">
-                      <Button className="z-0" width="100%" onClick={() => handleDeletePlankClick(plank.index)}>Supprimer</Button>
-                    </div>
-                  </div>
-
+                <div className="w-full mt-8 flex items-end md:justify-end justify-start">
+                  <Button ghost type="error" auto scale={0.75} className="z-0" width="100%" onClick={() => handleDeletePlankClick(plank.index)}>Supprimer</Button>
                 </div>
               </div>
             </div>
@@ -517,61 +543,95 @@ export default function ProductConfiguration({product, savedMode}) {
       ) }
       
       <div className="md:w-1/3 w-full">
-        <Spacer h={5}/>
-          <div className='flex flex-col w-full md:w-full'>
-            <label htmlFor="name" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
-              Donnez un nom a votre configuration
-            </label>
-            <Input
-                name="name"
-                id="name"
-                className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
-                width="100%"
-                required
-                placeholder="Ma pancarte personnalisée"
-                initialValue={(savedMode) ? product.name : config.name}
-                onChange={e => renameConfiguration(e.target.value)}
-            />
-        </div>
         <Spacer h={2}/>
-        <div className='flex flex-col w-full md:w-full'>
-          <label htmlFor="comment" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
-            Donnez des indications (optionnel)
-          </label>
-          <Textarea
-              width="100%"
-              resize
-              name="comment"
-              id="comment"
-              onChange={e => commentConfiguration(e.target.value)}
-              placeholder="Votre message" 
-              initialValue={(savedMode) ? product.comment : config.comment}
-          />
-        </div>
-        
-        <Spacer h={2}/>
-        <div className="">
+        <div className="flex items-center gap-2">
           {
             (config.configureOptions.quantity  >= 1) ? (
               <>
-                {userInfo && 
-                  <>
-                    {saving ? 
-                      <Button width="100%" loading icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>}>Sauvegarder</Button>
-                    : 
-                      <Button width="100%" icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>} onClick={saveProductHandler}>Sauvegarder</Button>
-                    }
-                    <Spacer h={2}/>
-                  </>
-                }
-
                 {creation ? 
                   <Button loading auto></Button>
                 : 
-                  <button disabled={soldOut} onClick={addToCartHandler} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
-                    { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
-                  </button>
+                  <>
+                    <button disabled={soldOut} onClick={() => toggleAddToCart(true)} className="h-12 w-full bg-black text-white hover:bg-white hover:text-black hover:border border border-black items-center text-center" type="button">
+                      { soldOut ? 'Rupture de stock' : `Ajouter au panier | ${price} €` }
+                    </button>
+
+                    <Modal {...bindingsAddToCart}>
+                        <Modal.Title>Ajouter au panier</Modal.Title>
+                        <Modal.Content>
+                          <div className='flex flex-col w-full md:w-full'>
+                            <label htmlFor="cart_name" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
+                              Donnez un nom a votre configuration
+                            </label>
+                            <Input
+                                name="cart_name"
+                                id="cart_name"
+                                className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
+                                width="100%"
+                                required
+                                placeholder="Ma pancarte personnalisée"
+                                initialValue={(savedMode) ? product.name : config.name}
+                                onChange={e => renameConfiguration(e.target.value)}
+                            />
+                          </div>
+                        
+                          <Spacer h={2}/>
+                          <div className='flex flex-col w-full md:w-full'>
+                            <label htmlFor="cart_comment" className="text-xs sm:text-sm tracking-wide text-cdark font-lato">
+                              Donnez des indications (optionnel)
+                            </label>
+                            <Textarea
+                                width="100%"
+                                resize
+                                name="cart_comment"
+                                id="cart_comment"
+                                onChange={e => commentConfiguration(e.target.value)}
+                                placeholder="Votre message" 
+                                initialValue={(savedMode) ? product.comment : config.comment}
+                            />
+                          </div>
+
+                          {/* <Spacer h={2}/>
+                          <div className='flex flex-col w-full md:w-full'>
+                            <p htmlFor="cart_comment" className="text-xs sm:text-sm tracking-wide text-cdark font-lato">
+                              Publier la pancarte sur notre galerie
+                            </p>
+                            <Toggle onChange={e => publicableConfiguration(e.target.value)} />
+                          </div> */}
+                          
+                        </Modal.Content>
+                        <Modal.Action passive onClick={() => toggleAddToCart(false)}>Annuler</Modal.Action>
+                        <Modal.Action onClick={() => addToCartHandler()}>Ajouter</Modal.Action>
+                    </Modal>
+                  </>
                 }
+
+                <Button type="" icon={<img src="/images/icons/heart.svg" className="cursor-pointer h-6 w-6" alt="Favoris"/>} ghost auto onClick={() => toggleSave(true)}></Button>
+                <Modal {...bindingsSave}>
+                    <Modal.Title>Sauvegarder</Modal.Title>
+                    <Modal.Content>
+                      {savedMode ? (<p>Vous allez mettre à jour votre pancarte.<br/> Elle sera toujours disponible depuis votre profil et vous pourrez toujours la modifier avant de l&apos;ajouter au panier</p>) : (<p>Vous allez sauvegarder votre pancarte dans sa configuration actuelle.<br/> Elle sera alors disponible depuis votre profil et vous pourrez toujours la modifier avant de l&apos;ajouter au panier</p>)}
+                      <Spacer h={3}/>
+
+                      <div className='flex flex-col w-full md:w-full'>
+                        <label htmlFor="save_name" className="text-xs sm:text-sm tracking-wide text-cdark font-lato" >
+                          Donnez un nom a votre sauvegarde
+                        </label>
+                        <Input
+                            name="save_name"
+                            id="save_name"
+                            className="text-sm sm:text-base mt-2.5 font-bitter w-full rounded placeholder-gray-400"
+                            width="100%"
+                            required
+                            placeholder="Ma pancarte personnalisée"
+                            initialValue={(savedMode) ? product.name : config.name}
+                            onChange={e => renameConfiguration(e.target.value)}
+                        />
+                      </div>
+                    </Modal.Content>
+                    <Modal.Action passive onClick={() => toggleSave(false)}>Annuler</Modal.Action>
+                    <Modal.Action onClick={() => saveProductHandler()}>Sauvegarder</Modal.Action>
+                </Modal>
               </>
             ) : (
               <Text type="error">Votre pancarte est vide !</Text>

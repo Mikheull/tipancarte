@@ -164,7 +164,7 @@ function Register() {
                 )}
                 </Formik>
                 
-                <div className="my-6">Vous avez déjà un compte ? <Link href={`/login`}><a className="text-black font-bold">Cliquez ici</a></Link></div>
+                <div className="my-6">Vous avez déjà un compte ? <Link href={`/login`}><a className="text-orange-400 font-bold underline">Cliquez ici</a></Link></div>
 
                 <Spacer h={4}/>
                 <Divider>Google</Divider>

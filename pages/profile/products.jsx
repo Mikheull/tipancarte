@@ -1,11 +1,11 @@
 import { useContext, useEffect, useReducer } from "react"
 import Link from 'next/link'
+import Image from 'next/image'
 import dynamic from "next/dynamic"
 import { useRouter } from "next/router"
 import axios from "axios";
-import Moment from 'react-moment';
-import Layout from "../components/Layout";
-import { Store } from "../context/Store"
+import Layout from "../../components/Layout";
+import { Store } from "../../context/Store"
 import { Table, Button, Text } from '@geist-ui/core'
 
 function reducer(state, action) {
@@ -13,7 +13,7 @@ function reducer(state, action) {
         case 'FETCH_REQUEST':
             return { ...state, loading: true, error: '' };
         case 'FETCH_SUCCESS':
-            return { ...state, loading: false, orders: action.payload, error: '' };
+            return { ...state, loading: false, products: action.payload, error: '' };
         case 'FETCH_FAIL':
             return { ...state, loading: false, error: action.payload };
         default:
@@ -21,28 +21,27 @@ function reducer(state, action) {
     }
 }
 
-function OrdersHistory() {
+function ProductHistory() {
     const { state } = useContext(Store)
     const { userInfo } = state;
     const router = useRouter()
 
     // This useReducer will fill after Fetch request action
-    const [{ loading, error, orders }, dispatch] = useReducer(reducer, { loading: true, orders: [], error: '' })
+    const [{ loading, error, products }, dispatch] = useReducer(reducer, { loading: true, products: [], error: '' })
 
     useEffect(() => {
         // Only authenticated user can access this page
         if (!userInfo) {
-            router.push('/login?redirect=/orders')
+            router.push('/login?redirect=/profile/products')
         }
         const fetchOrder = async () => {
             try {
-                // orderId comes from Url-Params
                 dispatch({ type: 'FETCH_REQUEST' }); // Loading: true, error: ''
-                const { data } = await axios.get(`/api/orders/history`, {
+                const { data } = await axios.get(`/api/products/history`, {
                     headers: { authorization: `Bearer ${userInfo.token}` }
                 })
                 // Send received response as payload
-                dispatch({ type: 'FETCH_SUCCESS', payload: data }) // Loading: false, error: '', orders: [{...}, {...}]
+                dispatch({ type: 'FETCH_SUCCESS', payload: data }) // Loading: false, error: '', products: [{...}, {...}]
             } catch (error) {
                 dispatch({ type: 'FETCH_FAIL', payload: error })
             }
@@ -52,25 +51,33 @@ function OrdersHistory() {
     }, [])
 
 
-    const data = orders.map(function(order){
+    const data = products.map(function(product){
         return { 
-            id: order.nanoId, 
-            date: <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>, 
-            total: `${order.totalPrice}€`,
-            paid: order.isPaid ? <Moment format="[Payée le] DD/MM/YYYY à HH[h]mm">{order.paidAt}</Moment> : 'Non payée', 
-            delivered: order.isDelivered ?  <Moment format="[Livré le] DD/MM/YYYY à HH[h]mm">{order.deliveredAt}</Moment> : 'Non livré', 
+            id: product.nanoId, 
+            name: (
+                <div className="p-4" >
+                    <Link href={`/preview/${product.nanoId}`}>
+                        <a className="flex items-center text-black">
+                            <Image src={product.image_preview} width="64" height="64" alt="Image du produit"/>
+                            <span className="ml-2 font-bold">{product.name}</span>
+                        </a>
+                    </Link>
+                </div>
+            ),
+            price: product.price + ' €', 
             action: (
-                <Link href={`/order/${order.nanoId}`} passHref>
+                <Link href={`/preview/${product.nanoId}`} passHref>
                     <Button>Details</Button>
                 </Link>
             ) 
         }
     });
 
-    return (
-        <Layout title="Commandes" >
-            <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
+    if(!userInfo) return false
 
+    return (
+        <Layout title="Mes favoris" >
+            <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
                 <div className="border-b-2 border-gray-200">
                     <ul className="flex flex-wrap gap-x-6">
                         <li className="">
@@ -81,38 +88,36 @@ function OrdersHistory() {
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/orders">
-                                <a className="text-gray-800 font-bold">
+                            <Link href="/profile/orders">
+                                <a className="text-gray-600 font-normal">
                                     Commandes
                                 </a>
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/products">
-                                <a className="text-gray-600 font-normal">
+                            <Link href="/profile/products">
+                                <a className="text-gray-800 font-bold">
                                     Pancartes
                                 </a>
                             </Link>
                         </li>
                         <li className="">
-                            <Link href="/saved">
-                                <a className="text-gray-600">
-                                    Favoris
+                            <Link href="/profile/saved">
+                                <a className="text-gray-600 font-normal">
+                                    Sauvegardes
                                 </a>
                             </Link>
                         </li>
                     </ul>
                 </div>
 
+
                 <div className="my-6 overflow-scroll">
                     {loading ? (
                         <>
                             <Table>
-                                <Table.Column prop="id" label="ID" />
-                                <Table.Column prop="date" label="Date de commande" />
-                                <Table.Column prop="total" label="Total" />
-                                <Table.Column prop="paid" label="Payée" />
-                                <Table.Column prop="delivered" label="Livrée" />
+                                <Table.Column prop="name" label="Id" />
+                                <Table.Column prop="price" label="Prix" />
                                 <Table.Column prop="action" label="" />
                             </Table>
                             <div className="border rounded-md p-4 w-full mx-auto my-6">
@@ -129,11 +134,8 @@ function OrdersHistory() {
                     : error ? (<Text>{error}</Text>)
                         : (
                             <Table data={data}>
-                                <Table.Column prop="id" label="ID" />
-                                <Table.Column prop="date" label="Date de commande" />
-                                <Table.Column prop="total" label="Total" />
-                                <Table.Column prop="paid" label="Payée" />
-                                <Table.Column prop="delivered" label="Livrée" />
+                                <Table.Column prop="name" label="Id" />
+                                <Table.Column prop="price" label="Prix" />
                                 <Table.Column prop="action" label="" />
                             </Table>
                         )}
@@ -144,4 +146,4 @@ function OrdersHistory() {
     )
 }
 
-export default dynamic(() => Promise.resolve(OrdersHistory), { ssr: false })
+export default dynamic(() => Promise.resolve(ProductHistory), { ssr: false })

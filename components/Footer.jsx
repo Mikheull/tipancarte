@@ -22,11 +22,13 @@ function Footer() {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div className='mb-4 sm:mb-0'>
                         <Link href="/" passHref>
-                            <img
-                                src="/images/brand/logo_light.svg"
-                                className="cursor-pointer h-6"
-                                alt="Logo"
-                            />
+                            <a>
+                                <img
+                                    src="/images/brand/logo_light.svg"
+                                    className="cursor-pointer h-6"
+                                    alt="Logo"
+                                />
+                            </a>
                         </Link>
                     </div>
 

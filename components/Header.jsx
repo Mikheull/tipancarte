@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Transition } from 'react-transition-group';
 import Cookies from 'js-cookie';
 import { Store } from '../context/Store';
-import { Text, User, Popover, Badge, useBodyScroll, Spacer } from '@geist-ui/core'
+import { User, Popover, Badge, useBodyScroll, Spacer } from '@geist-ui/core'
 
 function Header({actual}) {
     const router = useRouter()
@@ -61,17 +61,19 @@ function Header({actual}) {
         <>
             <div className="h-24 border-b border-gray-100">
                 <div className='h-24 flex items-center justify-between mx-auto max-w-7xl md:px-4 px-10'>
-                    <div className='md:w-2/12 w-4/12'>
+                    <div className='md:w-3/12 w-4/12'>
                         <Link href="/" passHref>
-                            <img
-                                src="/images/brand/logo_dark.svg"
-                                className="cursor-pointer h-6 w-64"
-                                alt="Logo"
-                            />
+                            <a>
+                                <img
+                                    src="/images/brand/logo_dark.svg"
+                                    className="cursor-pointer h-6 w-64"
+                                    alt="Logo"
+                                />
+                            </a>
                         </Link>
                     </div>
 
-                    <div className='md:w-8/12 w-0 hidden lg:flex justify-center gap-x-4'>
+                    <div className='md:w-6/12 w-0 hidden lg:flex justify-center gap-x-4'>
                         {links.map((item, i) => (
                             <Link key={i} href={item.link} passHref>
                                 <a className={`text-black text-lg ${(actual == item.key) ? 'font-bold' : 'font-semibold'}`}>{item.name}</a>
@@ -79,7 +81,7 @@ function Header({actual}) {
                         ))}
                     </div>
 
-                    <div className='md:w-2/12 w-8/12 justify-end flex items-center'>
+                    <div className='md:w-3/12 w-8/12 justify-end flex items-center'>
                         <div className='lg:hidden flex'>
                             <img
                                 src={`/images/icons/menu.svg`}
@@ -100,10 +102,10 @@ function Header({actual}) {
                                                     <Link href="/profile"><a className='text-black'>Profil</a></Link>
                                                 </Popover.Item>
                                                 <Popover.Item>
-                                                    <Link href="/orders"><a className='text-black'>Mes commandes</a></Link>
+                                                    <Link href="/profile/orders"><a className='text-black'>Mes commandes</a></Link>
                                                 </Popover.Item>
                                                 <Popover.Item>
-                                                    <Link href="/products"><a className='text-black'>Mes pancartes</a></Link>
+                                                    <Link href="/profile/products"><a className='text-black'>Mes pancartes</a></Link>
                                                 </Popover.Item>
                                                 <Popover.Item line />
                                                 <Popover.Item>
@@ -124,20 +126,24 @@ function Header({actual}) {
                                     )
                             }
                             </div>
-                            {
-                                userInfo && (
-                                    <Link href="/saved" passHref>
-                                        <img
-                                            src="/images/icons/heart.svg"
-                                            className="cursor-pointer h-6 w-6"
-                                            alt="Favoris"
-                                        />
-                                    </Link>
-                                )
-                            }
+
+                            <div>
+                                <Link href="/profile/saved" passHref>
+                                    <a className='flex text-white'>
+                                        <Badge.Anchor>
+                                            <img
+                                                src="/images/icons/heart.svg"
+                                                className="cursor-pointer h-6 w-6"
+                                                alt="Panier"
+                                            />
+                                        </Badge.Anchor>
+                                    </a>
+                                </Link>
+                            </div>
+
                             <div>
                                 <Link href="/cart" passHref>
-                                    <Text className='flex text-white'>
+                                    <a className='flex text-white'>
                                         <Badge.Anchor>
                                             <Badge scale={0.5} type="success">{cart.cartItems.length > 0 ? cart.cartItems.length : 0}</Badge>
                                             <img
@@ -146,7 +152,7 @@ function Header({actual}) {
                                                 alt="Panier"
                                             />
                                         </Badge.Anchor>
-                                    </Text>
+                                    </a>
                                 </Link>
                             </div>
                         </div>
@@ -170,11 +176,13 @@ function Header({actual}) {
                             <div className='h-24 flex items-center justify-between'>
                                 <div className='md:w-2/12 w-4/12'>
                                     <Link href="/" passHref>
-                                        <img
-                                            src="/images/brand/logo_light.svg"
-                                            className="cursor-pointer h-6 w-64"
-                                            alt="Logo"
-                                        />
+                                        <a>
+                                            <img
+                                                src="/images/brand/logo_light.svg"
+                                                className="cursor-pointer h-6 w-64"
+                                                alt="Logo"
+                                            />
+                                        </a>
                                     </Link>
                                 </div>
 
@@ -202,9 +210,9 @@ function Header({actual}) {
                                 userInfo ? (
                                     <>
                                         <Link href="/profile"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Profil</a></Link>
-                                        <Link href="/orders"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes commandes</a></Link>
-                                        <Link href="/products"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes pancartes</a></Link>
-                                        <Link href="/saved"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes favoris</a></Link>
+                                        <Link href="/profile/orders"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes commandes</a></Link>
+                                        <Link href="/profile/products"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes pancartes</a></Link>
+                                        <Link href="/profile/saved"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes sauvegardes</a></Link>
                                         <a onClick={logOutClickHandler} href="./" className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Déconnexion</a>
                                     </>
                                 ) :

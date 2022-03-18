@@ -11,18 +11,9 @@ export default function Shop() {
     {
         image: '/images/shop/tipancarte/48FF448F-2010-4FFA-A6C3-7B2F4A4CDEBD_1_105_c.jpg',
     },
-    // {
-    //     image: '/images/shop/tipancarte/1.jpg',
-    // },
-    // {
-    //     image: '/images/shop/tipancarte/2.jpg',
-    // },
-    // {
-    //     image: '/images/shop/tipancarte/3.jpg',
-    // },
-    // {
-    //     image: '/images/shop/tipancarte/4.jpg',
-    // }
+    {
+        image: '/images/shop/tipancarte/IMG_1741.jpeg',
+    }
   ];
   const product = {
     name: 'Pancarte personnalisée',
