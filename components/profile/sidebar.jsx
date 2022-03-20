@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 function Sidebar({links, actual}) {
     return (
         <>
-            <div className="border-b border-gray-100">
+            <div className="border-b border-gray-100 ">
                 <ul className="flex flex-wrap gap-x-6">
                     {links.map((item, i) => (
                         <li className="" key={i}>
