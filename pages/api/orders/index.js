@@ -21,8 +21,45 @@ handler.post(async (req, res) => {
 
     // Send email new order
     if(order){
-        await createOrder(order.shippingAddress.fullName, order.totalPrice, `https://tipancarte.fr/profile/orders/${order.nanoId}`, order.paymentMethod, order.paidAt, req.user.email)
-        await createOrderAdmin(order.shippingAddress.fullName, order.totalPrice, `https://tipancarte.fr/admin/orders/${order.nanoId}`, order.paymentMethod, order.paidAt)
+        await createOrder(
+            order.nanoId, 
+            "En attente", 
+            order.createdAt, 
+            order.orderItems.length, 
+            (order.orderItems.length >= 1) ? 's' : '', 
+            (order.totalPrice - order.shippingPrice).toFixed(2), 
+            0, 
+            order.shippingPrice.toFixed(2), 
+            order.totalPrice.toFixed(2), 
+            'En attente', 
+            '', 
+            order.shippingAddress.address, 
+            order.shippingAddress.city, 
+            order.shippingAddress.postalCode, 
+            order.shippingAddress.country, 
+            `https://tipancarte.fr/profile/orders/${order.nanoId}`, 
+            req.user.email
+        )
+
+        await createOrderAdmin(
+            order.nanoId, 
+            "En attente", 
+            order.createdAt, 
+            order.orderItems.length, 
+            (order.orderItems.length >= 1) ? 's' : '', 
+            (order.totalPrice - order.shippingPrice).toFixed(2), 
+            0, 
+            order.shippingPrice.toFixed(2), 
+            order.totalPrice.toFixed(2), 
+            order.comment,
+            'En attente', 
+            '', 
+            order.shippingAddress.address, 
+            order.shippingAddress.city, 
+            order.shippingAddress.postalCode, 
+            order.shippingAddress.country, 
+            `https://tipancarte.fr/admin/orders/${order.nanoId}`
+        )
     }
 
     res.status(201).send(order)

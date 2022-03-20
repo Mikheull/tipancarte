@@ -96,7 +96,7 @@ function OrdersHistory() {
     return (
         <Layout title="Commandes" >
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
-                <Sidebar links={links} actual="orders" />c
+                <Sidebar links={links} actual="orders" />
 
                 <div className="my-6 overflow-scroll">
                     {loading ? (

@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 const template = compile(`
   <mjml>
     <mj-head>
-      <mj-title>TiPancarte - Contact !</mj-title>
+      <mj-title>TiPancarte - Commande payée !</mj-title>
       <mj-font name="Open Sans" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" />
       <mj-attributes>
         <mj-class name="opensansregular" font-family="'Open Sans', sans-serif" font-weight="400" />
@@ -19,42 +19,22 @@ const template = compile(`
       <mj-section padding="20px 0 20px 0" border-bottom="1px solid #dde6ed">
         <mj-column width="100%">
           <mj-image width="128px" height="30px" align="center" src="https://www.tipancarte.fr/images/email_assets/full_logo_dark@4.png" align="left" />
-          <mj-text font-size="20px" align="center">Contact depuis le formulaire</mj-text>
-        </mj-column>
-      </mj-section>
-      <mj-section background-color="#FFF" padding="0 0 0 0">
-        <mj-column>
-          <mj-spacer height="20px" />
-          <mj-text color="#4a5568" line-height="1.3"> Vous avez reçu un message ! </mj-text>
-        </mj-column>
-      </mj-section>
-    
-      <mj-section background-color="#FFF" padding="0 0 0 0">
-        <mj-column>
-          <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+          <mj-text font-size="20px" align="center">🪧Commande payée! 🪧</mj-text>
         </mj-column>
       </mj-section>
       
       <mj-section background-color="#FFF" padding="0 0 0 0">
         <mj-column>
-          <mj-text font-size="20px" font-weight="bold">Détails</mj-text>
+          <mj-spacer height="20px" />
+          <mj-text color="#4a5568" line-height="1.3"> Un paiement à été validé ! </mj-text>
         </mj-column>
       </mj-section>
-      <mj-section background-color="#FFF" padding="0 0 0 0">
-        <mj-column>
-          <mj-text font-size="16px">Nom complet : {{fullname}}</mj-text>
-          <mj-text font-size="16px">Email : {{email}}</mj-text>
-          <mj-text font-size="16px">Sujet : {{subject}}</mj-text>
-          <mj-text font-size="16px">Message : {{message}}</mj-text>
-        </mj-column>
-        
-      </mj-section>
-      <mj-section background-color="#FFF" padding="0 0 0 0">
-        <mj-column>
-          <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
-          <mj-spacer height="50px" />
-        </mj-column>
-      </mj-section>
+      
+      <mj-section>
+          <mj-column width="100%">
+            <mj-text align="left" color="#2d3748" font-size="12px">Vous pouvez voir la commande <a href="{{order_link}}" style="color:#000">ici</a></mj-text>
+          </mj-column>
+        </mj-section>		
       
       <mj-section background-color="#e1ecf7" border-top="1px solid #dde6ed">
         <mj-column width="100%">
@@ -75,8 +55,8 @@ const template = compile(`
     </mjml>
 `);
 
-export const contact = async (fullname, email, subject, message) => {
-  const context = {fullname, email, subject, message};
+export const payOrderAdmin = async (order_link) => {
+  const context = {order_link};
   const mjml = template(context);
   const htmlOutput = mjml2html(mjml).html;
 
@@ -95,7 +75,7 @@ export const contact = async (fullname, email, subject, message) => {
 
 	const mailOptions = {
 		from: "contact@tipancarte.fr",
-		subject: `Contact`,
+		subject: `Commande payée !`,
 		html: htmlOutput,
     to: "contact@tipancarte.fr"
 	};
