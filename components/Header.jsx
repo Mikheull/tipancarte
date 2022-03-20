@@ -6,6 +6,7 @@ import { Transition } from 'react-transition-group';
 import Cookies from 'js-cookie';
 import { Store } from '../context/Store';
 import { User, Popover, Badge, useBodyScroll, Spacer } from '@geist-ui/core'
+import { User as UserIcon, Package, LogOut, Clipboard } from 'react-feather';
 
 function Header({actual}) {
     const router = useRouter()
@@ -99,17 +100,17 @@ function Header({actual}) {
                                         <Popover content={(
                                             <>
                                                 <Popover.Item>
-                                                    <Link href="/profile"><a className='text-black'>Profil</a></Link>
+                                                    <Link href="/profile"><a className='text-black flex items-center w-full'><UserIcon size={14} strokeWidth="3" className="mr-2" />Profil</a></Link>
                                                 </Popover.Item>
                                                 <Popover.Item>
-                                                    <Link href="/profile/orders"><a className='text-black'>Mes commandes</a></Link>
+                                                    <Link href="/profile/orders"><a className='text-black flex items-center w-full'><Package size={14} strokeWidth="3" className="mr-2" />Mes commandes</a></Link>
                                                 </Popover.Item>
                                                 <Popover.Item>
-                                                    <Link href="/profile/products"><a className='text-black'>Mes pancartes</a></Link>
+                                                    <Link href="/profile/products"><a className='text-black flex items-center w-full'><Clipboard size={14} strokeWidth="3" className="mr-2" />Mes pancartes</a></Link>
                                                 </Popover.Item>
                                                 <Popover.Item line />
                                                 <Popover.Item>
-                                                    <a onClick={logOutClickHandler} href="./" className='text-black'>Déconnexion</a>
+                                                    <a onClick={logOutClickHandler} href="./" className='text-black flex items-center w-full'><LogOut size={14} strokeWidth="3" className="mr-2" />Déconnexion</a>
                                                 </Popover.Item>
                                             </>
                                         )}>
@@ -210,10 +211,10 @@ function Header({actual}) {
                                 userInfo ? (
                                     <>
                                         <Link href="/profile"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Profil</a></Link>
-                                        <Link href="/profile/orders"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes commandes</a></Link>
-                                        <Link href="/profile/products"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes pancartes</a></Link>
-                                        <Link href="/profile/saved"><a className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Mes sauvegardes</a></Link>
-                                        <a onClick={logOutClickHandler} href="./" className='text-white font-semibold text-2xl border-slate-900 border-b py-4'>Déconnexion</a>
+                                        <Link href="/profile/orders"><a className='text-white font-semibold text-lg border-slate-900 border-b py-4 pl-5'>Mes commandes</a></Link>
+                                        <Link href="/profile/products"><a className='text-white font-semibold text-lg border-slate-900 border-b py-4 pl-5'>Mes pancartes</a></Link>
+                                        <Link href="/profile/saved"><a className='text-white font-semibold text-lg border-slate-900 border-b py-4 pl-5'>Mes sauvegardes</a></Link>
+                                        <a onClick={logOutClickHandler} href="./" className='text-white font-semibold text-lg border-slate-900 border-b py-4 pl-5'>Déconnexion</a>
                                     </>
                                 ) :
                                     (

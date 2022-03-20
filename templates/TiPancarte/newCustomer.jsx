@@ -18,7 +18,7 @@ const template = compile(`
     <mj-body background-color="#FFF">
       <mj-section background-color="#e1ecf7" padding="20px 0 20px 0" border-bottom="1px solid #dde6ed">
         <mj-column width="100%">
-          <mj-image width="128px" height="30px" src="/assets/full_logo_dark@4.png" align="left" />
+          <mj-image width="128px" height="30px" src="https://www.tipancarte.fr/images/email_assets/full_logo_dark@4.png" align="left" />
         </mj-column>
         <mj-column width="100%">
           <mj-spacer height="20px" />
@@ -26,9 +26,12 @@ const template = compile(`
         </mj-column>
       </mj-section>
       <mj-section background-color="#FFF" padding="0 0 0 0">
-        <mj-column>
-          <mj-spacer height="50px" />
-          <mj-text color="#4a5568" line-height="1.3"> Vous avez désormais la possibilité de retrouver vos commandes sur votre compte personnel, les régler ou bien les annuler. </mj-text>
+        <mj-column width="100%">
+          <mj-image width="300px" height="200px" src="https://www.tipancarte.fr/images/email_assets/welcome.png" align="center" />
+        </mj-column>
+        <mj-column width="100%">>
+          <mj-spacer height="50px"/>
+          <mj-text color="#4a5568" line-height="1.3" font-size="18px" >Bienvenue sur <b>TiPancarte</b> ! <br /> <br /> Découvrez nos produits et notre outil de pancartes 100% personnalisée.<br /> Configurez dès à présent des TiPancartes et enregistrez les sur votre compte pour y revenir plus tard et les ajouter à votre panier. <br /><br />Et surtout ! Partagez nous vos créations sur Instagram.</mj-text>
           <mj-spacer height="30px" />
         </mj-column>
       </mj-section>
@@ -50,11 +53,11 @@ const template = compile(`
           </mj-text>
         </mj-column>
         <mj-column>
-          <mj-image width="16px" height="16px" src="/assets/icons/instagram.png" href="https://www.instagram.com/tipancarte" />
+          <mj-image width="16px" height="16px" src="https://www.tipancarte.fr/images/email_assets/icons/instagram.png" href="https://www.instagram.com/tipancarte" />
         </mj-column>
       </mj-section>
     </mj-body>
-  </mjml>
+    </mjml>
 `);
 
 export const newCustomer = async (name, email) => {

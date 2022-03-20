@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 import axios from "axios";
 import Moment from 'react-moment';
 import Layout from "../../../components/Layout";
+import Sidebar from "../../../components/profile/Sidebar";
 import { Store } from "../../../context/Store"
 import { Table, Button, Text } from '@geist-ui/core'
 
@@ -74,44 +75,35 @@ function SavedHistory() {
         }
     });
 
+    const links = [
+        {
+            key: 'index',
+            name: 'Profil',
+            link: '/profile'
+        },
+        {
+            key: 'orders',
+            name: 'Commandes',
+            link: '/profile/orders'
+        },
+        {
+            key: 'products',
+            name: 'Pancartes',
+            link: '/profile/products'
+        },
+        {
+            key: 'saved',
+            name: 'Sauvegardes',
+            link: '/profile/saved'
+        }
+    ];
+
     if(!userInfo) return false
     
     return (
         <Layout title="Mes favoris" >
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
-                <div className="border-b-2 border-gray-200">
-                    <ul className="flex flex-wrap gap-x-6">
-                        <li className="">
-                            <Link href="/profile">
-                                <a className="text-gray-600 font-normal">
-                                    Profil
-                                </a>
-                            </Link>
-                        </li>
-                        <li className="">
-                            <Link href="/profile/orders">
-                                <a className="text-gray-600">
-                                    Commandes
-                                </a>
-                            </Link>
-                        </li>
-                        <li className="">
-                            <Link href="/profile/products">
-                                <a className="text-gray-600 font-normal">
-                                    Pancartes
-                                </a>
-                            </Link>
-                        </li>
-                        <li className="">
-                            <Link href="/profile/saved">
-                                <a className="text-gray-800 font-bold">
-                                    Sauvegardes
-                                </a>
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-
+                <Sidebar links={links} actual="saved" />
 
                 <div className="my-6 overflow-scroll">
                     {loading ? (

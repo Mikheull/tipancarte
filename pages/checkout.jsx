@@ -311,6 +311,9 @@ function Checkout() {
                                     </Radio.Group>
                                 </div>
 
+                                <Spacer h={2} />
+                                <Text p>En passant commande, vous reconnaissez avoir pris connaissance de notre politique des gestions personnelles et acceptez nos Conditions Générales de Vente</Text>
+
                                 <Spacer h={4} />
                                 <div className='flex w-full pb-10 items-center'>
                                     <div className="w-full">
