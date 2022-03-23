@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import axios from "axios";
 import Moment from 'react-moment';
 import Layout from "../../../components/Layout";
-import Sidebar from "../../../components/profile/Sidebar";
+import Topbar from "../../../components/profile/Topbar";
 import { Store } from "../../../context/Store"
 import { Table, Button, Text } from '@geist-ui/core'
 
@@ -95,8 +95,9 @@ function OrdersHistory() {
     
     return (
         <Layout title="Commandes" >
+            <Topbar links={links} actual="orders" />
             <div className="py-6 mx-auto max-w-6xl md:px-4 px-10 min-h-screen flex flex-col">
-                <Sidebar links={links} actual="orders" />
+                <Text h2 className="font-bitter font-extrabold">Mes commandes</Text>
 
                 <div className="my-6 overflow-scroll">
                     {loading ? (

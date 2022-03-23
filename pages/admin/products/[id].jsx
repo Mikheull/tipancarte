@@ -4,6 +4,7 @@ import Link from 'next/link'
 import dynamic from "next/dynamic"
 import Moment from 'react-moment';
 import axios from 'axios';
+import AWS from 'aws-sdk';
 import dbConnect from "../../../utils/database";
 import Product from '../../../models/Product';
 import User from '../../../models/User';
@@ -20,6 +21,10 @@ function ProductItem({product, orders, loader}) {
     const router = useRouter()
     const { setVisible, bindings } = useModal()
     const { setToast } = useToasts()
+
+    AWS.config.setPromisesDependency(require('bluebird'));
+    AWS.config.update({ accessKeyId: process.env.S3_UPLOAD_KEY, secretAccessKey: process.env.S3_UPLOAD_SECRET, region: process.env.S3_UPLOAD_REGION });
+    const s3 = new AWS.S3();
 
     useEffect(() => {
         if (loader === false) {
@@ -42,8 +47,12 @@ function ProductItem({product, orders, loader}) {
     }, [userInfo])
 
 
-    const deleteProduct = async (id) => {
+    const deleteProduct = async (id, image_S3_Key) => {
         try {
+            var params = {  Bucket: process.env.S3_UPLOAD_BUCKET, Key: image_S3_Key };
+
+            await s3.deleteObject(params).promise();
+
             const { data } = await axios.delete(`/api/products/delete/${id}`, {
                 headers: { authorization: `Bearer ${userInfo.token}` }
             })
@@ -95,7 +104,7 @@ function ProductItem({product, orders, loader}) {
                                         <p>Êtes vous sûr de vouloir supprimer ce produit ?</p>
                                     </Modal.Content>
                                     <Modal.Action passive onClick={() => setVisible(false)}>Annuler</Modal.Action>
-                                    <Modal.Action onClick={() => deleteProduct(product._id)}>Confirmer</Modal.Action>
+                                    <Modal.Action onClick={() => deleteProduct(product._id, product.image_S3_Key)}>Confirmer</Modal.Action>
                                 </Modal>
                             </div>
                             <Spacer h={5} />

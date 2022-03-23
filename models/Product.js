@@ -13,6 +13,7 @@ const productSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     category: { type: String, required: true },
     image_preview: { type: String, required: false, default: "/images/shop/preview_placeholder.jpg" },
+    image_S3_Key: { type: String, default: '' },
     price: { type: Number, required: true },
     planks: [{
         position: {

@@ -278,6 +278,7 @@ export default function ProductConfiguration({product, savedMode}) {
         
         if(location){
           body.image_preview = location
+          body.image_S3_Key = `${filetoken}.${type}`
         }
 
         const data = await axios.post('/api/products/light_create', body, {})
