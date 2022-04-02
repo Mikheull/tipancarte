@@ -54,7 +54,6 @@ ul li:before {
 }
 .plank.plank-right {clip-path: polygon(85% 0, 100% 50%, 85% 100%, 0% 100%, 0 51%, 0% 0%);}
 .plank.plank-left {clip-path: polygon(100% 0, 100% 50%, 100% 100%, 15% 100%, 0 51%, 15% 0);}
-.plank p {width: max-content}
 .select_color input {
   width: 597px !important;
   border: none !important;

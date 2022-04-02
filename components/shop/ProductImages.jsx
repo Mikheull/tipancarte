@@ -13,7 +13,7 @@ function ProductImages({ images }) {
 
     return (
         <>
-            <Swiper modules={[Navigation]} className="relative" loop={true} onInit={(swp) => { setProductSwiper(swp) }}>
+            <Swiper modules={[Navigation]} className="relative" loop={(images.length > 1) ? true : false} onInit={(swp) => { setProductSwiper(swp) }}>
                 <div>
                     {images.map((item, i) => (
                         <SwiperSlide key={i}>
@@ -22,8 +22,12 @@ function ProductImages({ images }) {
                     ))}
                 </div>
                 
-                <img src="/images/icons/arrow-left-circle.svg" alt="Icon gauche" className="cursor-pointer absolute left-2 top-1/2 z-10" onClick={() => productSwiper.slidePrev()}/>
-                <img src="/images/icons/arrow-right-circle.svg" alt="Icon droite" className="cursor-pointer absolute right-2 top-1/2 z-10" onClick={() => productSwiper.slideNext()}/>
+                {(images.length > 1) && (
+                    <>
+                        <img src="/images/icons/arrow-left-circle.svg" alt="Icon gauche" className="cursor-pointer absolute left-2 top-1/2 z-10" onClick={() => productSwiper.slidePrev()}/>
+                        <img src="/images/icons/arrow-right-circle.svg" alt="Icon droite" className="cursor-pointer absolute right-2 top-1/2 z-10" onClick={() => productSwiper.slideNext()}/>
+                    </>
+                )}
             </Swiper>
         </>
     )

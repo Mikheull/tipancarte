@@ -64,20 +64,8 @@ function SavedProduct({ params }) {
 
     const productImage = [
         {
-            image: '/images/shop/tipancarte/48FF448F-2010-4FFA-A6C3-7B2F4A4CDEBD_1_105_c.jpg',
+            image: 'https://tipancarte.s3.eu-west-3.amazonaws.com/files/product_image_1.jpeg',
         },
-        // {
-        //     image: '/images/shop/tipancarte/1.jpg',
-        // },
-        // {
-        //     image: '/images/shop/tipancarte/2.jpg',
-        // },
-        // {
-        //     image: '/images/shop/tipancarte/3.jpg',
-        // },
-        // {
-        //     image: '/images/shop/tipancarte/4.jpg',
-        // }
     ];
     const productDetails = {
         name: product.name,
@@ -127,8 +115,9 @@ function SavedProduct({ params }) {
             </div>
                 
             <Spacer h={6} />
+            <ProductConfiguration product={product} savedMode/>
+
             <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col" data-aos="zoom-y-out" data-aos-delay="250">
-                <ProductConfiguration product={product} savedMode/>
                 <Spacer h={4} />
                 <ClientReview />
                 <Spacer h={2} />

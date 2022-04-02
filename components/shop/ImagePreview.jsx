@@ -4,63 +4,48 @@ export default function ImagePreview({product}) {
   const [choosenColor, setChoosenColor] = useState({})
   const colors = [
     {
-      color: '#f7b168',
-      color_contrast: '#f8ba79',
+      color: '#f3e9df',
+      color_contrast: '#e3dad1',
       logo: 'dark'
     },
     {
-      color: '#fcd5ce',
-      color_contrast: '#fde2dd',
+      color: '#ede8e2',
+      color_contrast: '#dbd6d2',
       logo: 'dark'
     },
     {
-      color: '#f8edeb',
-      color_contrast: '#fcf8f7',
+      color: '#ece6d6',
+      color_contrast: '#dfd9cb',
       logo: 'dark'
     },
     {
-      color: '#e8e8e3',
-      color_contrast: '#fafaf9',
+      color: '#d9dad4',
+      color_contrast: '#c2c3bf',
       logo: 'dark'
     },
     {
-      color: '#ebe4db',
-      color_contrast: '#f7f4f1',
+      color: '#d9d2c2',
+      color_contrast: '#c2bdaf',
       logo: 'dark'
     },
     {
-      color: '#ffcdb2',
-      color_contrast: '#ffdcc9',
+      color: '#d7c6ba',
+      color_contrast: '#cebeb2',
       logo: 'dark'
     },
     {
-      color: '#e5989b',
-      color_contrast: '#e8a2a5',
+      color: '#d8b29f',
+      color_contrast: '#c3a291',
       logo: 'dark'
     },
     {
-      color: '#e1ecf7',
-      color_contrast: '#f0f6fb',
+      color: '#c08858',
+      color_contrast: '#a9794e',
       logo: 'dark'
     },
     {
-      color: '#b5c99a',
-      color_contrast: '#cbd9b8',
-      logo: 'dark'
-    },
-    {
-      color: '#6d6875',
-      color_contrast: '#7c7783',
-      logo: 'light'
-    },
-    {
-      color: '#caeff8',
-      color_contrast: '#dff5fb',
-      logo: 'dark'
-    },
-    {
-      color: '#e2d7fc',
-      color_contrast: '#e8dffd',
+      color: '#a06d58',
+      color_contrast: '#936551',
       logo: 'dark'
     },
   ]
@@ -78,7 +63,7 @@ export default function ImagePreview({product}) {
       <svg xmlns="http://www.w3.org/2000/svg" width="540px" height="720px" viewBox="0 0 540 720" id="preview_tipancarte">
         <rect fill={choosenColor.color} width="540px" height="720px" />
         <polygon fill={choosenColor.color_contrast} points="540 706.5 540 720 0 720 0 620.19 440.52 620.19 540 706.5" />
-        <rect fill="#000" x="261.05" y="173.26" width="18" height="500" />
+        <rect fill="#7e3b25" x="261.05" y="173.26" width="18" height="500" />
 
         {/* Logo */}
         {choosenColor.logo == 'dark' ? (
@@ -135,6 +120,43 @@ export default function ImagePreview({product}) {
             </svg>
           ) : (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 60" width="245px" height="60px" x="147.5" y={index === 0 ? 200 : 200 + 80*index} key={index} fill={plank.color_background}>
+              <path d="M244.6,2c-0.3-0.8-0.8-1.2-0.8-1.2c-0.6-0.4-1.2-0.4-1.6-0.4C170.6,0.3,99.1,0.1,27.5,0c-4.8,4.7-9.8,9.8-14.8,15.3
+              C8.2,20.4,3.9,25.4,0,30.2c2.9,3.3,5.9,6.5,8.8,9.8c6.4,7.1,12.7,14.1,19.1,21.2c43-1.4,76.9-1.4,100.5-1.2
+              c11.6,0.1,29.2,0.4,66.2,0.8c19.7,0.2,35.9,0.3,46.7,0.4c0.3,0,1.4,0.2,2.4-0.4c0.7-0.4,1-0.9,1.2-1.2c0-13.2,0.1-26.4,0.1-39.5
+              c-0.2-0.5-0.4-1.2-0.5-2c-0.1-1.4,0.2-2.5,0.4-3.1C245.1,8.2,245,3.2,244.6,2z"/>
+              <svg width="245px" height="60px">
+                <text x="50%" dominantBaseline="middle" textAnchor="middle" y="50%" 
+                  fill={plank.color_text} 
+                  fontFamily="TiPancarte" 
+                  fontSize={(plank.text.length <= 9 ) ? '50px' : (plank.text.length >= 9 && plank.text.length <= 11) ? '40px' : (plank.text.length >= 11 && plank.text.length <= 13) ? '35px' : (plank.text.length >= 13) ? '30px' : '25px'}
+                >{plank.text}</text>
+              </svg>
+            </svg>
+          )
+        ))}
+      </svg>
+    </div>
+
+    <div style={{width: "245px", height: `${150+ product.length * 60}px`, position: 'absolute', top: 0, left: "250%"}}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="440px" height={`${150+ product.length * 60}px`} viewBox={`0 0 540 ${150+ product.length * 60}`} id="preview_tipancarte_solo">
+        <rect fill="#7e3b25" x="120" y="0" width="18" height={`${150+ product.length * 60}px`} />
+
+        {/* Fleches */}
+        {product.map((plank, index) => (
+          plank.direction === 'right' ? (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 60" width="245px" height="60px" x="0" y={index === 0 ? 20 : 20 + 80*index} key={index} fill={plank.color_background}>
+              <path d="M.5,1.96c.27-.79,.8-1.18,.8-1.18,.57-.41,1.24-.42,1.6-.39,71.55-.13,143.1-.26,214.64-.39,4.81,4.69,9.76,9.78,14.76,15.3,4.61,5.08,8.86,10.07,12.77,14.91-2.92,3.27-5.85,6.54-8.78,9.81-6.36,7.08-12.74,14.15-19.15,21.19-42.99-1.36-76.94-1.41-100.54-1.18-11.58,.11-29.15,.42-66.23,.78-19.67,.2-35.86,.32-46.68,.39-.3,.05-1.35,.21-2.39-.39-.66-.38-1.03-.9-1.2-1.18-.03-13.18-.06-26.37-.1-39.55,.2-.51,.42-1.2,.5-2.03,.13-1.37-.17-2.49-.4-3.14C-.08,8.17,.08,3.18,.5,1.96Z"/>
+              
+              <svg width="245px" height="60px">
+                <text x="50%" dominantBaseline="middle" textAnchor="middle" y="50%" 
+                  fill={plank.color_text} 
+                  fontFamily="TiPancarte" 
+                  fontSize={(plank.text.length <= 9 ) ? '50px' : (plank.text.length >= 9 && plank.text.length <= 11) ? '40px' : (plank.text.length >= 11 && plank.text.length <= 13) ? '35px' : (plank.text.length >= 13) ? '30px' : '25px'}
+                >{plank.text}</text>
+              </svg>
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 60" width="245px" height="60px" x="0" y={index === 0 ? 20 : 20 + 80*index} key={index} fill={plank.color_background}>
               <path d="M244.6,2c-0.3-0.8-0.8-1.2-0.8-1.2c-0.6-0.4-1.2-0.4-1.6-0.4C170.6,0.3,99.1,0.1,27.5,0c-4.8,4.7-9.8,9.8-14.8,15.3
               C8.2,20.4,3.9,25.4,0,30.2c2.9,3.3,5.9,6.5,8.8,9.8c6.4,7.1,12.7,14.1,19.1,21.2c43-1.4,76.9-1.4,100.5-1.2
               c11.6,0.1,29.2,0.4,66.2,0.8c19.7,0.2,35.9,0.3,46.7,0.4c0.3,0,1.4,0.2,2.4-0.4c0.7-0.4,1-0.9,1.2-1.2c0-13.2,0.1-26.4,0.1-39.5

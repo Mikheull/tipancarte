@@ -9,10 +9,7 @@ import {Spacer } from '@geist-ui/core'
 export default function Shop() {
   const productImage = [
     {
-        image: '/images/shop/tipancarte/48FF448F-2010-4FFA-A6C3-7B2F4A4CDEBD_1_105_c.jpg',
-    },
-    {
-        image: '/images/shop/tipancarte/IMG_1741.jpeg',
+      image: 'https://tipancarte.s3.eu-west-3.amazonaws.com/files/product_image_1.jpeg',
     }
   ];
   const product = {
@@ -33,9 +30,9 @@ export default function Shop() {
       </div>
         
       <Spacer h={6} />
-      <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col" data-aos="zoom-y-out" data-aos-delay="250">
-        <ProductConfiguration product={product}/>
+      <ProductConfiguration product={product}/>
 
+      <div className="py-6 mx-auto max-w-7xl md:px-4 px-10 flex flex-col" data-aos="zoom-y-out" data-aos-delay="250">
         <Spacer h={4} />
         <ClientReview />
         <Spacer h={2} />

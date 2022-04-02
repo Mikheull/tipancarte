@@ -49,7 +49,7 @@ export default function Home() {
               <div className="text-center pb-12 md:pb-16">
                 <Text h1 className='text-5xl font-bitter md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4' data-aos="zoom-y-out">Créez vos <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-violet-400">TiPancartes</span></Text>
                 <div className="max-w-3xl mx-auto">
-                  <p className="text-xl font-bitter font-semibold text-gray-800 mb-8" data-aos="zoom-y-out" data-aos-delay="150">Personnalisée selon vos idées et vos couleurs</p>
+                  <p className="text-xl font-bitter font-semibold text-gray-800 mb-8" data-aos="zoom-y-out" data-aos-delay="150">Personnalisées selon vos idées et vos couleurs</p>
                 </div>
               </div>
 
@@ -158,7 +158,7 @@ export default function Home() {
                           leaveEnd="opacity-0 -translate-y-16"
                       >
                           <div className="relative inline-flex flex-col">
-                            <img className="md:max-w-none mx-auto rounded" src="/images/hero_image.jpg" width="500" height="462" alt="Features bg" />
+                            <img className="md:max-w-none mx-auto rounded" src="https://tipancarte.s3.eu-west-3.amazonaws.com/files/decoupe.jpg" width="500" height="462" alt="Features bg" />
                           </div>
                       </Transition>
 
@@ -175,7 +175,7 @@ export default function Home() {
                           leaveEnd="opacity-0 -translate-y-16"
                       >
                           <div className="relative inline-flex flex-col">
-                            <img className="md:max-w-none mx-auto rounded" src="/images/hero_image.jpg" width="500" height="462" alt="Features bg" />
+                            <img className="md:max-w-none mx-auto rounded" src="https://tipancarte.s3.eu-west-3.amazonaws.com/files/peinture.jpg" width="500" height="462" alt="Features bg" />
                           </div>
                       </Transition>
 
@@ -192,7 +192,7 @@ export default function Home() {
                           leaveEnd="opacity-0 -translate-y-16"
                       >
                           <div className="relative inline-flex flex-col">
-                            <img className="md:max-w-none mx-auto rounded" src="/images/hero_image.jpg" width="500" height="462" alt="Features bg" />
+                            <img className="md:max-w-none mx-auto rounded" src="https://tipancarte.s3.eu-west-3.amazonaws.com/files/shipping.jpg" width="500" height="462" alt="Features bg" />
                           </div>
                       </Transition>
                       </div>

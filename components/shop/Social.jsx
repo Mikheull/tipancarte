@@ -19,7 +19,7 @@ const imagesInfo = [
   },
   {
     ref: 'feed_04',
-    image: '/images/insta/4.jpg',
+    image: '/images/insta/tibo_post__insta.png',
     translateRatio: -20
   },
   {
