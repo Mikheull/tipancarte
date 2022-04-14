@@ -83,7 +83,7 @@ export default function ProductConfiguration({product, savedMode}) {
       })
     }else{
       setConfig({
-        price: 7,
+        price: 10,
         color: '',
         name: "Ma pancarte personnalisée",
         base64Image: '',
@@ -144,7 +144,7 @@ export default function ProductConfiguration({product, savedMode}) {
     }
 
     items.configureOptions.content.push(body);
-    items.price = items.price + 7;
+    items.price = items.price + 10;
     items.configureOptions.quantity = index + 1;
 
     setConfig({ ...config, ...items })
@@ -191,7 +191,7 @@ export default function ProductConfiguration({product, savedMode}) {
     
     items.configureOptions.content = content
     items.configureOptions.quantity = items.configureOptions.quantity - 1;
-    items.price = items.price - 7;
+    items.price = items.price - 10;
 
     setConfig({ ...config, ...items })
     reorderPlanks();

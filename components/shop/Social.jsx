@@ -24,7 +24,7 @@ const imagesInfo = [
   },
   {
     ref: 'feed_05',
-    image: '/images/insta/5.jpg',
+    image: '/images/insta/welcome__post_insta.png',
     translateRatio: -80
   }
 ];
